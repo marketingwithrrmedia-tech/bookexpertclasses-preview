@@ -508,6 +508,20 @@
 
   let selection = null; // {title, slot, price, paymentLink}
 
+  // Accepts a plain Google Drive "Share" link (or a raw image URL) and turns it into
+  // a URL that actually renders as an <img>. Paste any normal Drive share link into
+  // the sheet's "Expert Photo URL" column and this converts it automatically —
+  // no manual re-processing needed.
+  function driveImageUrl(raw){
+    if(!raw) return "";
+    const trimmed = raw.trim();
+    const m = trimmed.match(/\/d\/([a-zA-Z0-9_-]{10,})/) || trimmed.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+    if(m){
+      return "https://lh3.googleusercontent.com/d/" + m[1] + "=w800";
+    }
+    return trimmed;
+  }
+
   function parseCSV(text){
     const lines = text.trim().split("\n").map(l => l.replace(/\r$/,""));
     const headers = lines[0].split(",").map(h => h.replace(/^"|"$/g,"").trim());
@@ -642,7 +656,7 @@
           <button type="button" class="book-now-btn">BOOK NOW →</button>
         </div>
         <div class="expert-col">
-          <div class="expert-photo">${c["Expert Photo URL"] ? `<img src="${c["Expert Photo URL"]}" alt="${c["Expert Name"]}">` : `<div class="ph-icon">🧑‍💼</div><div class="ph-caption">Photo coming soon</div>`}</div>
+          <div class="expert-photo">${c["Expert Photo URL"] ? `<img src="${driveImageUrl(c["Expert Photo URL"])}" alt="${c["Expert Name"]}" onerror="this.parentElement.innerHTML='&lt;div class=&quot;ph-icon&quot;&gt;🧑‍💼&lt;/div&gt;&lt;div class=&quot;ph-caption&quot;&gt;Photo coming soon&lt;/div&gt;';">` : `<div class="ph-icon">🧑‍💼</div><div class="ph-caption">Photo coming soon</div>`}</div>
           <div class="expert-info">
             <div class="expert-name">${c["Expert Name"]||"Expert TBA"}</div>
             <div class="expert-desc-label">Expert Description</div>
