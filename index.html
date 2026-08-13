@@ -26,19 +26,42 @@
   }
   a{color:inherit;}
 
+  /* Top info bar */
   .topbar{
+    position:relative;
+    overflow:hidden;
     display:flex;
-    flex-wrap:wrap;
-    gap:18px;
-    padding:14px 4%;
-    font-size:12.5px;
+    flex-direction:column;
+    gap:11px;
+    padding:22px 5%;
+    font-size:13px;
     color:var(--gold-light);
     border-bottom:1px solid #221d16;
   }
-  .topbar .item{display:flex;align-items:center;gap:6px;white-space:nowrap;}
+  .topbar::before{
+    content:"";
+    position:absolute;
+    top:-60%;
+    left:-15%;
+    width:65%;
+    height:260%;
+    background:linear-gradient(115deg, transparent 42%, rgba(201,162,92,.32) 50%, transparent 58%);
+    transform:rotate(6deg);
+    pointer-events:none;
+  }
+  .topbar .item{display:flex;align-items:center;gap:10px;white-space:nowrap;position:relative;z-index:1;}
+  .topbar .icon{
+    width:23px;height:23px;border-radius:50%;
+    border:1px solid var(--gold-dark);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;flex-shrink:0;
+    background:rgba(201,162,92,.05);
+  }
   .topbar .item.wa{color:var(--green);}
+  .topbar .item.wa .icon{border-color:var(--green);}
   .topbar .item a{text-decoration:none;color:inherit;}
 
+  /* Hero / badge */
   .hero{
     display:flex;
     flex-direction:column;
@@ -47,33 +70,49 @@
     padding:36px 5% 30px;
   }
   .badge{
-    width:min(320px,80vw);
+    position:relative;
+    width:min(340px,84vw);
     aspect-ratio:1/1;
     border-radius:50%;
     border:3px solid var(--gold);
-    outline:1px solid var(--gold-dark);
-    outline-offset:6px;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     gap:6px;
-    padding:20px;
+    padding:26px;
+    background:radial-gradient(circle at 50% 35%, rgba(201,162,92,.07), transparent 70%);
+    box-shadow:0 0 0 1px rgba(0,0,0,0), 0 8px 40px rgba(201,162,92,.08);
   }
-  .badge .icon-row{font-size:26px;margin-bottom:2px;}
-  .badge .brand{font-size:22px;font-weight:800;color:var(--gold-light);letter-spacing:.5px;}
-  .badge .tagline{font-size:10.5px;color:var(--cream);letter-spacing:.5px;margin-top:4px;}
+  .badge::before{
+    content:"";
+    position:absolute;
+    inset:9px;
+    border-radius:50%;
+    border:1px dashed var(--gold-dark);
+    pointer-events:none;
+  }
+  .badge .illustration{width:32%;margin-bottom:6px;}
+  .badge .illustration svg{width:100%;height:auto;display:block;}
+  .badge .brand{font-size:23px;font-weight:800;color:var(--gold-light);letter-spacing:.5px;}
+  .badge .tagline{font-size:10.5px;color:var(--cream);letter-spacing:.5px;margin-top:6px;}
+  .badge .tagline .flag{margin-right:3px;}
   .badge .tagline .hl{color:var(--orange);font-weight:700;}
   .badge .cats{
     display:flex;
-    gap:14px;
-    margin-top:12px;
-    font-size:9.5px;
-    color:var(--gold-light);
+    gap:16px;
+    margin-top:15px;
   }
-  .badge .cats div{display:flex;flex-direction:column;align-items:center;gap:3px;}
-  .badge .cats span{font-size:16px;}
-  .badge .laurel{margin-top:10px;font-size:11px;color:var(--gold-dark);letter-spacing:3px;}
+  .badge .cats div{display:flex;flex-direction:column;align-items:center;gap:5px;}
+  .badge .cats .cicon{
+    width:34px;height:34px;border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;
+    background:rgba(201,162,92,.06);
+  }
+  .badge .cats .clabel{font-size:8.5px;color:var(--gold-light);letter-spacing:.3px;text-transform:uppercase;}
+  .badge .laurel{margin-top:13px;font-size:11px;color:var(--gold-dark);letter-spacing:2px;display:flex;align-items:center;gap:7px;}
 
   .cta-row{
     display:flex;
@@ -103,108 +142,132 @@
   section{padding:44px 5%;max-width:1100px;margin:0 auto;}
   .section-title{text-align:center;font-size:26px;color:var(--gold-light);margin-bottom:26px;letter-spacing:.5px;}
 
+  /* Class cards */
   .class-card{
-    border:1px solid var(--gold-dark);
-    border-radius:14px;
-    padding:24px;
-    margin-bottom:34px;
+    border:1.5px solid var(--gold-dark);
+    border-radius:16px;
+    padding:0;
+    margin-bottom:36px;
     display:grid;
-    grid-template-columns:1fr 220px;
-    gap:22px;
+    grid-template-columns:1fr 250px;
+    overflow:hidden;
+    background:linear-gradient(180deg, rgba(201,162,92,.025), transparent 40%);
   }
-  .class-main{min-width:0;}
+  .class-main{min-width:0;padding:24px 26px;}
   .class-top{
     display:flex;
     align-items:flex-start;
     justify-content:space-between;
     gap:14px;
-    margin-bottom:14px;
+    margin-bottom:16px;
     flex-wrap:wrap;
   }
   .pill{
     border:1.5px solid var(--gold);
     border-radius:20px;
-    padding:5px 14px;
+    padding:6px 16px;
     font-size:12px;
     color:var(--gold-light);
     white-space:nowrap;
+    background:rgba(201,162,92,.05);
   }
   .class-title{
     text-align:center;
     flex:1;
     min-width:180px;
   }
-  .class-title h3{font-size:19px;text-decoration:underline;text-underline-offset:4px;color:var(--cream);font-weight:600;}
-  .class-title .dur{font-size:12px;color:var(--muted);margin-top:2px;}
-  .price{font-size:18px;color:var(--gold-light);font-weight:700;white-space:nowrap;}
+  .class-title h3{font-size:20px;text-decoration:underline;text-underline-offset:5px;color:var(--cream);font-weight:700;}
+  .class-title .dur{font-size:12px;color:var(--muted);margin-top:3px;}
+  .price{font-size:19px;color:var(--gold-light);font-weight:700;white-space:nowrap;}
 
-  .subcat-label{font-size:12px;color:var(--muted);margin-bottom:8px;}
+  .subcat-label{font-size:12px;color:var(--muted);margin-bottom:10px;}
   .subcat-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:8px 20px;
-    margin-bottom:16px;
+    gap:11px 26px;
+    margin-bottom:18px;
   }
   .subcat-grid div{
-    font-size:13px;
+    font-size:13.5px;
     color:var(--cream);
     border-bottom:1px dashed var(--gold-dark);
-    padding-bottom:4px;
+    padding-bottom:5px;
+    padding-left:15px;
+    position:relative;
+  }
+  .subcat-grid div::before{
+    content:"•";
+    position:absolute;
+    left:0;
+    top:0;
+    color:var(--gold);
+    font-weight:700;
   }
 
   .action-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:14px;
+    margin-bottom:16px;
   }
   .zoom-pill{
-    display:flex;align-items:center;gap:8px;
+    display:flex;align-items:center;gap:9px;
     border:1.5px solid var(--gold);
-    border-radius:20px;
-    padding:6px 16px;
-    font-size:12.5px;
+    border-radius:24px;
+    padding:8px 18px;
+    font-size:13px;
     color:var(--gold-light);
+    background:rgba(201,162,92,.05);
   }
   .share-btn{
-    width:34px;height:34px;border-radius:50%;
+    width:38px;height:38px;border-radius:50%;
     border:1.5px solid var(--gold);
     display:flex;align-items:center;justify-content:center;
-    cursor:pointer;color:var(--gold-light);font-size:15px;
-    background:transparent;
+    cursor:pointer;color:var(--gold-light);font-size:16px;
+    background:rgba(201,162,92,.05);
+    transition:.2s;
   }
-  .share-btn:hover{background:rgba(201,162,92,.12);}
+  .share-btn:hover{background:rgba(201,162,92,.18);}
 
-  .slot-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .slot-table{width:100%;border-collapse:collapse;font-size:13.5px;}
   .slot-table th, .slot-table td{
     border:1px solid var(--gold-dark);
-    padding:8px 6px;
+    padding:10px 8px;
     text-align:center;
   }
-  .slot-table th{color:var(--gold-light);font-weight:600;font-size:12px;}
-  .slot-cell{cursor:pointer;color:var(--cream);}
+  .slot-table th{color:var(--gold-light);font-weight:700;font-size:12.5px;background:rgba(201,162,92,.07);}
+  .slot-cell{cursor:pointer;color:var(--cream);transition:.15s;}
   .slot-cell:hover{background:rgba(201,162,92,.15);}
   .slot-cell.selected{background:var(--orange);color:#1c1200;font-weight:700;}
   .no-slots{font-size:12.5px;color:var(--muted);padding:10px 0;}
 
-  .expert-col{display:flex;flex-direction:column;}
+  .expert-col{
+    display:flex;
+    flex-direction:column;
+    background:#120f0a;
+    border-left:1.5px solid var(--gold-dark);
+  }
   .expert-photo{
     width:100%;
-    aspect-ratio:3/4;
-    border:1px solid var(--gold-dark);
-    border-radius:8px;
-    background:#1c1913;
+    flex:1;
+    min-height:230px;
+    background:linear-gradient(160deg,#1c1913,#0e0c08);
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
-    font-size:44px;
+    gap:8px;
     color:var(--gold-dark);
     overflow:hidden;
+    position:relative;
   }
   .expert-photo img{width:100%;height:100%;object-fit:cover;}
-  .expert-name{margin-top:8px;font-size:13.5px;font-weight:700;color:var(--gold-light);}
-  .expert-desc-label{font-size:11.5px;color:var(--muted);border-bottom:1px solid var(--gold-dark);padding-bottom:3px;margin-top:6px;margin-bottom:5px;}
-  .expert-desc{font-size:12px;color:var(--cream);}
+  .expert-photo .ph-icon{font-size:46px;opacity:.55;}
+  .expert-photo .ph-caption{font-size:10px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;}
+  .expert-info{padding:14px 16px 16px;}
+  .expert-name{font-size:14px;font-weight:700;color:var(--gold-light);}
+  .expert-desc-label{font-size:11.5px;color:var(--muted);border-bottom:1px solid var(--gold-dark);padding-bottom:3px;margin-top:7px;margin-bottom:6px;}
+  .expert-desc{font-size:12px;color:var(--cream);line-height:1.45;}
 
   .selected-tag{
     margin-top:12px;
@@ -229,9 +292,11 @@
   .book-now-btn.show{display:inline-block;}
   .book-now-btn:hover{filter:brightness(1.08);}
 
+  /* Upcoming teaser card */
   .teaser{opacity:.6;}
   .teaser .slot-table td, .teaser .slot-table th{color:var(--muted);}
 
+  /* Pagination */
   .pagination{display:flex;gap:10px;justify-content:center;margin-top:10px;}
   .pagination div{
     width:38px;height:38px;
@@ -242,6 +307,7 @@
   }
   .pagination div.active{background:var(--orange);}
 
+  /* Book Online Seat */
   .book-box{
     border:1px solid var(--gold-dark);
     border-radius:14px;
@@ -285,14 +351,17 @@
 
   @media(max-width:700px){
     body{font-size:15px;}
-    .topbar{gap:10px 14px;padding:10px 4%;font-size:11.5px;}
+    .topbar{gap:9px;padding:16px 5%;font-size:12px;}
+    .topbar .icon{width:20px;height:20px;font-size:11px;}
     .hero{padding:26px 5% 20px;}
-    .badge{width:min(260px,86vw);padding:14px;}
-    .badge .icon-row{font-size:20px;}
+    .badge{width:min(260px,86vw);padding:16px;}
+    .badge .illustration{width:28%;}
     .badge .brand{font-size:17px;}
     .badge .tagline{font-size:9px;}
-    .badge .cats{gap:9px;font-size:8.5px;}
-    .badge .cats span{font-size:13px;}
+    .badge .cats{gap:10px;}
+    .badge .cats .cicon{width:27px;height:27px;font-size:12px;}
+    .badge .cats .clabel{font-size:7.5px;}
+    .badge .laurel{font-size:9px;}
     .cta-row{gap:12px;margin-top:22px;}
     .btn{padding:12px 22px;font-size:13.5px;}
     .hint{font-size:12px;padding:0 6px;}
@@ -302,10 +371,11 @@
 
     .class-card{
       grid-template-columns:1fr;
-      padding:16px;
-      margin-bottom:20px;
-      gap:14px;
+      padding:0;
+      margin-bottom:22px;
+      border-radius:14px;
     }
+    .class-main{padding:18px;}
     .class-top{flex-direction:column;align-items:center;text-align:center;gap:8px;}
     .class-title{order:1;}
     .pill{order:0;}
@@ -313,11 +383,10 @@
     .class-title h3{font-size:16.5px;}
 
     .subcat-label{text-align:center;}
-    .subcat-grid{grid-template-columns:1fr;gap:6px;text-align:center;}
-    .subcat-grid div{border-bottom:none;padding-bottom:0;}
+    .subcat-grid{grid-template-columns:1fr;gap:8px;text-align:left;max-width:260px;margin-left:auto;margin-right:auto;}
 
     .action-row{justify-content:center;gap:16px;}
-    .zoom-pill{font-size:11.5px;padding:6px 12px;}
+    .zoom-pill{font-size:11.5px;padding:7px 14px;}
 
     .slot-table{font-size:12px;min-width:340px;}
     .slot-table th, .slot-table td{padding:8px 4px;}
@@ -325,8 +394,11 @@
     .selected-tag, .book-now-btn{display:block;text-align:center;margin-left:auto;margin-right:auto;}
     .book-now-btn.show{display:block;width:100%;}
 
-    .expert-col{flex-direction:row;align-items:center;gap:14px;justify-content:center;}
-    .expert-photo{width:78px;height:96px;aspect-ratio:auto;flex-shrink:0;}
+    .expert-col{flex-direction:row;align-items:center;gap:14px;padding:14px 16px;border-left:none;border-top:1.5px solid var(--gold-dark);background:#120f0a;}
+    .expert-photo{width:84px;height:104px;min-height:auto;flex:none;border-radius:8px;}
+    .expert-photo .ph-icon{font-size:26px;}
+    .expert-photo .ph-caption{font-size:7.5px;}
+    .expert-info{padding:0;flex:1;}
     .expert-name, .expert-desc-label, .expert-desc{text-align:left;}
 
     .book-box{padding:20px;}
@@ -335,32 +407,47 @@
 
   @media(max-width:380px){
     .badge{width:78vw;}
-    .topbar{font-size:10.5px;gap:8px 10px;}
+    .topbar{font-size:10.5px;gap:8px;}
   }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="item">🌿 Prim online consultancy</div>
-  <div class="item">🌐 GST: 19AICPB5058P12X</div>
-  <div class="item">🎧 Customer care</div>
-  <div class="item wa"><a href="https://wa.me/917439826995" target="_blank">📱 7439826995</a></div>
-  <div class="item"><a href="mailto:askus@bookexpertclasses.com">✉️ askus@bookexpertclasses.com</a></div>
+  <div class="item"><span class="icon">🌿</span>Prim online consultancy</div>
+  <div class="item"><span class="icon">🌐</span>GST: 19AICPB5058P12X</div>
+  <div class="item"><span class="icon">🎧</span>Customer care</div>
+  <div class="item wa"><span class="icon">📱</span><a href="https://wa.me/917439826995" target="_blank">7439826995</a></div>
+  <div class="item"><span class="icon">✉️</span><a href="mailto:askus@bookexpertclasses.com">askus@bookexpertclasses.com</a></div>
 </div>
 
 <div class="hero">
   <div class="badge">
-    <div class="icon-row">🧑‍💻👥</div>
-    <div class="brand">bookexpertclasses.com</div>
-    <div class="tagline">🇮🇳 INDIA'S FIRST PLATFORM FOR<br><span class="hl">EXPERT ONLINE WORKSHOPS</span></div>
-    <div class="cats">
-      <div><span>🧘</span>Lifestyle</div>
-      <div><span>❤️</span>Health</div>
-      <div><span>🎨</span>Hobbies</div>
-      <div><span>🎯</span>Goals</div>
+    <div class="illustration">
+      <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <circle cx="42" cy="40" r="11" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <path d="M23 78c0-13 8.5-23 19-23s19 10 19 23" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <circle cx="158" cy="40" r="11" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <path d="M139 78c0-13 8.5-23 19-23s19 10 19 23" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <circle cx="73" cy="29" r="13.5" style="stroke:var(--gold)" stroke-width="2.4"/>
+        <path d="M51 77c0-15.5 9.8-27 22-27s22 11.5 22 27" style="stroke:var(--gold)" stroke-width="2.4"/>
+        <circle cx="127" cy="29" r="13.5" style="stroke:var(--gold)" stroke-width="2.4"/>
+        <path d="M105 77c0-15.5 9.8-27 22-27s22 11.5 22 27" style="stroke:var(--gold)" stroke-width="2.4"/>
+        <circle cx="100" cy="20" r="15.5" style="stroke:var(--gold-light)" stroke-width="2.6"/>
+        <path d="M75 76c0-17.5 11-31 25-31s25 13.5 25 31" style="stroke:var(--gold-light)" stroke-width="2.6"/>
+        <rect x="72" y="82" width="56" height="7" rx="2" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <path d="M80 82V64a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v18" style="stroke:var(--gold)" stroke-width="2.2"/>
+      </svg>
     </div>
-    <div class="laurel">★</div>
+    <div class="brand">bookexpertclasses.com</div>
+    <div class="tagline"><span class="flag">🇮🇳</span>INDIA'S FIRST PLATFORM FOR<br><span class="hl">EXPERT ONLINE WORKSHOPS</span></div>
+    <div class="cats">
+      <div><span class="cicon">🧘</span><span class="clabel">Lifestyle</span></div>
+      <div><span class="cicon">❤️</span><span class="clabel">Health</span></div>
+      <div><span class="cicon">🎨</span><span class="clabel">Hobbies</span></div>
+      <div><span class="cicon">🎯</span><span class="clabel">Goals</span></div>
+    </div>
+    <div class="laurel">🌿 ✦ 🌿</div>
   </div>
 
   <div class="cta-row">
@@ -405,6 +492,7 @@
 <script>
   const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1vipZVGHYVY-9RKeImyQQH6kSHZ2_kx0Ytjw2nGSCPYY/gviz/tq?tqx=out:csv&sheet=Sheet1";
 
+  // Fallback data (used if the sheet can't be reached yet, e.g. sharing not public)
   const FALLBACK = [
     {"Workshop Title":"Lose Weight on your own","Duration":"45mins + Q&A","Price (INR)":"350",
      "SubCategories":"Nutrition Basics|Meal Planning|Portion Control|Metabolism Tips|Common Mistakes",
@@ -418,12 +506,13 @@
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"}
   ];
 
-  let selection = null;
+  let selection = null; // {title, slot, price, paymentLink}
 
   function parseCSV(text){
     const lines = text.trim().split("\n").map(l => l.replace(/\r$/,""));
     const headers = lines[0].split(",").map(h => h.replace(/^"|"$/g,"").trim());
     return lines.slice(1).map(line => {
+      // basic CSV split respecting quoted commas
       const cells = [];
       let cur = "", inQuotes = false;
       for(let i=0;i<line.length;i++){
@@ -489,6 +578,7 @@
             };
             updateBookSummary();
 
+            // Hide Book Now on every other card, show it here
             document.querySelectorAll(".book-now-btn").forEach(b=>b.classList.remove("show"));
             const bookBtn = card.querySelector(".book-now-btn");
             bookBtn.classList.add("show");
@@ -552,10 +642,12 @@
           <button type="button" class="book-now-btn">BOOK NOW →</button>
         </div>
         <div class="expert-col">
-          <div class="expert-photo">${c["Expert Photo URL"] ? `<img src="${c["Expert Photo URL"]}" alt="${c["Expert Name"]}">` : "🧑‍💼"}</div>
-          <div class="expert-name">${c["Expert Name"]||"Expert TBA"}</div>
-          <div class="expert-desc-label">Expert Description</div>
-          <div class="expert-desc">${c["Expert Description"]||"Bio coming soon."}</div>
+          <div class="expert-photo">${c["Expert Photo URL"] ? `<img src="${c["Expert Photo URL"]}" alt="${c["Expert Name"]}">` : `<div class="ph-icon">🧑‍💼</div><div class="ph-caption">Photo coming soon</div>`}</div>
+          <div class="expert-info">
+            <div class="expert-name">${c["Expert Name"]||"Expert TBA"}</div>
+            <div class="expert-desc-label">Expert Description</div>
+            <div class="expert-desc">${c["Expert Description"]||"Bio coming soon."}</div>
+          </div>
         </div>
       `;
 
@@ -576,6 +668,7 @@
       list.appendChild(card);
     });
 
+    // Static "upcoming next week" teaser card
     const teaser = document.createElement("div");
     teaser.className = "class-card teaser";
     teaser.innerHTML = `
@@ -599,14 +692,17 @@
         <div class="no-slots">Dates opening soon.</div>
       </div>
       <div class="expert-col">
-        <div class="expert-photo">🧑‍💼</div>
-        <div class="expert-name">Expert TBA</div>
-        <div class="expert-desc-label">Expert Description</div>
-        <div class="expert-desc">To be announced.</div>
+        <div class="expert-photo"><div class="ph-icon">🧑‍💼</div><div class="ph-caption">Photo coming soon</div></div>
+        <div class="expert-info">
+          <div class="expert-name">Expert TBA</div>
+          <div class="expert-desc-label">Expert Description</div>
+          <div class="expert-desc">To be announced.</div>
+        </div>
       </div>
     `;
     list.appendChild(teaser);
 
+    // Simple pagination (ready to scale to 8-per-page once more classes are added)
     const pag = document.getElementById("pagination");
     pag.innerHTML = "";
     const p1 = document.createElement("div");
