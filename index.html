@@ -213,6 +213,22 @@
     font-weight:600;
   }
 
+  .book-now-btn{
+    display:none;
+    margin-top:12px;
+    padding:11px 26px;
+    border-radius:26px;
+    border:none;
+    background:linear-gradient(180deg,var(--orange),var(--orange-dark));
+    color:#1c1200;
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+    letter-spacing:.4px;
+  }
+  .book-now-btn.show{display:inline-block;}
+  .book-now-btn:hover{filter:brightness(1.08);}
+
   .teaser{opacity:.6;}
   .teaser .slot-table td, .teaser .slot-table th{color:var(--muted);}
 
@@ -265,10 +281,61 @@
     color:var(--muted);
   }
 
+  .slot-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
   @media(max-width:700px){
-    .class-card{grid-template-columns:1fr;}
-    .expert-col{flex-direction:row;align-items:center;gap:14px;}
-    .expert-photo{width:90px;height:110px;aspect-ratio:auto;flex-shrink:0;}
+    body{font-size:15px;}
+    .topbar{gap:10px 14px;padding:10px 4%;font-size:11.5px;}
+    .hero{padding:26px 5% 20px;}
+    .badge{width:min(260px,86vw);padding:14px;}
+    .badge .icon-row{font-size:20px;}
+    .badge .brand{font-size:17px;}
+    .badge .tagline{font-size:9px;}
+    .badge .cats{gap:9px;font-size:8.5px;}
+    .badge .cats span{font-size:13px;}
+    .cta-row{gap:12px;margin-top:22px;}
+    .btn{padding:12px 22px;font-size:13.5px;}
+    .hint{font-size:12px;padding:0 6px;}
+
+    section{padding:30px 4%;}
+    .section-title{font-size:21px;margin-bottom:18px;}
+
+    .class-card{
+      grid-template-columns:1fr;
+      padding:16px;
+      margin-bottom:20px;
+      gap:14px;
+    }
+    .class-top{flex-direction:column;align-items:center;text-align:center;gap:8px;}
+    .class-title{order:1;}
+    .pill{order:0;}
+    .price{order:2;font-size:16px;}
+    .class-title h3{font-size:16.5px;}
+
+    .subcat-label{text-align:center;}
+    .subcat-grid{grid-template-columns:1fr;gap:6px;text-align:center;}
+    .subcat-grid div{border-bottom:none;padding-bottom:0;}
+
+    .action-row{justify-content:center;gap:16px;}
+    .zoom-pill{font-size:11.5px;padding:6px 12px;}
+
+    .slot-table{font-size:12px;min-width:340px;}
+    .slot-table th, .slot-table td{padding:8px 4px;}
+
+    .selected-tag, .book-now-btn{display:block;text-align:center;margin-left:auto;margin-right:auto;}
+    .book-now-btn.show{display:block;width:100%;}
+
+    .expert-col{flex-direction:row;align-items:center;gap:14px;justify-content:center;}
+    .expert-photo{width:78px;height:96px;aspect-ratio:auto;flex-shrink:0;}
+    .expert-name, .expert-desc-label, .expert-desc{text-align:left;}
+
+    .book-box{padding:20px;}
+    footer{font-size:11px;padding:20px 5%;}
+  }
+
+  @media(max-width:380px){
+    .badge{width:78vw;}
+    .topbar{font-size:10.5px;gap:8px 10px;}
   }
 </style>
 </head>
@@ -386,6 +453,8 @@
     const days = [...new Set(entries.map(e=>`${e.day}|${e.date}`))];
     const times = [...new Set(entries.map(e=>e.time))];
 
+    const wrap = document.createElement("div");
+    wrap.className = "slot-table-wrap";
     const table = document.createElement("table");
     table.className = "slot-table";
     const thead = document.createElement("tr");
@@ -419,13 +488,21 @@
               paymentLink: card.dataset.paymentlink
             };
             updateBookSummary();
+
+            document.querySelectorAll(".book-now-btn").forEach(b=>b.classList.remove("show"));
+            const bookBtn = card.querySelector(".book-now-btn");
+            bookBtn.classList.add("show");
+            bookBtn.onclick = () => {
+              document.getElementById("book").scrollIntoView({behavior:"smooth", block:"start"});
+            };
           };
         }
         tr.appendChild(td);
       });
       table.appendChild(tr);
     });
-    return table;
+    wrap.appendChild(table);
+    return wrap;
   }
 
   function updateBookSummary(){
@@ -472,6 +549,7 @@
           </div>
           <div class="slot-holder"></div>
           <div class="selected-tag"></div>
+          <button type="button" class="book-now-btn">BOOK NOW →</button>
         </div>
         <div class="expert-col">
           <div class="expert-photo">${c["Expert Photo URL"] ? `<img src="${c["Expert Photo URL"]}" alt="${c["Expert Name"]}">` : "🧑‍💼"}</div>
