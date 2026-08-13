@@ -369,37 +369,48 @@
     section{padding:30px 4%;}
     .section-title{font-size:21px;margin-bottom:18px;}
 
+    /* Keep the card in its horizontal (content + photo) layout on mobile too —
+       just scaled down — instead of stacking, per client's mobile mockup. */
     .class-card{
-      grid-template-columns:1fr;
+      grid-template-columns:1fr 76px;
       padding:0;
-      margin-bottom:22px;
-      border-radius:14px;
+      margin-bottom:14px;
+      border-radius:10px;
     }
-    .class-main{padding:18px;}
-    .class-top{flex-direction:column;align-items:center;text-align:center;gap:8px;}
-    .class-title{order:1;}
-    .pill{order:0;}
-    .price{order:2;font-size:16px;}
-    .class-title h3{font-size:16.5px;}
+    .class-main{padding:9px 7px 9px 9px;min-width:0;}
+    .class-top{gap:4px 6px;margin-bottom:5px;flex-wrap:nowrap;align-items:flex-start;}
+    .pill{flex:none;font-size:7.5px;padding:3px 6px;border-radius:9px;white-space:normal;line-height:1.15;max-width:50px;text-align:center;}
+    .class-title{flex:1;min-width:0;}
+    .class-title h3{font-size:10.5px;line-height:1.25;text-underline-offset:2px;}
+    .class-title .dur{font-size:7px;margin-top:1px;}
+    .price{flex:none;font-size:9.5px;}
 
-    .subcat-label{text-align:center;}
-    .subcat-grid{grid-template-columns:1fr;gap:8px;text-align:left;max-width:260px;margin-left:auto;margin-right:auto;}
+    .subcat-label{font-size:7.5px;margin-bottom:4px;}
+    .subcat-grid{grid-template-columns:1fr 1fr;gap:3px 7px;margin-bottom:6px;}
+    .subcat-grid div{font-size:8px;padding-left:8px;padding-bottom:2px;}
+    .subcat-grid div::before{font-size:8px;}
 
-    .action-row{justify-content:center;gap:16px;}
-    .zoom-pill{font-size:11.5px;padding:7px 14px;}
+    .action-row{gap:5px;margin-bottom:6px;flex-wrap:wrap;}
+    .zoom-pill{font-size:7.5px;padding:3px 7px;gap:3px;border-radius:14px;}
+    .share-btn{width:20px;height:20px;font-size:9px;}
 
-    .slot-table{font-size:12px;min-width:340px;}
-    .slot-table th, .slot-table td{padding:8px 4px;}
+    .slot-table{font-size:7.5px;min-width:0;}
+    .slot-table th, .slot-table td{padding:3px 2px;}
 
-    .selected-tag, .book-now-btn{display:block;text-align:center;margin-left:auto;margin-right:auto;}
-    .book-now-btn.show{display:block;width:100%;}
+    .selected-tag{font-size:7.5px;margin-top:5px;}
+    .book-now-btn{font-size:8px;padding:5px 12px;margin-top:5px;border-radius:12px;}
+    .book-now-btn.show{display:inline-block;}
 
-    .expert-col{flex-direction:row;align-items:center;gap:14px;padding:14px 16px;border-left:none;border-top:1.5px solid var(--gold-dark);background:#120f0a;}
-    .expert-photo{width:84px;height:104px;min-height:auto;flex:none;border-radius:8px;}
-    .expert-photo .ph-icon{font-size:26px;}
-    .expert-photo .ph-caption{font-size:7.5px;}
-    .expert-info{padding:0;flex:1;}
-    .expert-name, .expert-desc-label, .expert-desc{text-align:left;}
+    /* Photo column: same vertical composition as desktop (photo on top,
+       name/description below), just narrow. */
+    .expert-col{flex-direction:column;padding:0;border-left:1.5px solid var(--gold-dark);border-top:none;background:#120f0a;}
+    .expert-photo{width:100%;height:auto;aspect-ratio:3/4;min-height:0;flex:none;border-radius:0;}
+    .expert-photo .ph-icon{font-size:18px;}
+    .expert-photo .ph-caption{font-size:5.5px;letter-spacing:0;}
+    .expert-info{padding:5px 4px;}
+    .expert-name{font-size:8px;}
+    .expert-desc-label{font-size:6px;margin-top:3px;margin-bottom:2px;}
+    .expert-desc{font-size:6.5px;line-height:1.25;}
 
     .book-box{padding:20px;}
     footer{font-size:11px;padding:20px 5%;}
