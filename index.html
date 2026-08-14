@@ -26,7 +26,6 @@
   }
   a{color:inherit;}
 
-  /* Top info bar */
   .topbar{
     position:relative;
     overflow:hidden;
@@ -61,7 +60,6 @@
   .topbar .item.wa .icon{border-color:var(--green);}
   .topbar .item a{text-decoration:none;color:inherit;}
 
-  /* Hero / badge */
   .hero-top{
     display:flex;
     flex-direction:column;
@@ -147,8 +145,6 @@
 
   section{padding:44px 5%;max-width:1100px;margin:0 auto;}
   .section-title{text-align:center;font-size:26px;color:var(--gold-light);margin-bottom:26px;letter-spacing:.5px;}
-
-  /* Class cards */
   .class-card{
     border:1.5px solid var(--gold-dark);
     border-radius:16px;
@@ -282,27 +278,9 @@
     font-weight:600;
   }
 
-  .book-now-btn{
-    display:none;
-    margin-top:12px;
-    padding:11px 26px;
-    border-radius:26px;
-    border:none;
-    background:linear-gradient(180deg,var(--orange),var(--orange-dark));
-    color:#1c1200;
-    font-weight:700;
-    font-size:14px;
-    cursor:pointer;
-    letter-spacing:.4px;
-  }
-  .book-now-btn.show{display:inline-block;}
-  .book-now-btn:hover{filter:brightness(1.08);}
-
-  /* Upcoming teaser card */
   .teaser{opacity:.6;}
   .teaser .slot-table td, .teaser .slot-table th{color:var(--muted);}
 
-  /* Pagination */
   .pagination{display:flex;gap:10px;justify-content:center;margin-top:10px;}
   .pagination div{
     width:38px;height:38px;
@@ -312,8 +290,6 @@
     border-radius:6px;font-weight:700;cursor:pointer;
   }
   .pagination div.active{background:var(--orange);}
-
-  /* Book Online Seat */
   .book-box{
     border:1px solid var(--gold-dark);
     border-radius:14px;
@@ -345,6 +321,12 @@
   .book-box .btn{width:100%;text-align:center;margin-top:6px;}
   .book-note{text-align:center;font-size:12px;color:var(--muted);margin-top:14px;}
 
+  .policy-page{max-width:800px;}
+  .policy-page h2{font-size:17px;color:var(--gold-light);margin:26px 0 10px;}
+  .policy-page p, .policy-page li{font-size:14px;color:var(--cream);line-height:1.6;margin-bottom:10px;}
+  .policy-page ul{padding-left:20px;margin-bottom:14px;}
+  .policy-page .updated{font-size:12px;color:var(--muted);text-align:center;margin-bottom:30px;}
+
   footer{
     border-top:1px solid #221d16;
     padding:26px 5%;
@@ -352,13 +334,12 @@
     font-size:12px;
     color:var(--muted);
   }
+  footer a{color:var(--gold-light);text-decoration:underline;}
+  footer a:hover{color:var(--gold);}
 
   .slot-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-
   @media(max-width:700px){
     body{font-size:15px;}
-    /* Topbar + badge sit side by side on mobile, matching client mockup,
-       instead of stacking. Everything shrunk to fit. */
     .hero-top{
       flex-direction:row;
       align-items:flex-start;
@@ -383,8 +364,6 @@
     section{padding:30px 4%;}
     .section-title{font-size:21px;margin-bottom:18px;}
 
-    /* Keep the card in its horizontal (content + photo) layout on mobile too —
-       just scaled down — instead of stacking, per client's mobile mockup. */
     .class-card{
       grid-template-columns:1fr 76px;
       padding:0;
@@ -412,11 +391,7 @@
     .slot-table th, .slot-table td{padding:3px 2px;}
 
     .selected-tag{font-size:7.5px;margin-top:5px;}
-    .book-now-btn{font-size:8px;padding:5px 12px;margin-top:5px;border-radius:12px;}
-    .book-now-btn.show{display:inline-block;}
 
-    /* Photo column: same vertical composition as desktop (photo on top,
-       name/description below), just narrow. */
     .expert-col{flex-direction:column;padding:0;border-left:1.5px solid var(--gold-dark);border-top:none;background:#120f0a;}
     .expert-photo{width:100%;height:auto;aspect-ratio:3/4;min-height:0;flex:none;border-radius:0;}
     .expert-photo .ph-icon{font-size:18px;}
@@ -476,8 +451,8 @@
 
 <div class="hero">
   <div class="cta-row">
-    <a href="#explore" class="btn btn-fill">EXPLORE CLASSES</a>
-    <a href="#book" class="btn btn-outline" id="bookSeatTop">BOOK ONLINE SEAT</a>
+    <a href="index.html#explore" class="btn btn-fill">EXPLORE CLASSES</a>
+    <a href="book.html" class="btn btn-outline" id="bookSeatTop">BOOK ONLINE SEAT</a>
   </div>
 </div>
 
@@ -486,30 +461,10 @@
   <div class="pagination" id="pagination"></div>
 </section>
 
-<section id="book">
-  <h2 class="section-title">Book Online Seat</h2>
-  <div class="book-box">
-    <div class="book-summary" id="bookSummary"></div>
-    <div class="field">
-      <label>Name</label>
-      <input type="text" id="fName" placeholder="Your full name">
-    </div>
-    <div class="field">
-      <label>WhatsApp Number</label>
-      <input type="tel" id="fPhone" placeholder="10-digit WhatsApp number">
-    </div>
-    <div class="field">
-      <label>Email</label>
-      <input type="email" id="fEmail" placeholder="you@example.com">
-    </div>
-    <a href="#" class="btn btn-fill" id="bookSubmit">BOOK ONLINE SEAT</a>
-    <div class="book-note">(class zoom link and receipt will be sent to your email and WhatsApp)</div>
-  </div>
-</section>
-
 <footer>
   Prim online consultancy · bookexpertclasses.com · GST: 19AICPB5058P12X<br>
-  WhatsApp: 7439826995 &nbsp;|&nbsp; askus@bookexpertclasses.com
+  WhatsApp: 7439826995 &nbsp;|&nbsp; askus@bookexpertclasses.com<br>
+  <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
 </footer>
 
 <script>
@@ -613,7 +568,7 @@
               price: card.dataset.price,
               paymentLink: card.dataset.paymentlink
             };
-            updateBookSummary();
+            sessionStorage.setItem("bxc_selection", JSON.stringify(selection));
           };
         }
         tr.appendChild(td);
@@ -622,15 +577,6 @@
     });
     wrap.appendChild(table);
     return wrap;
-  }
-
-  function updateBookSummary(){
-    const el = document.getElementById("bookSummary");
-    if(!selection){
-      el.textContent = "";
-    } else {
-      el.textContent = `${selection.title} — ${selection.slot} — ₹${selection.price}/-`;
-    }
   }
 
   function renderClasses(rows){
@@ -751,30 +697,8 @@
     }
   });
 
-  document.getElementById("bookSubmit").addEventListener("click", function(e){
-    e.preventDefault();
-    if(!selection){
-      alert("Please select time slot of the workshop then click book now.");
-      document.getElementById("explore").scrollIntoView({behavior:"smooth"});
-      return;
-    }
-    const name = document.getElementById("fName").value.trim();
-    const phone = document.getElementById("fPhone").value.trim();
-    const email = document.getElementById("fEmail").value.trim();
-    if(!name || !phone || !email){
-      alert("Please fill your name, WhatsApp number and email before booking.");
-      return;
-    }
-    if(!selection.paymentLink || selection.paymentLink === "TBD"){
-      alert("Payment link for this class isn't configured yet. (This is a preview — the live payment link will be added before launch.)");
-      return;
-    }
-    window.open(selection.paymentLink, "_blank");
-  });
-</script>
+  </script>
 
 </body>
 </html>
-
-
 
