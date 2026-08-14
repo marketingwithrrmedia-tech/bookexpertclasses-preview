@@ -26,6 +26,7 @@
   }
   a{color:inherit;}
 
+  /* Top info bar */
   .topbar{
     position:relative;
     overflow:hidden;
@@ -60,6 +61,7 @@
   .topbar .item.wa .icon{border-color:var(--green);}
   .topbar .item a{text-decoration:none;color:inherit;}
 
+  /* Hero / badge */
   .hero-top{
     display:flex;
     flex-direction:column;
@@ -87,14 +89,6 @@
     padding:26px;
     background:radial-gradient(circle at 50% 35%, rgba(201,162,92,.07), transparent 70%);
     box-shadow:0 0 0 1px rgba(0,0,0,0), 0 8px 40px rgba(201,162,92,.08);
-  }
-  .badge::before{
-    content:"";
-    position:absolute;
-    inset:9px;
-    border-radius:50%;
-    border:1px dashed var(--gold-dark);
-    pointer-events:none;
   }
   .badge .illustration{width:32%;margin-bottom:6px;}
   .badge .illustration svg{width:100%;height:auto;display:block;}
@@ -145,6 +139,8 @@
 
   section{padding:44px 5%;max-width:1100px;margin:0 auto;}
   .section-title{text-align:center;font-size:26px;color:var(--gold-light);margin-bottom:26px;letter-spacing:.5px;}
+
+  /* Class cards */
   .class-card{
     border:1.5px solid var(--gold-dark);
     border-radius:16px;
@@ -278,9 +274,15 @@
     font-weight:600;
   }
 
+  /* Upcoming teaser card */
   .teaser{opacity:.6;}
   .teaser .slot-table td, .teaser .slot-table th{color:var(--muted);}
 
+  /* Book Seat Now bar (above pagination) */
+  .book-seat-bar{text-align:center;margin:8px 0 24px;}
+  .book-seat-summary{font-size:13px;color:var(--gold-light);margin-bottom:12px;min-height:18px;}
+
+  /* Pagination */
   .pagination{display:flex;gap:10px;justify-content:center;margin-top:10px;}
   .pagination div{
     width:38px;height:38px;
@@ -290,6 +292,8 @@
     border-radius:6px;font-weight:700;cursor:pointer;
   }
   .pagination div.active{background:var(--orange);}
+
+  /* Book Online Seat */
   .book-box{
     border:1px solid var(--gold-dark);
     border-radius:14px;
@@ -321,6 +325,7 @@
   .book-box .btn{width:100%;text-align:center;margin-top:6px;}
   .book-note{text-align:center;font-size:12px;color:var(--muted);margin-top:14px;}
 
+  /* Policy pages */
   .policy-page{max-width:800px;}
   .policy-page h2{font-size:17px;color:var(--gold-light);margin:26px 0 10px;}
   .policy-page p, .policy-page li{font-size:14px;color:var(--cream);line-height:1.6;margin-bottom:10px;}
@@ -338,18 +343,18 @@
   footer a:hover{color:var(--gold);}
 
   .slot-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
   @media(max-width:700px){
     body{font-size:15px;}
     .hero-top{
-      flex-direction:row;
-      align-items:flex-start;
-      justify-content:space-between;
+      flex-direction:column;
+      align-items:center;
       gap:8px;
       padding:14px 4% 8px;
     }
     .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
     .topbar .icon{width:14px;height:14px;font-size:7px;}
-    .badge{width:195px;padding:14px;margin-top:0;flex:none;}
+    .badge{width:195px;padding:14px;margin-top:0;}
     .badge .illustration{width:26%;margin-bottom:4px;}
     .badge .brand{font-size:10.5px;}
     .badge .tagline{font-size:6px;margin-top:3px;}
@@ -364,6 +369,8 @@
     section{padding:30px 4%;}
     .section-title{font-size:21px;margin-bottom:18px;}
 
+    /* Keep the card in its horizontal (content + photo) layout on mobile too —
+       just scaled down — instead of stacking, per client's mobile mockup. */
     .class-card{
       grid-template-columns:1fr 76px;
       padding:0;
@@ -391,7 +398,10 @@
     .slot-table th, .slot-table td{padding:3px 2px;}
 
     .selected-tag{font-size:7.5px;margin-top:5px;}
+    .book-seat-summary{font-size:11px;}
 
+    /* Photo column: same vertical composition as desktop (photo on top,
+       name/description below), just narrow. */
     .expert-col{flex-direction:column;padding:0;border-left:1.5px solid var(--gold-dark);border-top:none;background:#120f0a;}
     .expert-photo{width:100%;height:auto;aspect-ratio:3/4;min-height:0;flex:none;border-radius:0;}
     .expert-photo .ph-icon{font-size:18px;}
@@ -458,6 +468,10 @@
 
 <section id="explore">
   <div id="classList"></div>
+  <div class="book-seat-bar">
+    <div class="book-seat-summary" id="bookSeatSummary"></div>
+    <a href="book.html" class="btn btn-fill" id="bookSeatNowBtn">BOOK SEAT NOW</a>
+  </div>
   <div class="pagination" id="pagination"></div>
 </section>
 
@@ -484,7 +498,7 @@
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"}
   ];
 
-  let selection = null; // {title, slot, price, paymentLink}
+  let selections = {}; // keyed by workshop title -> {title, slot, price, paymentLink}
 
   // Accepts a plain Google Drive "Share" link (or a raw image URL) and turns it into
   // a URL that actually renders as an <img>. Paste any normal Drive share link into
@@ -520,6 +534,23 @@
     });
   }
 
+  function updateBookSeatBar(){
+    const items = Object.values(selections);
+    const el = document.getElementById("bookSeatSummary");
+    if(items.length === 0){
+      el.textContent = "";
+    } else if(items.length === 1){
+      el.textContent = items[0].title + " — ₹" + items[0].price + "/-";
+    } else {
+      const total = items.reduce((sum,i) => sum + (parseFloat(i.price)||0), 0);
+      el.textContent = items.length + " classes selected — Total ₹" + total + "/-";
+    }
+  }
+
+  function persistSelections(){
+    sessionStorage.setItem("bxc_selections", JSON.stringify(Object.values(selections)));
+  }
+
   function buildSlotTable(card, slotsStr, cardIndex){
     if(!slotsStr){
       const p = document.createElement("div");
@@ -528,10 +559,11 @@
       return p;
     }
     const entries = slotsStr.split(";").map(s=>s.trim()).filter(Boolean).map(s=>{
-      const [day,date,time] = s.split("|");
-      return {day:(day||"").trim(), date:(date||"").trim(), time:(time||"").trim()};
+      const parts = s.split("|");
+      const day = (parts[0]||"").trim(), date = (parts[1]||"").trim(), time = (parts[2]||"").trim();
+      return {day:day, date:date, time:time};
     });
-    const days = [...new Set(entries.map(e=>`${e.day}|${e.date}`))];
+    const days = [...new Set(entries.map(e=>e.day+"|"+e.date))];
     const times = [...new Set(entries.map(e=>e.time))];
 
     const wrap = document.createElement("div");
@@ -540,9 +572,9 @@
     table.className = "slot-table";
     const thead = document.createElement("tr");
     days.forEach(d=>{
-      const [day,date] = d.split("|");
+      const dparts = d.split("|");
       const th = document.createElement("th");
-      th.textContent = `${day} (${date})`;
+      th.textContent = dparts[0] + " (" + dparts[1] + ")";
       thead.appendChild(th);
     });
     table.appendChild(thead);
@@ -550,25 +582,34 @@
     times.forEach(t=>{
       const tr = document.createElement("tr");
       days.forEach(d=>{
-        const [day,date] = d.split("|");
+        const dparts = d.split("|");
+        const day = dparts[0], date = dparts[1];
         const match = entries.find(e=>e.day===day && e.date===date && e.time===t);
         const td = document.createElement("td");
         if(match){
           td.textContent = t;
           td.className = "slot-cell";
           td.onclick = () => {
+            const key = card.dataset.title;
+            const label = day + " " + date + ", " + t;
+            const alreadySelected = td.classList.contains("selected");
             card.querySelectorAll(".slot-cell.selected").forEach(el=>el.classList.remove("selected"));
-            td.classList.add("selected");
             const tagEl = card.querySelector(".selected-tag");
-            const label = `${day} ${date}, ${t}`;
-            tagEl.textContent = `Selected: ${label}`;
-            selection = {
-              title: card.dataset.title,
-              slot: label,
-              price: card.dataset.price,
-              paymentLink: card.dataset.paymentlink
-            };
-            sessionStorage.setItem("bxc_selection", JSON.stringify(selection));
+            if(alreadySelected){
+              delete selections[key];
+              tagEl.textContent = "";
+            } else {
+              td.classList.add("selected");
+              tagEl.textContent = "Selected: " + label;
+              selections[key] = {
+                title: card.dataset.title,
+                slot: label,
+                price: card.dataset.price,
+                paymentLink: card.dataset.paymentlink
+              };
+            }
+            persistSelections();
+            updateBookSeatBar();
           };
         }
         tr.appendChild(td);
@@ -593,44 +634,47 @@
 
       const subcats = (c["SubCategories"]||"").split("|").map(s=>s.trim()).filter(Boolean);
       const subcatHTML = subcats.length
-        ? subcats.map(s=>`<div>${s}</div>`).join("")
-        : `<div style="grid-column:1/-1;color:var(--muted);">Details coming soon as our specialist finalizes the curriculum.</div>`;
+        ? subcats.map(s=>"<div>"+s+"</div>").join("")
+        : '<div style="grid-column:1/-1;color:var(--muted);">Details coming soon as our specialist finalizes the curriculum.</div>';
 
-      card.innerHTML = `
-        <div class="class-main">
-          <div class="class-top">
-            <span class="pill">Online Workshop ${idx+1}</span>
-            <div class="class-title">
-              <h3>${c["Workshop Title"]}</h3>
-              <div class="dur">(${c["Duration"]||""})</div>
-            </div>
-            <span class="price">₹ ${c["Price (INR)"]}/-</span>
-          </div>
-          <div class="subcat-label">(Class Sub Categories)</div>
-          <div class="subcat-grid">${subcatHTML}</div>
-          <div class="action-row">
-            <span class="zoom-pill">🎥 Zoom slots</span>
-            <button class="share-btn" title="Share this class">🔗</button>
-          </div>
-          <div class="slot-holder"></div>
-          <div class="selected-tag"></div>
-        </div>
-        <div class="expert-col">
-          <div class="expert-photo">${c["Expert Photo URL"] ? `<img src="${driveImageUrl(c["Expert Photo URL"])}" alt="${c["Expert Name"]}" onerror="this.parentElement.innerHTML='&lt;div class=&quot;ph-icon&quot;&gt;🧑‍💼&lt;/div&gt;&lt;div class=&quot;ph-caption&quot;&gt;Photo coming soon&lt;/div&gt;';">` : `<div class="ph-icon">🧑‍💼</div><div class="ph-caption">Photo coming soon</div>`}</div>
-          <div class="expert-info">
-            <div class="expert-name">${c["Expert Name"]||"Expert TBA"}</div>
-            <div class="expert-desc-label">Expert Description</div>
-            <div class="expert-desc">${c["Expert Description"]||"Bio coming soon."}</div>
-          </div>
-        </div>
-      `;
+      const photoHTML = c["Expert Photo URL"]
+        ? '<img src="' + driveImageUrl(c["Expert Photo URL"]) + '" alt="' + c["Expert Name"] + '" onerror="this.parentElement.innerHTML=' + String.fromCharCode(39) + '&lt;div class=&quot;ph-icon&quot;&gt;' + "\uD83E\uDDD1\u200D\uD83D\uDCBC" + '&lt;/div&gt;&lt;div class=&quot;ph-caption&quot;&gt;Photo coming soon&lt;/div&gt;' + String.fromCharCode(39) + ';">'
+        : '<div class="ph-icon">' + "\uD83E\uDDD1\u200D\uD83D\uDCBC" + '</div><div class="ph-caption">Photo coming soon</div>';
+
+      card.innerHTML =
+        '<div class="class-main">' +
+          '<div class="class-top">' +
+            '<span class="pill">Online Workshop ' + (idx+1) + '</span>' +
+            '<div class="class-title">' +
+              "<h3>" + c["Workshop Title"] + "</h3>" +
+              '<div class="dur">(' + (c["Duration"]||"") + ')</div>' +
+            "</div>" +
+            '<span class="price">₹ ' + c["Price (INR)"] + '/-</span>' +
+          "</div>" +
+          '<div class="subcat-label">(Class Sub Categories)</div>' +
+          '<div class="subcat-grid">' + subcatHTML + "</div>" +
+          '<div class="action-row">' +
+            '<span class="zoom-pill">' + "\uD83C\uDFA5" + ' Zoom slots</span>' +
+            '<button class="share-btn" title="Share this class">' + "\uD83D\uDD17" + '</button>' +
+          "</div>" +
+          '<div class="slot-holder"></div>' +
+          '<div class="selected-tag"></div>' +
+        "</div>" +
+        '<div class="expert-col">' +
+          '<div class="expert-photo">' + photoHTML + "</div>" +
+          '<div class="expert-info">' +
+            '<div class="expert-name">' + (c["Expert Name"]||"Expert TBA") + "</div>" +
+            '<div class="expert-desc-label">Expert Description</div>' +
+            '<div class="expert-desc">' + (c["Expert Description"]||"Bio coming soon.") + "</div>" +
+          "</div>" +
+        "</div>";
 
       const slotHolder = card.querySelector(".slot-holder");
       slotHolder.appendChild(buildSlotTable(card, c["Slots"], idx));
 
       card.querySelector(".share-btn").onclick = () => {
-        const url = `${location.origin}${location.pathname}#class-${idx+1}`;
-        const text = `${c["Workshop Title"]} — ₹${c["Price (INR)"]}/- — bookexpertclasses.com`;
+        const url = location.origin + location.pathname + "#class-" + (idx+1);
+        const text = c["Workshop Title"] + " — ₹" + c["Price (INR)"] + "/- — bookexpertclasses.com";
         if(navigator.share){
           navigator.share({title:c["Workshop Title"], text, url}).catch(()=>{});
         } else {
@@ -638,42 +682,41 @@
         }
       };
 
-      card.id = `class-${idx+1}`;
+      card.id = "class-" + (idx+1);
       list.appendChild(card);
     });
 
     // Static "upcoming next week" teaser card
     const teaser = document.createElement("div");
     teaser.className = "class-card teaser";
-    teaser.innerHTML = `
-      <div class="class-main">
-        <div class="class-top">
-          <span class="pill">Online Workshop ${active.length+1}</span>
-          <div class="class-title">
-            <h3>New Upcoming Classes Next Week</h3>
-            <div class="dur">(Details announced soon)</div>
-          </div>
-          <span class="price">₹ 350/-</span>
-        </div>
-        <div class="subcat-label">(Class Sub Categories)</div>
-        <div class="subcat-grid">
-          <div style="grid-column:1/-1;color:var(--muted);">New workshops are added regularly — check back soon or follow our socials for updates.</div>
-        </div>
-        <div class="action-row">
-          <span class="zoom-pill">🎥 Zoom slots</span>
-          <span></span>
-        </div>
-        <div class="no-slots">Dates opening soon.</div>
-      </div>
-      <div class="expert-col">
-        <div class="expert-photo"><div class="ph-icon">🧑‍💼</div><div class="ph-caption">Photo coming soon</div></div>
-        <div class="expert-info">
-          <div class="expert-name">Expert TBA</div>
-          <div class="expert-desc-label">Expert Description</div>
-          <div class="expert-desc">To be announced.</div>
-        </div>
-      </div>
-    `;
+    teaser.innerHTML =
+      '<div class="class-main">' +
+        '<div class="class-top">' +
+          '<span class="pill">Online Workshop ' + (active.length+1) + '</span>' +
+          '<div class="class-title">' +
+            "<h3>New Upcoming Classes Next Week</h3>" +
+            '<div class="dur">(Details announced soon)</div>' +
+          "</div>" +
+          '<span class="price">₹ 350/-</span>' +
+        "</div>" +
+        '<div class="subcat-label">(Class Sub Categories)</div>' +
+        '<div class="subcat-grid">' +
+          '<div style="grid-column:1/-1;color:var(--muted);">New workshops are added regularly — check back soon or follow our socials for updates.</div>' +
+        "</div>" +
+        '<div class="action-row">' +
+          '<span class="zoom-pill">' + "\uD83C\uDFA5" + ' Zoom slots</span>' +
+          "<span></span>" +
+        "</div>" +
+        '<div class="no-slots">Dates opening soon.</div>' +
+      "</div>" +
+      '<div class="expert-col">' +
+        '<div class="expert-photo"><div class="ph-icon">' + "\uD83E\uDDD1\u200D\uD83D\uDCBC" + '</div><div class="ph-caption">Photo coming soon</div></div>' +
+        '<div class="expert-info">' +
+          '<div class="expert-name">Expert TBA</div>' +
+          '<div class="expert-desc-label">Expert Description</div>' +
+          '<div class="expert-desc">To be announced.</div>' +
+        "</div>" +
+      "</div>";
     list.appendChild(teaser);
 
     // Simple pagination (ready to scale to 8-per-page once more classes are added)
@@ -690,15 +733,17 @@
     .then(text => renderClasses(parseCSV(text)))
     .catch(() => renderClasses(FALLBACK));
 
-  document.getElementById("bookSeatTop").addEventListener("click", function(e){
-    if(!selection){
+  function goToBook(e){
+    if(Object.keys(selections).length === 0){
       e.preventDefault();
       alert("Please select time slot of the workshop then click book now.");
+      return;
     }
-  });
-
-  </script>
+    persistSelections();
+  }
+  document.getElementById("bookSeatTop").addEventListener("click", goToBook);
+  document.getElementById("bookSeatNowBtn").addEventListener("click", goToBook);
+</script>
 
 </body>
 </html>
-
