@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy | bookexpertclasses.com</title>
+<style>
+  :root{
+    --black:#0a0a0a;
+    --panel:#141210;
+    --gold:#c9a25c;
+    --gold-light:#e3c98a;
+    --gold-dark:#96733a;
+    --cream:#f4ead9;
+    --orange:#e08a2b;
+    --orange-dark:#b96c1a;
+    --green:#25D366;
+    --muted:#9a9184;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--black);
+    color:var(--cream);
+    line-height:1.5;
+  }
+  a{color:inherit;}
+
+  .topbar{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+    padding:22px 5%;
+    font-size:13px;
+    color:var(--gold-light);
+    border-bottom:1px solid #221d16;
+  }
+  .topbar::before{
+    content:"";
+    position:absolute;
+    top:-60%;
+    left:-15%;
+    width:65%;
+    height:260%;
+    background:linear-gradient(115deg, transparent 42%, rgba(201,162,92,.32) 50%, transparent 58%);
+    transform:rotate(6deg);
+    pointer-events:none;
+  }
+  .topbar .item{display:flex;align-items:center;gap:10px;white-space:nowrap;position:relative;z-index:1;}
+  .topbar .icon{
+    width:23px;height:23px;border-radius:50%;
+    border:1px solid var(--gold-dark);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;flex-shrink:0;
+    background:rgba(201,162,92,.05);
+  }
+  .topbar .item.wa{color:var(--green);}
+  .topbar .item.wa .icon{border-color:var(--green);}
+  .topbar .item a{text-decoration:none;color:inherit;}
+
+  .hero-top{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .hero{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:0 5% 30px;
+  }
+  .badge{
+    position:relative;
+    width:min(340px,84vw);
+    aspect-ratio:1/1;
+    border-radius:50%;
+    border:3px solid var(--gold);
+    margin-top:36px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:26px;
+    background:radial-gradient(circle at 50% 35%, rgba(201,162,92,.07), transparent 70%);
+    box-shadow:0 0 0 1px rgba(0,0,0,0), 0 8px 40px rgba(201,162,92,.08);
+  }
+  .badge::before{
+    content:"";
+    position:absolute;
+    inset:9px;
+    border-radius:50%;
+    border:1px dashed var(--gold-dark);
+    pointer-events:none;
+  }
+  .badge .illustration{width:32%;margin-bottom:6px;}
+  .badge .illustration svg{width:100%;height:auto;display:block;}
+  .badge .brand{font-size:23px;font-weight:800;color:var(--gold-light);letter-spacing:.5px;}
+  .badge .tagline{font-size:10.5px;color:var(--cream);letter-spacing:.5px;margin-top:6px;}
+  .badge .tagline .flag{margin-right:3px;}
+  .badge .tagline .hl{color:var(--orange);font-weight:700;}
+  .badge .cats{
+    display:flex;
+    gap:16px;
+    margin-top:15px;
+  }
+  .badge .cats div{display:flex;flex-direction:column;align-items:center;gap:5px;}
+  .badge .cats .cicon{
+    width:34px;height:34px;border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;
+    background:rgba(201,162,92,.06);
+  }
+  .badge .cats .clabel{font-size:8.5px;color:var(--gold-light);letter-spacing:.3px;text-transform:uppercase;}
+  .badge .laurel{margin-top:13px;font-size:11px;color:var(--gold-dark);letter-spacing:2px;display:flex;align-items:center;gap:7px;}
+
+  .cta-row{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:30px;
+  }
+  .btn{
+    display:inline-block;
+    padding:14px 32px;
+    border-radius:30px;
+    font-weight:700;
+    text-decoration:none;
+    font-size:15px;
+    cursor:pointer;
+    border:2px solid var(--gold);
+    transition:.2s;
+    letter-spacing:.5px;
+  }
+  .btn-fill{background:linear-gradient(180deg,var(--orange),var(--orange-dark));color:#1c1200;border-color:var(--orange);}
+  .btn-fill:hover{filter:brightness(1.08);}
+  .btn-outline{background:transparent;color:var(--gold-light);}
+  .btn-outline:hover{background:rgba(201,162,92,.12);}
+
+  section{padding:44px 5%;max-width:1100px;margin:0 auto;}
+  .section-title{text-align:center;font-size:26px;color:var(--gold-light);margin-bottom:26px;letter-spacing:.5px;}
+
+  .policy-page{max-width:800px;}
+  .policy-page h2{font-size:17px;color:var(--gold-light);margin:26px 0 10px;}
+  .policy-page p, .policy-page li{font-size:14px;color:var(--cream);line-height:1.6;margin-bottom:10px;}
+  .policy-page ul{padding-left:20px;margin-bottom:14px;}
+  .policy-page .updated{font-size:12px;color:var(--muted);text-align:center;margin-bottom:30px;}
+
+  footer{
+    border-top:1px solid #221d16;
+    padding:26px 5%;
+    text-align:center;
+    font-size:12px;
+    color:var(--muted);
+  }
+  footer a{color:var(--gold-light);text-decoration:underline;}
+  footer a:hover{color:var(--gold);}
+
+  @media(max-width:700px){
+    body{font-size:15px;}
+    .hero-top{
+      flex-direction:row;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:8px;
+      padding:14px 4% 8px;
+    }
+    .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
+    .topbar .icon{width:14px;height:14px;font-size:7px;}
+    .badge{width:195px;padding:14px;margin-top:0;flex:none;}
+    .badge .illustration{width:26%;margin-bottom:4px;}
+    .badge .brand{font-size:10.5px;}
+    .badge .tagline{font-size:6px;margin-top:3px;}
+    .badge .cats{gap:6px;margin-top:5px;}
+    .badge .cats .cicon{width:20px;height:20px;font-size:9px;}
+    .badge .cats .clabel{font-size:5px;}
+    .badge .laurel{font-size:6.5px;margin-top:5px;gap:3px;}
+    .hero{padding:14px 5% 20px;}
+    .cta-row{gap:10px;margin-top:16px;flex-wrap:nowrap;}
+    .btn{padding:9px 14px;font-size:10.5px;white-space:nowrap;}
+
+    section{padding:30px 4%;}
+    .section-title{font-size:21px;margin-bottom:18px;}
+
+    footer{font-size:11px;padding:20px 5%;}
+  }
+
+  @media(max-width:380px){
+    .badge{width:170px;}
+    .topbar{font-size:6px;gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-top">
+<div class="topbar">
+  <div class="item"><span class="icon">🌿</span>Prim online consultancy</div>
+  <div class="item"><span class="icon">🌐</span>GST: 19AICPB5058P12X</div>
+  <div class="item wa"><span class="icon">📱</span><a href="https://wa.me/917439826995" target="_blank">7439826995</a></div>
+</div>
+
+<div class="badge">
+    <div class="illustration">
+      <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <circle cx="42" cy="40" r="11" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <path d="M23 78c0-13 8.5-23 19-23s19 10 19 23" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <circle cx="158" cy="40" r="11" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <path d="M139 78c0-13 8.5-23 19-23s19 10 19 23" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <circle cx="73" cy="29" r="13.5" style="stroke:var(--gold)" stroke-width="2.4"/>
+        <path d="M51 77c0-15.5 9.8-27 22-27s22 11.5 22 27" style="stroke:var(--gold)" stroke-width="2.4"/>
+        <circle cx="127" cy="29" r="13.5" style="stroke:var(--gold)" stroke-width="2.4"/>
+        <path d="M105 77c0-15.5 9.8-27 22-27s22 11.5 22 27" style="stroke:var(--gold)" stroke-width="2.4"/>
+        <circle cx="100" cy="20" r="15.5" style="stroke:var(--gold-light)" stroke-width="2.6"/>
+        <path d="M75 76c0-17.5 11-31 25-31s25 13.5 25 31" style="stroke:var(--gold-light)" stroke-width="2.6"/>
+        <rect x="72" y="82" width="56" height="7" rx="2" style="stroke:var(--gold)" stroke-width="2.2"/>
+        <path d="M80 82V64a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v18" style="stroke:var(--gold)" stroke-width="2.2"/>
+      </svg>
+    </div>
+    <div class="brand">bookexpertclasses.com</div>
+    <div class="tagline"><span class="flag">🇮🇳</span>INDIA'S FIRST PLATFORM FOR<br><span class="hl">EXPERT ONLINE WORKSHOPS</span></div>
+    <div class="cats">
+      <div><span class="cicon">🧘</span><span class="clabel">Lifestyle</span></div>
+      <div><span class="cicon">❤️</span><span class="clabel">Health</span></div>
+      <div><span class="cicon">🎨</span><span class="clabel">Hobbies</span></div>
+      <div><span class="cicon">🎯</span><span class="clabel">Goals</span></div>
+    </div>
+    <div class="laurel">🌿 ✦ 🌿</div>
+</div>
+</div>
+
+<div class="hero">
+  <div class="cta-row">
+    <a href="index.html#explore" class="btn btn-fill">EXPLORE CLASSES</a>
+    <a href="book.html" class="btn btn-outline">BOOK ONLINE SEAT</a>
+  </div>
+</div>
+
+<section class="policy-page">
+  <h1 class="section-title">Privacy Policy</h1>
+  <p class="updated">Last updated: August 2026</p>
+
+  <h2>1. Information We Collect</h2>
+  <p>When you use bookexpertclasses.com, we may collect information you provide directly, such as your name, WhatsApp number and email address at the time of booking a workshop, along with basic usage data such as pages visited and device/browser type.</p>
+
+  <h2>2. How We Use Your Information</h2>
+  <p>We use this information to confirm your workshop booking, send your Zoom link and payment receipt, respond to your queries, and improve our services. We do not sell your personal information to third parties.</p>
+
+  <h2>3. Sharing of Information</h2>
+  <p>We may share limited booking details (such as your name and contact number) with the specific expert conducting your workshop, solely to help them deliver the session. We may also share information with payment processors to complete your transaction securely.</p>
+
+  <h2>4. Cookies &amp; Tracking</h2>
+  <p>Our website may use basic cookies or similar technologies to remember your preferences and understand how visitors use the site. You can disable cookies through your browser settings, though some features may not work as intended.</p>
+
+  <h2>5. Data Security</h2>
+  <p>We take reasonable technical and organisational measures to protect your personal information from unauthorised access, alteration or disclosure. However, no method of transmission over the internet is 100% secure.</p>
+
+  <h2>6. Your Rights</h2>
+  <p>You may request access to, correction of, or deletion of your personal information held by us at any time by contacting us using the details below.</p>
+
+  <h2>7. Third-Party Links</h2>
+  <p>Our website may contain links to third-party sites, such as payment gateways or social media. We are not responsible for the privacy practices of these external sites.</p>
+
+  <h2>8. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with a revised "Last updated" date.</p>
+
+  <h2>9. Contact Us</h2>
+  <p>For any questions about this Privacy Policy or your personal data, reach us via WhatsApp at 7439826995 or email at askus@bookexpertclasses.com.</p>
+</section>
+
+<footer>
+  Prim online consultancy · bookexpertclasses.com · GST: 19AICPB5058P12X<br>
+  WhatsApp: 7439826995 &nbsp;|&nbsp; askus@bookexpertclasses.com<br>
+  <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
+</footer>
+
+</body>
+</html>
+
