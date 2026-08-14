@@ -65,7 +65,7 @@
   .hero-top{
     display:flex;
     flex-direction:column;
-    align-items:center;
+    align-items:flex-start;
   }
   .hero{
     display:flex;
@@ -81,6 +81,7 @@
     border-radius:50%;
     border:3px solid var(--gold);
     margin-top:36px;
+    align-self:center;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -226,17 +227,20 @@
     transition:.2s;
   }
   .share-btn:hover{background:rgba(201,162,92,.18);}
+  .share-btn svg{width:16px;height:16px;}
 
-  .slot-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .slot-table{width:100%;border-collapse:separate;border-spacing:6px;font-size:13.5px;}
   .slot-table th, .slot-table td{
     border:1px solid var(--gold-dark);
-    padding:10px 8px;
+    padding:8px 4px;
     text-align:center;
+    border-radius:10px;
   }
-  .slot-table th{color:var(--gold-light);font-weight:700;font-size:12.5px;background:rgba(201,162,92,.07);}
-  .slot-cell{cursor:pointer;color:var(--cream);transition:.15s;}
-  .slot-cell:hover{background:rgba(201,162,92,.15);}
-  .slot-cell.selected{background:var(--orange);color:#1c1200;font-weight:700;}
+  .slot-table th{color:var(--gold-light);font-weight:700;font-size:12.5px;background:rgba(201,162,92,.07);border-style:dashed;}
+  .slot-cell{cursor:pointer;color:var(--cream);transition:.15s;background:rgba(201,162,92,.06);border-color:var(--gold);font-weight:600;}
+  .slot-cell:hover{background:rgba(201,162,92,.22);}
+  .slot-cell.selected{background:var(--orange);color:#1c1200;font-weight:700;border-color:var(--orange);}
+  .slot-empty{border-style:dashed;opacity:.35;}
   .no-slots{font-size:12.5px;color:var(--muted);padding:10px 0;}
 
   .expert-col{
@@ -348,7 +352,7 @@
     body{font-size:15px;}
     .hero-top{
       flex-direction:column;
-      align-items:center;
+      align-items:flex-start;
       gap:8px;
       padding:14px 4% 8px;
     }
@@ -393,9 +397,10 @@
     .action-row{gap:5px;margin-bottom:6px;flex-wrap:wrap;}
     .zoom-pill{font-size:7.5px;padding:3px 7px;gap:3px;border-radius:14px;}
     .share-btn{width:20px;height:20px;font-size:9px;}
+    .share-btn svg{width:11px;height:11px;}
 
-    .slot-table{font-size:7.5px;min-width:0;}
-    .slot-table th, .slot-table td{padding:3px 2px;}
+    .slot-table{font-size:6.5px;min-width:0;border-spacing:3px;}
+    .slot-table th, .slot-table td{padding:3px 1px;border-radius:6px;}
 
     .selected-tag{font-size:7.5px;margin-top:5px;}
     .book-seat-summary{font-size:11px;}
@@ -551,6 +556,9 @@
     sessionStorage.setItem("bxc_selections", JSON.stringify(Object.values(selections)));
   }
 
+  // Always renders a fixed 4-day x 3-time-slot grid for every workshop, padding
+  // with blank placeholder cells when a workshop has fewer days/times, and
+  // capping to the first 4 days / first 3 times if a workshop somehow has more.
   function buildSlotTable(card, slotsStr, cardIndex){
     if(!slotsStr){
       const p = document.createElement("div");
@@ -563,8 +571,11 @@
       const day = (parts[0]||"").trim(), date = (parts[1]||"").trim(), time = (parts[2]||"").trim();
       return {day:day, date:date, time:time};
     });
-    const days = [...new Set(entries.map(e=>e.day+"|"+e.date))];
-    const times = [...new Set(entries.map(e=>e.time))];
+
+    let days = [...new Set(entries.map(e=>e.day+"|"+e.date))].slice(0,4);
+    while(days.length < 4) days.push("|");
+    let times = [...new Set(entries.map(e=>e.time))].slice(0,3);
+    while(times.length < 3) times.push("");
 
     const wrap = document.createElement("div");
     wrap.className = "slot-table-wrap";
@@ -574,7 +585,7 @@
     days.forEach(d=>{
       const dparts = d.split("|");
       const th = document.createElement("th");
-      th.textContent = dparts[0] + " (" + dparts[1] + ")";
+      th.textContent = dparts[0] ? (dparts[0] + " (" + dparts[1] + ")") : "—";
       thead.appendChild(th);
     });
     table.appendChild(thead);
@@ -584,8 +595,8 @@
       days.forEach(d=>{
         const dparts = d.split("|");
         const day = dparts[0], date = dparts[1];
-        const match = entries.find(e=>e.day===day && e.date===date && e.time===t);
         const td = document.createElement("td");
+        const match = (day && t) ? entries.find(e=>e.day===day && e.date===date && e.time===t) : null;
         if(match){
           td.textContent = t;
           td.className = "slot-cell";
@@ -611,6 +622,8 @@
             persistSelections();
             updateBookSeatBar();
           };
+        } else {
+          td.className = "slot-empty";
         }
         tr.appendChild(td);
       });
@@ -655,7 +668,7 @@
           '<div class="subcat-grid">' + subcatHTML + "</div>" +
           '<div class="action-row">' +
             '<span class="zoom-pill">' + "\uD83C\uDFA5" + ' Zoom slots</span>' +
-            '<button class="share-btn" title="Share this class">' + "\uD83D\uDD17" + '</button>' +
+            '<button class="share-btn" title="Share this class">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' + '</button>' +
           "</div>" +
           '<div class="slot-holder"></div>' +
           '<div class="selected-tag"></div>' +
