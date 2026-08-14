@@ -26,6 +26,7 @@
   }
   a{color:inherit;}
 
+  /* Top info bar */
   .topbar{
     position:relative;
     overflow:hidden;
@@ -60,6 +61,7 @@
   .topbar .item.wa .icon{border-color:var(--green);}
   .topbar .item a{text-decoration:none;color:inherit;}
 
+  /* Hero / badge */
   .hero-top{
     display:flex;
     flex-direction:column;
@@ -87,14 +89,6 @@
     padding:26px;
     background:radial-gradient(circle at 50% 35%, rgba(201,162,92,.07), transparent 70%);
     box-shadow:0 0 0 1px rgba(0,0,0,0), 0 8px 40px rgba(201,162,92,.08);
-  }
-  .badge::before{
-    content:"";
-    position:absolute;
-    inset:9px;
-    border-radius:50%;
-    border:1px dashed var(--gold-dark);
-    pointer-events:none;
   }
   .badge .illustration{width:32%;margin-bottom:6px;}
   .badge .illustration svg{width:100%;height:auto;display:block;}
@@ -141,10 +135,12 @@
   .btn-fill:hover{filter:brightness(1.08);}
   .btn-outline{background:transparent;color:var(--gold-light);}
   .btn-outline:hover{background:rgba(201,162,92,.12);}
+  .hint{margin-top:16px;font-size:13px;color:var(--muted);}
 
   section{padding:44px 5%;max-width:1100px;margin:0 auto;}
   .section-title{text-align:center;font-size:26px;color:var(--gold-light);margin-bottom:26px;letter-spacing:.5px;}
 
+  /* Book Online Seat */
   .book-box{
     border:1px solid var(--gold-dark);
     border-radius:14px;
@@ -160,6 +156,13 @@
     font-size:13px;
     color:var(--gold-light);
     margin-bottom:22px;
+  }
+  .book-summary .row{display:flex;justify-content:space-between;gap:10px;padding:4px 0;}
+  .book-summary .total{
+    display:flex;justify-content:space-between;gap:10px;
+    border-top:1px dashed var(--gold-dark);
+    margin-top:8px;padding-top:8px;
+    font-weight:700;color:var(--gold-light);
   }
   .field{margin-bottom:18px;}
   .field label{display:block;font-size:13px;color:var(--gold-light);margin-bottom:6px;font-weight:600;}
@@ -189,15 +192,14 @@
   @media(max-width:700px){
     body{font-size:15px;}
     .hero-top{
-      flex-direction:row;
-      align-items:flex-start;
-      justify-content:space-between;
+      flex-direction:column;
+      align-items:center;
       gap:8px;
       padding:14px 4% 8px;
     }
     .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
     .topbar .icon{width:14px;height:14px;font-size:7px;}
-    .badge{width:195px;padding:14px;margin-top:0;flex:none;}
+    .badge{width:195px;padding:14px;margin-top:0;}
     .badge .illustration{width:26%;margin-bottom:4px;}
     .badge .brand{font-size:10.5px;}
     .badge .tagline{font-size:6px;margin-top:3px;}
@@ -284,7 +286,7 @@
       <input type="email" id="fEmail" placeholder="you@example.com">
     </div>
     <a href="#" class="btn btn-fill" id="bookSubmit">BOOK ONLINE SEAT</a>
-    <div class="book-note">(class zoom link and receipt will be sent to your email and WhatsApp)</div>
+    <div class="book-note">(class zoom link and receipt will be sent to your email and WhatsApp. If you selected more than one class, each class's payment page will open in a new tab.)</div>
   </div>
 </section>
 
@@ -295,25 +297,33 @@
 </footer>
 
 <script>
-  let selection = null; // {title, slot, price, paymentLink}
+  let selections = []; // [{title, slot, price, paymentLink}, ...]
   try {
-    const raw = sessionStorage.getItem("bxc_selection");
-    if(raw) selection = JSON.parse(raw);
-  } catch(e) { selection = null; }
+    const raw = sessionStorage.getItem("bxc_selections");
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed)) selections = parsed;
+    }
+  } catch(e) { selections = []; }
 
   function updateBookSummary(){
     const el = document.getElementById("bookSummary");
-    if(!selection){
-      el.textContent = "";
-    } else {
-      el.textContent = `${selection.title} — ${selection.slot} — ₹${selection.price}/-`;
+    if(!selections.length){
+      el.innerHTML = "";
+      return;
     }
+    let html = selections.map(s => '<div class="row"><span>' + s.title + " — " + s.slot + '</span><span>₹' + s.price + '/-</span></div>').join("");
+    if(selections.length > 1){
+      const total = selections.reduce((sum,s) => sum + (parseFloat(s.price)||0), 0);
+      html += '<div class="total"><span>Total</span><span>₹' + total + '/-</span></div>';
+    }
+    el.innerHTML = html;
   }
   updateBookSummary();
 
   document.getElementById("bookSubmit").addEventListener("click", function(e){
     e.preventDefault();
-    if(!selection){
+    if(!selections.length){
       alert("Please select time slot of the workshop then click book now.");
       window.location.href = "index.html#explore";
       return;
@@ -325,11 +335,12 @@
       alert("Please fill your name, WhatsApp number and email before booking.");
       return;
     }
-    if(!selection.paymentLink || selection.paymentLink === "TBD"){
-      alert("Payment link for this class isn't configured yet. (This is a preview — the live payment link will be added before launch.)");
+    const missingLinks = selections.filter(s => !s.paymentLink || s.paymentLink === "TBD");
+    if(missingLinks.length){
+      alert("Payment link for " + missingLinks.map(s=>s.title).join(", ") + " isn't configured yet. (This is a preview — the live payment link(s) will be added before launch.)");
       return;
     }
-    window.open(selection.paymentLink, "_blank");
+    selections.forEach(s => window.open(s.paymentLink, "_blank"));
   });
 </script>
 
