@@ -489,7 +489,7 @@
 <section id="book">
   <h2 class="section-title">Book Online Seat</h2>
   <div class="book-box">
-    <div class="book-summary" id="bookSummary">No workshop selected yet — go to Explore Classes, click your preferred time slot, then come back here.</div>
+    <div class="book-summary" id="bookSummary"></div>
     <div class="field">
       <label>Name</label>
       <input type="text" id="fName" placeholder="Your full name">
@@ -520,7 +520,7 @@
     {"Workshop Title":"Lose Weight on your own","Duration":"45mins + Q&A","Price (INR)":"350",
      "SubCategories":"Nutrition Basics|Meal Planning|Portion Control|Metabolism Tips|Common Mistakes",
      "Slots":"Mon|18 Aug|7am;Mon|18 Aug|5pm;Tue|19 Aug|8am;Tue|19 Aug|5pm",
-     "Expert Name":"Adhira","Expert Description":"Certified nutrition coach helping you build sustainable, realistic habits for lasting weight loss.",
+     "Expert Name":"Test Expert","Expert Description":"Test description for this workshop.",
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"},
     {"Workshop Title":"Reduce Daily Anxiety","Duration":"45mins + Q&A","Price (INR)":"350",
      "SubCategories":"Breathing Techniques|Daily Routines|Trigger Mapping|Mindfulness Basics",
@@ -614,14 +614,6 @@
               paymentLink: card.dataset.paymentlink
             };
             updateBookSummary();
-
-            // Hide Book Now on every other card, show it here
-            document.querySelectorAll(".book-now-btn").forEach(b=>b.classList.remove("show"));
-            const bookBtn = card.querySelector(".book-now-btn");
-            bookBtn.classList.add("show");
-            bookBtn.onclick = () => {
-              document.getElementById("book").scrollIntoView({behavior:"smooth", block:"start"});
-            };
           };
         }
         tr.appendChild(td);
@@ -635,7 +627,7 @@
   function updateBookSummary(){
     const el = document.getElementById("bookSummary");
     if(!selection){
-      el.textContent = "No workshop selected yet — go to Explore Classes, click your preferred time slot, then come back here.";
+      el.textContent = "";
     } else {
       el.textContent = `${selection.title} — ${selection.slot} — ₹${selection.price}/-`;
     }
@@ -676,7 +668,6 @@
           </div>
           <div class="slot-holder"></div>
           <div class="selected-tag"></div>
-          <button type="button" class="book-now-btn">BOOK NOW →</button>
         </div>
         <div class="expert-col">
           <div class="expert-photo">${c["Expert Photo URL"] ? `<img src="${driveImageUrl(c["Expert Photo URL"])}" alt="${c["Expert Name"]}" onerror="this.parentElement.innerHTML='&lt;div class=&quot;ph-icon&quot;&gt;🧑‍💼&lt;/div&gt;&lt;div class=&quot;ph-caption&quot;&gt;Photo coming soon&lt;/div&gt;';">` : `<div class="ph-icon">🧑‍💼</div><div class="ph-caption">Photo coming soon</div>`}</div>
@@ -756,14 +747,14 @@
   document.getElementById("bookSeatTop").addEventListener("click", function(e){
     if(!selection){
       e.preventDefault();
-      alert("Please click on your preferred workshop time slot, then click Book Online Seat.");
+      alert("Please select time slot of the workshop then click book now.");
     }
   });
 
   document.getElementById("bookSubmit").addEventListener("click", function(e){
     e.preventDefault();
     if(!selection){
-      alert("Please click on your preferred workshop time slot on the Explore Classes section first, then click Book Online Seat.");
+      alert("Please select time slot of the workshop then click book now.");
       document.getElementById("explore").scrollIntoView({behavior:"smooth"});
       return;
     }
@@ -784,5 +775,6 @@
 
 </body>
 </html>
+
 
 
