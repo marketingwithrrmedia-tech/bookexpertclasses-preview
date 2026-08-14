@@ -88,14 +88,6 @@
     background:radial-gradient(circle at 50% 35%, rgba(201,162,92,.07), transparent 70%);
     box-shadow:0 0 0 1px rgba(0,0,0,0), 0 8px 40px rgba(201,162,92,.08);
   }
-  .badge::before{
-    content:"";
-    position:absolute;
-    inset:9px;
-    border-radius:50%;
-    border:1px dashed var(--gold-dark);
-    pointer-events:none;
-  }
   .badge .illustration{width:32%;margin-bottom:6px;}
   .badge .illustration svg{width:100%;height:auto;display:block;}
   .badge .brand{font-size:23px;font-weight:800;color:var(--gold-light);letter-spacing:.5px;}
@@ -164,15 +156,14 @@
   @media(max-width:700px){
     body{font-size:15px;}
     .hero-top{
-      flex-direction:row;
-      align-items:flex-start;
-      justify-content:space-between;
+      flex-direction:column;
+      align-items:center;
       gap:8px;
       padding:14px 4% 8px;
     }
     .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
     .topbar .icon{width:14px;height:14px;font-size:7px;}
-    .badge{width:195px;padding:14px;margin-top:0;flex:none;}
+    .badge{width:195px;padding:14px;margin-top:0;}
     .badge .illustration{width:26%;margin-bottom:4px;}
     .badge .brand{font-size:10.5px;}
     .badge .tagline{font-size:6px;margin-top:3px;}
