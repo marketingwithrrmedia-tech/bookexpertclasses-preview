@@ -164,10 +164,12 @@
   .pill{
     border:1.5px solid var(--gold);
     border-radius:20px;
-    padding:6px 16px;
+    padding:10px 14px;
     font-size:12px;
     color:var(--gold-light);
-    white-space:nowrap;
+    text-align:center;
+    line-height:1.3;
+    max-width:90px;
     background:rgba(201,162,92,.05);
   }
   .class-title{
@@ -176,10 +178,9 @@
     min-width:180px;
   }
   .class-title h3{font-size:20px;text-decoration:underline;text-underline-offset:5px;color:var(--cream);font-weight:700;}
-  .class-title .dur{font-size:12px;color:var(--muted);margin-top:3px;}
+  .class-title .dur{font-size:12px;color:var(--muted);margin-top:3px;text-decoration:underline;text-underline-offset:4px;}
   .price{font-size:19px;color:var(--gold-light);font-weight:700;white-space:nowrap;}
 
-  .subcat-label{font-size:12px;color:var(--muted);margin-bottom:10px;}
   .subcat-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -193,6 +194,7 @@
     padding-bottom:5px;
     padding-left:15px;
     position:relative;
+    min-height:1em;
   }
   .subcat-grid div::before{
     content:"•";
@@ -208,14 +210,18 @@
     align-items:center;
     justify-content:space-between;
     margin-bottom:16px;
+    gap:10px;
   }
-  .zoom-pill{
-    display:flex;align-items:center;gap:9px;
+  .camera-icon{color:var(--gold);display:flex;align-items:center;flex-shrink:0;}
+  .camera-icon svg{width:22px;height:22px;}
+  .select-slot-pill{
     border:1.5px solid var(--gold);
-    border-radius:24px;
-    padding:8px 18px;
-    font-size:13px;
+    border-radius:14px;
+    padding:6px 20px;
+    font-size:11.5px;
     color:var(--gold-light);
+    text-align:center;
+    line-height:1.5;
     background:rgba(201,162,92,.05);
   }
   .share-btn{
@@ -225,6 +231,7 @@
     cursor:pointer;color:var(--gold-light);font-size:16px;
     background:rgba(201,162,92,.05);
     transition:.2s;
+    flex-shrink:0;
   }
   .share-btn:hover{background:rgba(201,162,92,.18);}
   .share-btn svg{width:16px;height:16px;}
@@ -237,6 +244,7 @@
     border-radius:10px;
   }
   .slot-table th{color:var(--gold-light);font-weight:700;font-size:12.5px;background:rgba(201,162,92,.07);border-style:dashed;}
+  .slot-table th sup{font-size:.7em;}
   .slot-cell{cursor:pointer;color:var(--cream);transition:.15s;background:rgba(201,162,92,.06);border-color:var(--gold);font-weight:600;}
   .slot-cell:hover{background:rgba(201,162,92,.22);}
   .slot-cell.selected{background:var(--orange);color:#1c1200;font-weight:700;border-color:var(--orange);}
@@ -249,10 +257,29 @@
     background:#120f0a;
     border-left:1.5px solid var(--gold-dark);
   }
+  .expert-credentials{padding:14px 16px 6px;}
+  .expert-credentials .cred-item{
+    font-size:11.5px;
+    color:var(--cream);
+    border-bottom:1px dashed var(--gold-dark);
+    padding-bottom:4px;
+    padding-left:13px;
+    margin-bottom:7px;
+    position:relative;
+    min-height:1em;
+  }
+  .expert-credentials .cred-item::before{
+    content:"•";
+    position:absolute;
+    left:0;
+    top:0;
+    color:var(--gold);
+    font-weight:700;
+  }
   .expert-photo{
     width:100%;
     flex:1;
-    min-height:230px;
+    min-height:170px;
     background:linear-gradient(160deg,#1c1913,#0e0c08);
     display:flex;
     flex-direction:column;
@@ -266,10 +293,8 @@
   .expert-photo img{width:100%;height:100%;object-fit:cover;}
   .expert-photo .ph-icon{font-size:46px;opacity:.55;}
   .expert-photo .ph-caption{font-size:10px;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;}
-  .expert-info{padding:14px 16px 16px;}
-  .expert-name{font-size:14px;font-weight:700;color:var(--gold-light);}
-  .expert-desc-label{font-size:11.5px;color:var(--muted);border-bottom:1px solid var(--gold-dark);padding-bottom:3px;margin-top:7px;margin-bottom:6px;}
-  .expert-desc{font-size:12px;color:var(--cream);line-height:1.45;}
+  .expert-name-wrap{padding:12px 16px 16px;}
+  .expert-name{font-size:14px;font-weight:700;color:var(--gold-light);text-decoration:underline;text-underline-offset:4px;}
 
   .selected-tag{
     margin-top:12px;
@@ -373,8 +398,6 @@
     section{padding:30px 4%;}
     .section-title{font-size:21px;margin-bottom:18px;}
 
-    /* Keep the card in its horizontal (content + photo) layout on mobile too —
-       just scaled down — instead of stacking, per client's mobile mockup. */
     .class-card{
       grid-template-columns:1fr 76px;
       padding:0;
@@ -383,19 +406,19 @@
     }
     .class-main{padding:9px 7px 9px 9px;min-width:0;}
     .class-top{gap:4px 6px;margin-bottom:5px;flex-wrap:nowrap;align-items:flex-start;}
-    .pill{flex:none;font-size:7.5px;padding:3px 6px;border-radius:9px;white-space:normal;line-height:1.15;max-width:50px;text-align:center;}
+    .pill{flex:none;font-size:6.5px;padding:5px 4px;border-radius:9px;line-height:1.15;max-width:46px;text-align:center;}
     .class-title{flex:1;min-width:0;}
     .class-title h3{font-size:10.5px;line-height:1.25;text-underline-offset:2px;}
     .class-title .dur{font-size:7px;margin-top:1px;}
     .price{flex:none;font-size:9.5px;}
 
-    .subcat-label{font-size:7.5px;margin-bottom:4px;}
     .subcat-grid{grid-template-columns:1fr 1fr;gap:3px 7px;margin-bottom:6px;}
     .subcat-grid div{font-size:8px;padding-left:8px;padding-bottom:2px;}
     .subcat-grid div::before{font-size:8px;}
 
-    .action-row{gap:5px;margin-bottom:6px;flex-wrap:wrap;}
-    .zoom-pill{font-size:7.5px;padding:3px 7px;gap:3px;border-radius:14px;}
+    .action-row{gap:4px;margin-bottom:6px;}
+    .camera-icon svg{width:13px;height:13px;}
+    .select-slot-pill{font-size:6px;padding:3px 8px;border-radius:8px;}
     .share-btn{width:20px;height:20px;font-size:9px;}
     .share-btn svg{width:11px;height:11px;}
 
@@ -405,16 +428,14 @@
     .selected-tag{font-size:7.5px;margin-top:5px;}
     .book-seat-summary{font-size:11px;}
 
-    /* Photo column: same vertical composition as desktop (photo on top,
-       name/description below), just narrow. */
     .expert-col{flex-direction:column;padding:0;border-left:1.5px solid var(--gold-dark);border-top:none;background:#120f0a;}
+    .expert-credentials{padding:5px 4px 2px;}
+    .expert-credentials .cred-item{font-size:6px;padding-bottom:2px;margin-bottom:3px;padding-left:8px;}
     .expert-photo{width:100%;height:auto;aspect-ratio:3/4;min-height:0;flex:none;border-radius:0;}
     .expert-photo .ph-icon{font-size:18px;}
     .expert-photo .ph-caption{font-size:5.5px;letter-spacing:0;}
-    .expert-info{padding:5px 4px;}
+    .expert-name-wrap{padding:4px 4px 5px;}
     .expert-name{font-size:8px;}
-    .expert-desc-label{font-size:6px;margin-top:3px;margin-bottom:2px;}
-    .expert-desc{font-size:6.5px;line-height:1.25;}
 
     .book-box{padding:20px;}
     footer{font-size:11px;padding:20px 5%;}
@@ -494,12 +515,12 @@
     {"Workshop Title":"Lose Weight on your own","Duration":"45mins + Q&A","Price (INR)":"350",
      "SubCategories":"Nutrition Basics|Meal Planning|Portion Control|Metabolism Tips|Common Mistakes",
      "Slots":"Mon|18 Aug|7am;Mon|18 Aug|5pm;Tue|19 Aug|8am;Tue|19 Aug|5pm",
-     "Expert Name":"Test Expert","Expert Description":"Test description for this workshop.",
+     "Expert Name":"Test Expert","Expert Credentials":"Certified Nutrition Coach|5+ Years Experience|200+ Clients Helped",
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"},
     {"Workshop Title":"Reduce Daily Anxiety","Duration":"45mins + Q&A","Price (INR)":"350",
      "SubCategories":"Breathing Techniques|Daily Routines|Trigger Mapping|Mindfulness Basics",
      "Slots":"",
-     "Expert Name":"Rahul","Expert Description":"Mental wellness coach specializing in practical, everyday anxiety management techniques.",
+     "Expert Name":"Rahul","Expert Credentials":"Certified Mental Wellness Coach|Mindfulness Practitioner",
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"}
   ];
 
@@ -556,9 +577,23 @@
     sessionStorage.setItem("bxc_selections", JSON.stringify(Object.values(selections)));
   }
 
-  // Always renders a fixed 4-day x 3-time-slot grid for every workshop, padding
-  // with blank placeholder cells when a workshop has fewer days/times, and
-  // capping to the first 4 days / first 3 times if a workshop somehow has more.
+  function ordinalSuffix(n){
+    n = parseInt(n,10);
+    if(isNaN(n)) return "";
+    const v = n % 100;
+    if(v >= 11 && v <= 13) return "th";
+    switch(n % 10){
+      case 1: return "st";
+      case 2: return "nd";
+      case 3: return "rd";
+      default: return "th";
+    }
+  }
+
+  // Renders a fixed 4-column table: the first 2 columns are the workshop's
+  // real day/date slots (or "—" if the workshop has fewer than 2 days), and
+  // the 3rd/4th columns are always a blank spacer + a "New Dates" teaser —
+  // matching the approved card layout exactly. Always exactly 2 time rows.
   function buildSlotTable(card, slotsStr, cardIndex){
     if(!slotsStr){
       const p = document.createElement("div");
@@ -572,27 +607,41 @@
       return {day:day, date:date, time:time};
     });
 
-    let days = [...new Set(entries.map(e=>e.day+"|"+e.date))].slice(0,4);
-    while(days.length < 4) days.push("|");
-    let times = [...new Set(entries.map(e=>e.time))].slice(0,3);
-    while(times.length < 3) times.push("");
+    let realDays = [...new Set(entries.map(e=>e.day+"|"+e.date))].slice(0,2);
+    while(realDays.length < 2) realDays.push("|");
+    let times = [...new Set(entries.map(e=>e.time))].slice(0,2);
+    while(times.length < 2) times.push("");
 
     const wrap = document.createElement("div");
     wrap.className = "slot-table-wrap";
     const table = document.createElement("table");
     table.className = "slot-table";
     const thead = document.createElement("tr");
-    days.forEach(d=>{
+    realDays.forEach(d=>{
       const dparts = d.split("|");
+      const day = dparts[0], date = dparts[1];
       const th = document.createElement("th");
-      th.textContent = dparts[0] ? (dparts[0] + " (" + dparts[1] + ")") : "—";
+      const dm = date.match(/^(\d+)\s*(.*)$/);
+      if(day && dm){
+        th.innerHTML = day + " (" + dm[1] + "<sup>" + ordinalSuffix(dm[1]) + "</sup> " + dm[2] + ")";
+      } else if(day){
+        th.textContent = day + " (" + date + ")";
+      } else {
+        th.textContent = "—";
+      }
       thead.appendChild(th);
     });
+    const thBlank = document.createElement("th");
+    thBlank.textContent = "—";
+    thead.appendChild(thBlank);
+    const thNew = document.createElement("th");
+    thNew.textContent = "New Dates";
+    thead.appendChild(thNew);
     table.appendChild(thead);
 
     times.forEach(t=>{
       const tr = document.createElement("tr");
-      days.forEach(d=>{
+      realDays.forEach(d=>{
         const dparts = d.split("|");
         const day = dparts[0], date = dparts[1];
         const td = document.createElement("td");
@@ -627,6 +676,12 @@
         }
         tr.appendChild(td);
       });
+      const tdBlank = document.createElement("td");
+      tdBlank.className = "slot-empty";
+      tr.appendChild(tdBlank);
+      const tdNew = document.createElement("td");
+      tdNew.className = "slot-empty";
+      tr.appendChild(tdNew);
       table.appendChild(tr);
     });
     wrap.appendChild(table);
@@ -645,10 +700,13 @@
       card.dataset.price = c["Price (INR)"];
       card.dataset.paymentlink = c["Payment Link"];
 
-      const subcats = (c["SubCategories"]||"").split("|").map(s=>s.trim()).filter(Boolean);
-      const subcatHTML = subcats.length
-        ? subcats.map(s=>"<div>"+s+"</div>").join("")
-        : '<div style="grid-column:1/-1;color:var(--muted);">Details coming soon as our specialist finalizes the curriculum.</div>';
+      let subcatsList = (c["SubCategories"]||"").split("|").map(s=>s.trim()).filter(Boolean).slice(0,5);
+      while(subcatsList.length < 5) subcatsList.push("");
+      const subcatHTML = ["(Class Sub Categories)"].concat(subcatsList).map(s=>"<div>"+s+"</div>").join("");
+
+      const credsList = (c["Expert Credentials"]||"").split("|").map(s=>s.trim()).filter(Boolean);
+      const credsItems = credsList.length ? credsList : ["Credentials coming soon"];
+      const credsHTML = ["(Expert Credentials)"].concat(credsItems).map(s=>'<div class="cred-item">'+s+"</div>").join("");
 
       const photoHTML = c["Expert Photo URL"]
         ? '<img src="' + driveImageUrl(c["Expert Photo URL"]) + '" alt="' + c["Expert Name"] + '" onerror="this.parentElement.innerHTML=' + String.fromCharCode(39) + '&lt;div class=&quot;ph-icon&quot;&gt;' + "\uD83E\uDDD1\u200D\uD83D\uDCBC" + '&lt;/div&gt;&lt;div class=&quot;ph-caption&quot;&gt;Photo coming soon&lt;/div&gt;' + String.fromCharCode(39) + ';">'
@@ -664,22 +722,19 @@
             "</div>" +
             '<span class="price">₹ ' + c["Price (INR)"] + '/-</span>' +
           "</div>" +
-          '<div class="subcat-label">(Class Sub Categories)</div>' +
           '<div class="subcat-grid">' + subcatHTML + "</div>" +
           '<div class="action-row">' +
-            '<span class="zoom-pill">' + "\uD83C\uDFA5" + ' Zoom slots</span>' +
-            '<button class="share-btn" title="Share this class">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' + '</button>' +
+            '<span class="camera-icon">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' + "</span>" +
+            '<span class="select-slot-pill">Select time slot<br>\u2193</span>' +
+            '<button class="share-btn" title="Share this class">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' + "</button>" +
           "</div>" +
           '<div class="slot-holder"></div>' +
           '<div class="selected-tag"></div>' +
         "</div>" +
         '<div class="expert-col">' +
+          '<div class="expert-credentials">' + credsHTML + "</div>" +
           '<div class="expert-photo">' + photoHTML + "</div>" +
-          '<div class="expert-info">' +
-            '<div class="expert-name">' + (c["Expert Name"]||"Expert TBA") + "</div>" +
-            '<div class="expert-desc-label">Expert Description</div>' +
-            '<div class="expert-desc">' + (c["Expert Description"]||"Bio coming soon.") + "</div>" +
-          "</div>" +
+          '<div class="expert-name-wrap"><div class="expert-name">' + (c["Expert Name"]||"Expert TBA") + "</div></div>" +
         "</div>";
 
       const slotHolder = card.querySelector(".slot-holder");
@@ -712,23 +767,22 @@
           "</div>" +
           '<span class="price">₹ 350/-</span>' +
         "</div>" +
-        '<div class="subcat-label">(Class Sub Categories)</div>' +
         '<div class="subcat-grid">' +
+          "<div>(Class Sub Categories)</div>" +
+          '<div style="grid-column:2/3;">&nbsp;</div>' +
           '<div style="grid-column:1/-1;color:var(--muted);">New workshops are added regularly — check back soon or follow our socials for updates.</div>' +
         "</div>" +
         '<div class="action-row">' +
-          '<span class="zoom-pill">' + "\uD83C\uDFA5" + ' Zoom slots</span>' +
+          '<span class="camera-icon">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' + "</span>" +
+          '<span class="select-slot-pill">Select time slot<br>\u2193</span>' +
           "<span></span>" +
         "</div>" +
         '<div class="no-slots">Dates opening soon.</div>' +
       "</div>" +
       '<div class="expert-col">' +
+        '<div class="expert-credentials"><div class="cred-item">(Expert Credentials)</div><div class="cred-item">To be announced</div></div>' +
         '<div class="expert-photo"><div class="ph-icon">' + "\uD83E\uDDD1\u200D\uD83D\uDCBC" + '</div><div class="ph-caption">Photo coming soon</div></div>' +
-        '<div class="expert-info">' +
-          '<div class="expert-name">Expert TBA</div>' +
-          '<div class="expert-desc-label">Expert Description</div>' +
-          '<div class="expert-desc">To be announced.</div>' +
-        "</div>" +
+        '<div class="expert-name-wrap"><div class="expert-name">Expert TBA</div></div>' +
       "</div>";
     list.appendChild(teaser);
 
