@@ -517,12 +517,16 @@
      "Subcategory 1":"Nutrition Basics","Subcategory 2":"Meal Planning","Subcategory 3":"Portion Control","Subcategory 4":"Metabolism Tips","Subcategory 5":"Common Mistakes",
      "Day 1 Name":"Mon","Day 1 Date":"18 Aug","Day 1 Time Slot A":"7am","Day 1 Time Slot B":"4pm",
      "Day 2 Name":"Tue","Day 2 Date":"19 Aug","Day 2 Time Slot A":"7am","Day 2 Time Slot B":"",
+     "Day 3 Name":"","Day 3 Date":"","Day 3 Time Slot A":"","Day 3 Time Slot B":"",
+     "Day 4 Name":"","Day 4 Date":"","Day 4 Time Slot A":"","Day 4 Time Slot B":"",
      "Expert Name":"Test Expert","Expert Credential 1":"Certified Nutrition Coach","Expert Credential 2":"5+ Years Experience","Expert Credential 3":"200+ Clients Helped",
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"},
     {"Workshop Title":"Reduce Daily Anxiety","Duration":"45mins + Q&A","Price (INR)":"350",
      "Subcategory 1":"Breathing Techniques","Subcategory 2":"Daily Routines","Subcategory 3":"Trigger Mapping","Subcategory 4":"Mindfulness Basics","Subcategory 5":"",
      "Day 1 Name":"","Day 1 Date":"","Day 1 Time Slot A":"","Day 1 Time Slot B":"",
      "Day 2 Name":"","Day 2 Date":"","Day 2 Time Slot A":"","Day 2 Time Slot B":"",
+     "Day 3 Name":"","Day 3 Date":"","Day 3 Time Slot A":"","Day 3 Time Slot B":"",
+     "Day 4 Name":"","Day 4 Date":"","Day 4 Time Slot A":"","Day 4 Time Slot B":"",
      "Expert Name":"Rahul","Expert Credential 1":"Certified Mental Wellness Coach","Expert Credential 2":"Mindfulness Practitioner","Expert Credential 3":"",
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"}
   ];
@@ -598,33 +602,34 @@
   // the 3rd/4th columns are always a blank spacer + a "New Dates" teaser —
   // matching the approved card layout exactly. Always exactly 2 time rows.
   function buildSlotTable(card, row){
-    var d1n = (row["Day 1 Name"]||"").trim();
-    var d1d = (row["Day 1 Date"]||"").trim();
-    var d1a = (row["Day 1 Time Slot A"]||"").trim();
-    var d1b = (row["Day 1 Time Slot B"]||"").trim();
-    var d2n = (row["Day 2 Name"]||"").trim();
-    var d2d = (row["Day 2 Date"]||"").trim();
-    var d2a = (row["Day 2 Time Slot A"]||"").trim();
-    var d2b = (row["Day 2 Time Slot B"]||"").trim();
+    const days = [];
+    for(let i=1;i<=4;i++){
+      const nm = (row["Day " + i + " Name"]||"").trim();
+      const dt = (row["Day " + i + " Date"]||"").trim();
+      const a = (row["Day " + i + " Time Slot A"]||"").trim();
+      const b = (row["Day " + i + " Time Slot B"]||"").trim();
+      if(nm) days.push({name:nm, date:dt, a:a, b:b});
+    }
 
-    if(!d1n && !d2n){
+    if(days.length === 0){
       const p = document.createElement("div");
       p.className = "no-slots";
       p.textContent = "Dates & times coming soon.";
       return p;
     }
 
-    const days = [
-      {name:d1n, date:d1d, a:d1a, b:d1b},
-      {name:d2n, date:d2d, a:d2a, b:d2b}
-    ];
+    const cols = days.slice(0,4);
+    const remaining = 4 - cols.length;
+    for(let i=0;i<remaining;i++){
+      cols.push({name:"", date:"", a:"", b:"", isNewDates:(i === remaining-1)});
+    }
 
     const wrap = document.createElement("div");
     wrap.className = "slot-table-wrap";
     const table = document.createElement("table");
     table.className = "slot-table";
     const thead = document.createElement("tr");
-    days.forEach(function(d){
+    cols.forEach(function(d){
       const th = document.createElement("th");
       if(d.name && d.date){
         const dm = d.date.match(/^(\d+)\s*(.*)$/);
@@ -635,25 +640,24 @@
         }
       } else if(d.name){
         th.textContent = d.name;
+      } else if(d.isNewDates){
+        th.textContent = "New Dates";
       } else {
-        th.textContent = "—";
+        th.className = "slot-spacer";
+        th.innerHTML = "&nbsp;";
       }
       thead.appendChild(th);
     });
-    const thBlank = document.createElement("th");
-    thBlank.innerHTML = "&nbsp;";
-    thead.appendChild(thBlank);
-    const thNew = document.createElement("th");
-    thNew.textContent = "New Dates";
-    thead.appendChild(thNew);
     table.appendChild(thead);
 
     ["a","b"].forEach(function(slotKey){
       const tr = document.createElement("tr");
-      days.forEach(function(d){
+      cols.forEach(function(d){
         const td = document.createElement("td");
         const val = d[slotKey];
-        if(val){
+        if(!d.name){
+          td.className = "slot-spacer";
+        } else if(val){
           td.textContent = val;
           td.className = "slot-cell";
           td.onclick = function(){
@@ -683,10 +687,6 @@
         }
         tr.appendChild(td);
       });
-      const tdBlank = document.createElement("td");
-      tr.appendChild(tdBlank);
-      const tdNew = document.createElement("td");
-      tr.appendChild(tdNew);
       table.appendChild(tr);
     });
     wrap.appendChild(table);
