@@ -243,13 +243,12 @@
     text-align:center;
     border-radius:10px;
   }
-  .slot-table th{color:var(--gold-light);font-weight:700;font-size:12.5px;background:rgba(201,162,92,.07);border-style:dashed;}
+  .slot-table th{color:var(--gold-light);font-weight:700;font-size:12.5px;background:rgba(201,162,92,.07);}
   .slot-table th sup{font-size:.7em;}
   .slot-cell{cursor:pointer;color:var(--cream);transition:.15s;background:rgba(201,162,92,.06);border-color:var(--gold);font-weight:600;}
   .slot-cell:hover{background:rgba(201,162,92,.22);}
   .slot-cell.selected{background:var(--orange);color:#1c1200;font-weight:700;border-color:var(--orange);}
   .slot-empty{border-style:dashed;opacity:.35;}
-  .slot-spacer{border:none!important;background:none!important;}
   .no-slots{font-size:12.5px;color:var(--muted);padding:10px 0;}
 
   .expert-col{
@@ -633,8 +632,7 @@
       thead.appendChild(th);
     });
     const thBlank = document.createElement("th");
-    thBlank.className = "slot-spacer";
-    thBlank.innerHTML = "&nbsp;";
+    thBlank.textContent = "—";
     thead.appendChild(thBlank);
     const thNew = document.createElement("th");
     thNew.textContent = "New Dates";
@@ -679,10 +677,10 @@
         tr.appendChild(td);
       });
       const tdBlank = document.createElement("td");
-      tdBlank.className = "slot-spacer";
+      tdBlank.className = "slot-empty";
       tr.appendChild(tdBlank);
       const tdNew = document.createElement("td");
-      tdNew.className = "slot-spacer";
+      tdNew.className = "slot-empty";
       tr.appendChild(tdNew);
       table.appendChild(tr);
     });
@@ -717,7 +715,7 @@
       card.innerHTML =
         '<div class="class-main">' +
           '<div class="class-top">' +
-            '<span class="pill">Online<br>Workshop ' + (idx+1) + '</span>' +
+            '<span class="pill">Online Workshop ' + (idx+1) + '</span>' +
             '<div class="class-title">' +
               "<h3>" + c["Workshop Title"] + "</h3>" +
               '<div class="dur">(' + (c["Duration"]||"") + ')</div>' +
@@ -762,7 +760,7 @@
     teaser.innerHTML =
       '<div class="class-main">' +
         '<div class="class-top">' +
-          '<span class="pill">Online<br>Workshop ' + (active.length+1) + '</span>' +
+          '<span class="pill">Online Workshop ' + (active.length+1) + '</span>' +
           '<div class="class-title">' +
             "<h3>New Upcoming Classes Next Week</h3>" +
             '<div class="dur">(Details announced soon)</div>' +
