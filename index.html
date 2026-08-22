@@ -75,43 +75,17 @@
     padding:0 5% 30px;
   }
   .badge{
-    position:relative;
     width:min(340px,84vw);
-    aspect-ratio:1/1;
-    border-radius:50%;
-    border:3px solid var(--gold);
-    margin-top:36px;
-    align-self:center;
+    margin:36px auto 0;
     display:flex;
-    flex-direction:column;
-    align-items:center;
     justify-content:center;
-    gap:6px;
-    padding:26px;
-    background:radial-gradient(circle at 50% 35%, rgba(201,162,92,.07), transparent 70%);
-    box-shadow:0 0 0 1px rgba(0,0,0,0), 0 8px 40px rgba(201,162,92,.08);
+    align-items:center;
   }
-  .badge .illustration{width:32%;margin-bottom:6px;}
-  .badge .illustration svg{width:100%;height:auto;display:block;}
-  .badge .brand{font-size:23px;font-weight:800;color:var(--gold-light);letter-spacing:.5px;}
-  .badge .tagline{font-size:10.5px;color:var(--cream);letter-spacing:.5px;margin-top:6px;}
-  .badge .tagline .flag{margin-right:3px;}
-  .badge .tagline .hl{color:var(--orange);font-weight:700;}
-  .badge .cats{
-    display:flex;
-    gap:16px;
-    margin-top:15px;
+  .badge img.site-logo{
+    width:100%;
+    height:auto;
+    display:block;
   }
-  .badge .cats div{display:flex;flex-direction:column;align-items:center;gap:5px;}
-  .badge .cats .cicon{
-    width:34px;height:34px;border-radius:50%;
-    border:1.5px solid var(--gold);
-    display:flex;align-items:center;justify-content:center;
-    font-size:15px;
-    background:rgba(201,162,92,.06);
-  }
-  .badge .cats .clabel{font-size:8.5px;color:var(--gold-light);letter-spacing:.3px;text-transform:uppercase;}
-  .badge .laurel{margin-top:13px;font-size:11px;color:var(--gold-dark);letter-spacing:2px;display:flex;align-items:center;gap:7px;}
 
   .cta-row{
     display:flex;
@@ -384,7 +358,7 @@
     }
     .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
     .topbar .icon{width:14px;height:14px;font-size:7px;}
-    .badge{width:195px;padding:14px;margin-top:0;}
+    .badge{width:195px;margin-top:0;}
     .badge .illustration{width:26%;margin-bottom:4px;}
     .badge .brand{font-size:10.5px;}
     .badge .tagline{font-size:6px;margin-top:3px;}
@@ -458,32 +432,7 @@
 </div>
 
 <div class="badge">
-    <div class="illustration">
-      <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <circle cx="42" cy="40" r="11" style="stroke:var(--gold)" stroke-width="2.2"/>
-        <path d="M23 78c0-13 8.5-23 19-23s19 10 19 23" style="stroke:var(--gold)" stroke-width="2.2"/>
-        <circle cx="158" cy="40" r="11" style="stroke:var(--gold)" stroke-width="2.2"/>
-        <path d="M139 78c0-13 8.5-23 19-23s19 10 19 23" style="stroke:var(--gold)" stroke-width="2.2"/>
-        <circle cx="73" cy="29" r="13.5" style="stroke:var(--gold)" stroke-width="2.4"/>
-        <path d="M51 77c0-15.5 9.8-27 22-27s22 11.5 22 27" style="stroke:var(--gold)" stroke-width="2.4"/>
-        <circle cx="127" cy="29" r="13.5" style="stroke:var(--gold)" stroke-width="2.4"/>
-        <path d="M105 77c0-15.5 9.8-27 22-27s22 11.5 22 27" style="stroke:var(--gold)" stroke-width="2.4"/>
-        <circle cx="100" cy="20" r="15.5" style="stroke:var(--gold-light)" stroke-width="2.6"/>
-        <path d="M75 76c0-17.5 11-31 25-31s25 13.5 25 31" style="stroke:var(--gold-light)" stroke-width="2.6"/>
-        <rect x="72" y="82" width="56" height="7" rx="2" style="stroke:var(--gold)" stroke-width="2.2"/>
-        <path d="M80 82V64a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v18" style="stroke:var(--gold)" stroke-width="2.2"/>
-      </svg>
-    </div>
-    <div class="brand">bookexpertclasses.com</div>
-    <div class="tagline"><span class="flag">🇮🇳</span>INDIA'S FIRST PLATFORM FOR<br><span class="hl">EXPERT ONLINE WORKSHOPS</span></div>
-    <div class="cats">
-      <div><span class="cicon">🧘</span><span class="clabel">Lifestyle</span></div>
-      <div><span class="cicon">❤️</span><span class="clabel">Health</span></div>
-      <div><span class="cicon">🎨</span><span class="clabel">Hobbies</span></div>
-      <div><span class="cicon">🎯</span><span class="clabel">Goals</span></div>
-    </div>
-    <div class="laurel">🌿 ✦ 🌿</div>
-</div>
+    <img class="site-logo" src="logo.jpeg" alt="bookexpertclasses.com">
 </div>
 
 <div class="hero">
