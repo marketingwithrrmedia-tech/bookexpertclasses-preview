@@ -514,14 +514,16 @@
   // Fallback data (used if the sheet can't be reached yet, e.g. sharing not public)
   const FALLBACK = [
     {"Workshop Title":"Lose Weight on your own","Duration":"45mins + Q&A","Price (INR)":"350",
-     "SubCategories":"Nutrition Basics|Meal Planning|Portion Control|Metabolism Tips|Common Mistakes",
-     "Slots":"Mon|18 Aug|7am;Mon|18 Aug|5pm;Tue|19 Aug|8am;Tue|19 Aug|5pm",
-     "Expert Name":"Test Expert","Expert Credentials":"Certified Nutrition Coach|5+ Years Experience|200+ Clients Helped",
+     "Subcategory 1":"Nutrition Basics","Subcategory 2":"Meal Planning","Subcategory 3":"Portion Control","Subcategory 4":"Metabolism Tips","Subcategory 5":"Common Mistakes",
+     "Day 1 Name":"Mon","Day 1 Date":"18 Aug","Day 1 Time Slot A":"7am","Day 1 Time Slot B":"4pm",
+     "Day 2 Name":"Tue","Day 2 Date":"19 Aug","Day 2 Time Slot A":"7am","Day 2 Time Slot B":"",
+     "Expert Name":"Test Expert","Expert Credential 1":"Certified Nutrition Coach","Expert Credential 2":"5+ Years Experience","Expert Credential 3":"200+ Clients Helped",
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"},
     {"Workshop Title":"Reduce Daily Anxiety","Duration":"45mins + Q&A","Price (INR)":"350",
-     "SubCategories":"Breathing Techniques|Daily Routines|Trigger Mapping|Mindfulness Basics",
-     "Slots":"",
-     "Expert Name":"Rahul","Expert Credentials":"Certified Mental Wellness Coach|Mindfulness Practitioner",
+     "Subcategory 1":"Breathing Techniques","Subcategory 2":"Daily Routines","Subcategory 3":"Trigger Mapping","Subcategory 4":"Mindfulness Basics","Subcategory 5":"",
+     "Day 1 Name":"","Day 1 Date":"","Day 1 Time Slot A":"","Day 1 Time Slot B":"",
+     "Day 2 Name":"","Day 2 Date":"","Day 2 Time Slot A":"","Day 2 Time Slot B":"",
+     "Expert Name":"Rahul","Expert Credential 1":"Certified Mental Wellness Coach","Expert Credential 2":"Mindfulness Practitioner","Expert Credential 3":"",
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"}
   ];
 
@@ -595,38 +597,44 @@
   // real day/date slots (or "—" if the workshop has fewer than 2 days), and
   // the 3rd/4th columns are always a blank spacer + a "New Dates" teaser —
   // matching the approved card layout exactly. Always exactly 2 time rows.
-  function buildSlotTable(card, slotsStr, cardIndex){
-    if(!slotsStr){
+  function buildSlotTable(card, row){
+    var d1n = (row["Day 1 Name"]||"").trim();
+    var d1d = (row["Day 1 Date"]||"").trim();
+    var d1a = (row["Day 1 Time Slot A"]||"").trim();
+    var d1b = (row["Day 1 Time Slot B"]||"").trim();
+    var d2n = (row["Day 2 Name"]||"").trim();
+    var d2d = (row["Day 2 Date"]||"").trim();
+    var d2a = (row["Day 2 Time Slot A"]||"").trim();
+    var d2b = (row["Day 2 Time Slot B"]||"").trim();
+
+    if(!d1n && !d2n){
       const p = document.createElement("div");
       p.className = "no-slots";
       p.textContent = "Dates & times coming soon.";
       return p;
     }
-    const entries = slotsStr.split(";").map(s=>s.trim()).filter(Boolean).map(s=>{
-      const parts = s.split("|");
-      const day = (parts[0]||"").trim(), date = (parts[1]||"").trim(), time = (parts[2]||"").trim();
-      return {day:day, date:date, time:time};
-    });
 
-    let realDays = [...new Set(entries.map(e=>e.day+"|"+e.date))].slice(0,2);
-    while(realDays.length < 2) realDays.push("|");
-    let times = [...new Set(entries.map(e=>e.time))].slice(0,2);
-    while(times.length < 2) times.push("");
+    const days = [
+      {name:d1n, date:d1d, a:d1a, b:d1b},
+      {name:d2n, date:d2d, a:d2a, b:d2b}
+    ];
 
     const wrap = document.createElement("div");
     wrap.className = "slot-table-wrap";
     const table = document.createElement("table");
     table.className = "slot-table";
     const thead = document.createElement("tr");
-    realDays.forEach(d=>{
-      const dparts = d.split("|");
-      const day = dparts[0], date = dparts[1];
+    days.forEach(function(d){
       const th = document.createElement("th");
-      const dm = date.match(/^(\d+)\s*(.*)$/);
-      if(day && dm){
-        th.innerHTML = day + " (" + dm[1] + "<sup>" + ordinalSuffix(dm[1]) + "</sup> " + dm[2] + ")";
-      } else if(day){
-        th.textContent = day + " (" + date + ")";
+      if(d.name && d.date){
+        const dm = d.date.match(/^(\d+)\s*(.*)$/);
+        if(dm){
+          th.innerHTML = d.name + " (" + dm[1] + "<sup>" + ordinalSuffix(dm[1]) + "</sup> " + dm[2] + ")";
+        } else {
+          th.textContent = d.name + " (" + d.date + ")";
+        }
+      } else if(d.name){
+        th.textContent = d.name;
       } else {
         th.textContent = "—";
       }
@@ -640,21 +648,19 @@
     thead.appendChild(thNew);
     table.appendChild(thead);
 
-    times.forEach(t=>{
+    ["a","b"].forEach(function(slotKey){
       const tr = document.createElement("tr");
-      realDays.forEach(d=>{
-        const dparts = d.split("|");
-        const day = dparts[0], date = dparts[1];
+      days.forEach(function(d){
         const td = document.createElement("td");
-        const match = (day && t) ? entries.find(e=>e.day===day && e.date===date && e.time===t) : null;
-        if(match){
-          td.textContent = t;
+        const val = d[slotKey];
+        if(val){
+          td.textContent = val;
           td.className = "slot-cell";
-          td.onclick = () => {
+          td.onclick = function(){
             const key = card.dataset.title;
-            const label = day + " " + date + ", " + t;
+            const label = d.name + " " + d.date + ", " + val;
             const alreadySelected = td.classList.contains("selected");
-            card.querySelectorAll(".slot-cell.selected").forEach(el=>el.classList.remove("selected"));
+            card.querySelectorAll(".slot-cell.selected").forEach(function(el){ el.classList.remove("selected"); });
             const tagEl = card.querySelector(".selected-tag");
             if(alreadySelected){
               delete selections[key];
@@ -699,13 +705,13 @@
       card.dataset.price = c["Price (INR)"];
       card.dataset.paymentlink = c["Payment Link"];
 
-      let subcatsList = (c["SubCategories"]||"").split("|").map(s=>s.trim()).filter(Boolean).slice(0,5);
+      let subcatsList = [c["Subcategory 1"],c["Subcategory 2"],c["Subcategory 3"],c["Subcategory 4"],c["Subcategory 5"]].map(function(s){return (s||"").trim();}).filter(Boolean);
       while(subcatsList.length < 5) subcatsList.push("");
-      const subcatHTML = ["(Class Sub Categories)"].concat(subcatsList).map(s=>"<div>"+s+"</div>").join("");
+      const subcatHTML = ["(Class Sub Categories)"].concat(subcatsList).map(function(s){return "<div>"+s+"</div>";}).join("");
 
-      const credsList = (c["Expert Credentials"]||"").split("|").map(s=>s.trim()).filter(Boolean);
+      const credsList = [c["Expert Credential 1"],c["Expert Credential 2"],c["Expert Credential 3"]].map(function(s){return (s||"").trim();}).filter(Boolean);
       const credsItems = credsList.length ? credsList : ["Credentials coming soon"];
-      const credsHTML = ["(Expert Credentials)"].concat(credsItems).map(s=>'<div class="cred-item">'+s+"</div>").join("");
+      const credsHTML = ["(Expert Credentials)"].concat(credsItems).map(function(s){return '<div class="cred-item">'+s+"</div>";}).join("");
 
       const photoHTML = c["Expert Photo URL"]
         ? '<img src="' + driveImageUrl(c["Expert Photo URL"]) + '" alt="' + c["Expert Name"] + '" onerror="this.parentElement.innerHTML=' + String.fromCharCode(39) + '&lt;div class=&quot;ph-icon&quot;&gt;' + "\uD83E\uDDD1\u200D\uD83D\uDCBC" + '&lt;/div&gt;&lt;div class=&quot;ph-caption&quot;&gt;Photo coming soon&lt;/div&gt;' + String.fromCharCode(39) + ';">'
@@ -737,7 +743,7 @@
         "</div>";
 
       const slotHolder = card.querySelector(".slot-holder");
-      slotHolder.appendChild(buildSlotTable(card, c["Slots"], idx));
+      slotHolder.appendChild(buildSlotTable(card, c));
 
       card.querySelector(".share-btn").onclick = () => {
         const url = location.origin + location.pathname + "#class-" + (idx+1);
