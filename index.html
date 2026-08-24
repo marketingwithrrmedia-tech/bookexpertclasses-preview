@@ -120,7 +120,7 @@
     border:3px solid var(--gold-dark);
     border-radius:16px;
     padding:0;
-    margin-bottom:36px;
+    margin-bottom:48px;
     display:grid;
     grid-template-columns:1fr 250px;
     overflow:hidden;
@@ -769,13 +769,32 @@
       "</div>";
     list.appendChild(teaser);
 
-    // Simple pagination (ready to scale to 8-per-page once more classes are added)
+    // Real pagination: split into pages of PER_PAGE cards each
     const pag = document.getElementById("pagination");
     pag.innerHTML = "";
-    const p1 = document.createElement("div");
-    p1.textContent = "1";
-    p1.className = "active";
-    pag.appendChild(p1);
+    const allCards = Array.from(list.children);
+    const PER_PAGE = 8;
+    const pageCount = Math.max(1, Math.ceil(allCards.length / PER_PAGE));
+
+    function showPage(n){
+      allCards.forEach(function(c, idx){
+        c.style.display = (idx >= (n-1)*PER_PAGE && idx < n*PER_PAGE) ? "" : "none";
+      });
+      Array.from(pag.children).forEach(function(b, i){
+        b.classList.toggle("active", i === (n-1));
+      });
+      list.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    for(let p = 1; p <= pageCount; p++){
+      const btn = document.createElement("div");
+      btn.textContent = String(p);
+      if(p === 1) btn.className = "active";
+      btn.onclick = function(){ showPage(p); };
+      pag.appendChild(btn);
+    }
+
+    showPage(1);
   }
 
   fetch(SHEET_CSV_URL)
