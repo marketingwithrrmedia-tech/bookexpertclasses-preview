@@ -117,7 +117,7 @@
 
   /* Class cards */
   .class-card{
-    border:1.5px solid var(--gold-dark);
+    border:3px solid var(--gold-dark);
     border-radius:16px;
     padding:0;
     margin-bottom:36px;
@@ -126,7 +126,7 @@
     overflow:hidden;
     background:linear-gradient(180deg, rgba(201,162,92,.025), transparent 40%);
   }
-  .class-main{min-width:0;padding:16px 20px;}
+  .class-main{min-width:0;padding:16px 20px 0 0;display:flex;flex-direction:column;}
   .class-top{
     display:flex;
     align-items:flex-start;
@@ -134,6 +134,7 @@
     gap:10px;
     margin-bottom:10px;
     flex-wrap:wrap;
+    padding-left:20px;
   }
   .pill{
     border:1.5px solid var(--gold);
@@ -160,6 +161,7 @@
     grid-template-columns:1fr 1fr;
     gap:8px 22px;
     margin-bottom:12px;
+    padding-left:20px;
   }
   .subcat-grid div{
     font-size:12.5px;
@@ -184,9 +186,12 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    margin-bottom:10px;
+    margin-bottom:-19px;
+    padding-left:20px;
+    padding-right:20px;
     gap:10px;
     min-height:38px;
+    z-index:2;
   }
   .slot-trigger-group{display:flex;align-items:center;gap:8px;}
   .camera-icon{color:var(--gold);display:flex;align-items:center;flex-shrink:0;}
@@ -199,7 +204,7 @@
     color:var(--gold-light);
     text-align:center;
     line-height:1.5;
-    background:rgba(201,162,92,.05);
+    background:#0d0b08;
   }
   .share-btn{
     position:absolute;
@@ -210,7 +215,7 @@
     border:1.5px solid var(--gold);
     display:flex;align-items:center;justify-content:center;
     cursor:pointer;color:var(--gold-light);font-size:16px;
-    background:rgba(201,162,92,.05);
+    background:#0d0b08;
     transition:.2s;
     flex-shrink:0;
   }
@@ -220,12 +225,14 @@
   .slot-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;}
   .slot-table th, .slot-table td{
     width:25%;
-    border:9mm solid var(--gold-dark);
+    border:none;
+    border-right:2px solid var(--gold-dark);
     padding:6px 4px;
     text-align:center;
     background:#0d0b08;
   }
-  .slot-table th{color:var(--gold-light);font-weight:700;font-size:10px;}
+  .slot-table th{color:var(--gold-light);font-weight:700;font-size:10px;border-top:3px solid var(--gold-dark);border-bottom:3px solid var(--gold-dark);}
+  .slot-table tr:nth-child(2) td{border-bottom:3px solid var(--gold-dark);}
   .slot-table th sup{font-size:.7em;}
   .slot-cell{cursor:pointer;color:var(--cream);transition:.15s;font-weight:600;}
   .slot-cell:hover{background:rgba(201,162,92,.22);}
@@ -283,7 +290,9 @@
     font-size:12px;
     color:var(--orange);
     font-weight:600;
+    padding-left:20px;
   }
+  .slot-holder{margin-top:auto;}
 
   /* Upcoming teaser card */
   .teaser{opacity:.6;}
@@ -385,20 +394,21 @@
       padding:0;
       margin-bottom:14px;
       border-radius:10px;
+      border-width:2px;
     }
-    .class-main{padding:9px 7px 9px 9px;min-width:0;}
-    .class-top{gap:4px 6px;margin-bottom:5px;flex-wrap:nowrap;align-items:flex-start;}
+    .class-main{padding:9px 7px 0 0;min-width:0;display:flex;flex-direction:column;}
+    .class-top{gap:4px 6px;margin-bottom:5px;flex-wrap:nowrap;align-items:flex-start;padding-left:9px;}
     .pill{flex:none;font-size:7.5px;padding:5px 5px;border-radius:9px;line-height:1.2;max-width:54px;text-align:center;}
     .class-title{flex:1;min-width:0;}
     .class-title h3{font-size:11.5px;line-height:1.3;text-underline-offset:2px;}
     .class-title .dur{font-size:8px;margin-top:1px;}
     .price{flex:none;font-size:10.5px;}
 
-    .subcat-grid{grid-template-columns:1fr 1fr;gap:4px 7px;margin-bottom:6px;}
+    .subcat-grid{grid-template-columns:1fr 1fr;gap:4px 7px;margin-bottom:6px;padding-left:9px;}
     .subcat-grid div{font-size:9px;padding-left:9px;padding-bottom:3px;}
     .subcat-grid div::before{font-size:9px;}
 
-    .action-row{gap:4px;margin-bottom:6px;}
+    .action-row{gap:4px;margin-bottom:-11px;padding-left:9px;padding-right:9px;z-index:2;}
     .camera-icon svg{width:15px;height:15px;}
     .select-slot-pill{font-size:7.5px;padding:4px 10px;border-radius:8px;}
     .share-btn{width:22px;height:22px;font-size:9px;}
@@ -406,9 +416,11 @@
 
     .slot-table{font-size:8px;min-width:0;}
     .slot-table th{font-size:7px;}
-    .slot-table th, .slot-table td{padding:4px 1px;border-width:1px;}
+    .slot-table th, .slot-table td{padding:4px 1px;border-right-width:1px;}
+    .slot-table th{border-top-width:1.5px;border-bottom-width:1.5px;}
+    .slot-table tr:nth-child(2) td{border-bottom-width:1.5px;}
 
-    .selected-tag{font-size:8.5px;margin-top:5px;}
+    .selected-tag{font-size:8.5px;margin-top:5px;padding-left:9px;}
     .book-seat-summary{font-size:11px;}
 
     .expert-col{flex-direction:column;padding:0;border-left:1.5px solid var(--gold-dark);border-top:none;background:#120f0a;}
@@ -692,8 +704,8 @@
             "</span>" +
             '<button class="share-btn" title="Share this class">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' + "</button>" +
           "</div>" +
-          '<div class="slot-holder"></div>' +
           '<div class="selected-tag"></div>' +
+          '<div class="slot-holder"></div>' +
         "</div>" +
         '<div class="expert-col">' +
           '<div class="expert-credentials">' + credsHTML + "</div>" +
@@ -778,3 +790,4 @@
 
 </body>
 </html>
+
