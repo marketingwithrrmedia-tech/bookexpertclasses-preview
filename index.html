@@ -171,7 +171,7 @@
     min-height:1em;
   }
   .subcat-grid div::before{
-    content:"•";
+    content:"â¢";
     position:absolute;
     left:0;
     top:0;
@@ -211,7 +211,7 @@
   .share-btn:hover{background:rgba(201,162,92,.18);}
   .share-btn svg{width:16px;height:16px;}
 
-  .slot-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;border:7mm solid var(--gold);}
+  .slot-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;}
   .slot-table th, .slot-table td{
     width:25%;
     border:9mm solid var(--gold-dark);
@@ -245,7 +245,7 @@
     min-height:1em;
   }
   .expert-credentials .cred-item::before{
-    content:"•";
+    content:"â¢";
     position:absolute;
     left:0;
     top:0;
@@ -398,7 +398,7 @@
     .share-btn{width:22px;height:22px;font-size:9px;}
     .share-btn svg{width:13px;height:13px;}
 
-    .slot-table{font-size:8px;min-width:0;border-width:1.5px;}
+    .slot-table{font-size:8px;min-width:0;}
     .slot-table th{font-size:7px;}
     .slot-table th, .slot-table td{padding:4px 1px;border-width:1px;}
 
@@ -428,9 +428,9 @@
 
 <div class="hero-top">
 <div class="topbar">
-  <div class="item"><span class="icon">🌿</span>Prim online consultancy</div>
-  <div class="item"><span class="icon">🌐</span>GST: 19AICPB5058P12X</div>
-  <div class="item wa"><span class="icon">📱</span><a href="https://wa.me/917439826995" target="_blank">7439826995</a></div>
+  <div class="item"><span class="icon">ð¿</span>Prim online consultancy</div>
+  <div class="item"><span class="icon">ð</span>GST: 19AICPB5058P12X</div>
+  <div class="item wa"><span class="icon">ð±</span><a href="https://wa.me/917439826995" target="_blank">7439826995</a></div>
 </div>
 
 <div class="badge">
@@ -454,7 +454,7 @@
 </section>
 
 <footer>
-  Prim online consultancy · bookexpertclasses.com · GST: 19AICPB5058P12X<br>
+  Prim online consultancy Â· bookexpertclasses.com Â· GST: 19AICPB5058P12X<br>
   WhatsApp: 7439826995 &nbsp;|&nbsp; askus@bookexpertclasses.com<br>
   <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
 </footer>
@@ -486,7 +486,7 @@
 
   // Accepts a plain Google Drive "Share" link (or a raw image URL) and turns it into
   // a URL that actually renders as an <img>. Paste any normal Drive share link into
-  // the sheet's "Expert Photo URL" column and this converts it automatically —
+  // the sheet's "Expert Photo URL" column and this converts it automatically â
   // no manual re-processing needed.
   function driveImageUrl(raw){
     if(!raw) return "";
@@ -524,10 +524,10 @@
     if(items.length === 0){
       el.textContent = "";
     } else if(items.length === 1){
-      el.textContent = items[0].title + " — ₹" + items[0].price + "/-";
+      el.textContent = items[0].title + " â â¹" + items[0].price + "/-";
     } else {
       const total = items.reduce((sum,i) => sum + (parseFloat(i.price)||0), 0);
-      el.textContent = items.length + " classes selected — Total ₹" + total + "/-";
+      el.textContent = items.length + " classes selected â Total â¹" + total + "/-";
     }
   }
 
@@ -549,8 +549,8 @@
   }
 
   // Renders a fixed 4-column table: the first 2 columns are the workshop's
-  // real day/date slots (or "—" if the workshop has fewer than 2 days), and
-  // the 3rd/4th columns are always a blank spacer + a "New Dates" teaser —
+  // real day/date slots (or "â" if the workshop has fewer than 2 days), and
+  // the 3rd/4th columns are always a blank spacer + a "New Dates" teaser â
   // matching the approved card layout exactly. Always exactly 2 time rows.
   function buildSlotTable(card, row){
     const days = [];
@@ -676,7 +676,7 @@
               "<h3>" + c["Workshop Title"] + "</h3>" +
               '<div class="dur">(' + (c["Duration"]||"") + ')</div>' +
             "</div>" +
-            '<span class="price">₹ ' + c["Price (INR)"] + '/-</span>' +
+            '<span class="price">â¹ ' + c["Price (INR)"] + '/-</span>' +
           "</div>" +
           '<div class="subcat-grid">' + subcatHTML + "</div>" +
           '<div class="action-row">' +
@@ -700,7 +700,7 @@
 
       card.querySelector(".share-btn").onclick = () => {
         const url = location.origin + location.pathname + "#class-" + (idx+1);
-        const text = c["Workshop Title"] + " — ₹" + c["Price (INR)"] + "/- — bookexpertclasses.com";
+        const text = c["Workshop Title"] + " â â¹" + c["Price (INR)"] + "/- â bookexpertclasses.com";
         if(navigator.share){
           navigator.share({title:c["Workshop Title"], text, url}).catch(()=>{});
         } else {
@@ -723,12 +723,12 @@
             "<h3>New Upcoming Classes Next Week</h3>" +
             '<div class="dur">(Details announced soon)</div>' +
           "</div>" +
-          '<span class="price">₹ 350/-</span>' +
+          '<span class="price">â¹ 350/-</span>' +
         "</div>" +
         '<div class="subcat-grid">' +
           "<div>(Class Sub Categories)</div>" +
           '<div style="grid-column:2/3;">&nbsp;</div>' +
-          '<div style="grid-column:1/-1;color:var(--muted);">New workshops are added regularly — check back soon or follow our socials for updates.</div>' +
+          '<div style="grid-column:1/-1;color:var(--muted);">New workshops are added regularly â check back soon or follow our socials for updates.</div>' +
         "</div>" +
         '<div class="action-row">' +
           '<span class="camera-icon">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' + "</span>" +
