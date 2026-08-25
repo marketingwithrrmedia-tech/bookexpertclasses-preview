@@ -778,7 +778,7 @@
     const pag = document.getElementById("pagination");
     pag.innerHTML = "";
     const allCards = Array.from(list.children);
-    const PER_PAGE = 10;
+    const PER_PAGE = 12;
     const pageCount = Math.max(1, Math.ceil(allCards.length / PER_PAGE));
 
     function showPage(n){
