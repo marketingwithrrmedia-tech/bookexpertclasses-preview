@@ -673,7 +673,7 @@
   }
 
   function renderClasses(rows){
-    const active = rows.filter(r => (r["Active (Yes/No)"]||"").toLowerCase() !== "no" && r["Workshop Title"]);
+    const active = rows.filter(r => (r["Active (Yes/No)"]||"").toLowerCase() !== "no" && r["Workshop Title"]).slice(0,10);
     const list = document.getElementById("classList");
     list.innerHTML = "";
 
@@ -740,13 +740,14 @@
       list.appendChild(card);
     });
 
-    // Static "upcoming next week" teaser card
-    const teaser = document.createElement("div");
+    // 4 "upcoming next week" teaser cards
+    for(let t = 0; t < 4; t++){
+      const teaser = document.createElement("div");
     teaser.className = "class-card teaser";
     teaser.innerHTML =
       '<div class="class-main">' +
         '<div class="class-top">' +
-          '<span class="pill">Online<br>Workshop ' + (active.length+1) + '</span>' +
+          '<span class="pill">Online<br>Workshop ' + (active.length + t + 1) + '</span>' +
           '<div class="class-title">' +
             "<h3>New Upcoming Classes Next Week</h3>" +
             '<div class="dur">(Details announced soon)</div>' +
@@ -771,12 +772,13 @@
         '<div class="expert-name-wrap"><div class="expert-name">Expert TBA</div></div>' +
       "</div>";
     list.appendChild(teaser);
+    }
 
     // Real pagination: split into pages of PER_PAGE cards each
     const pag = document.getElementById("pagination");
     pag.innerHTML = "";
     const allCards = Array.from(list.children);
-    const PER_PAGE = 8;
+    const PER_PAGE = 10;
     const pageCount = Math.max(1, Math.ceil(allCards.length / PER_PAGE));
 
     function showPage(n){
