@@ -310,8 +310,8 @@
   .book-seat-summary{font-size:13px;color:var(--gold-light);margin-bottom:12px;min-height:18px;}
 
   /* Per-card Book Seat Now button */
-  .card-book-btn-wrap{display:none;text-align:center;padding:0 20px 18px;}
-  .card-book-btn{padding:10px 26px;font-size:13px;}
+  .card-book-btn-wrap{display:none;text-align:left;margin:-36px 0 12px 5%;}
+  .card-book-btn{padding:9px 22px;font-size:12px;}
 
   /* Pagination */
   .pagination{display:flex;gap:10px;justify-content:center;margin-top:10px;}
@@ -434,8 +434,8 @@
     .slot-table tr:nth-child(2) td{border-bottom-width:1.5px;}
 
     .selected-tag{font-size:8.5px;margin-top:5px;padding-left:9px;}
-    .card-book-btn-wrap{padding:0 9px 14px;}
-    .card-book-btn{padding:8px 20px;font-size:11px;}
+    .card-book-btn-wrap{margin:-30px 0 10px 4%;}
+    .card-book-btn{padding:7px 16px;font-size:10.5px;}
     .book-seat-summary{font-size:11px;}
 
     .expert-col{flex-direction:column;padding:0;border-left:1.5px solid var(--gold-dark);border-top:none;background:#120f0a;}
@@ -651,7 +651,7 @@
             const alreadySelected = td.classList.contains("selected");
             card.querySelectorAll(".slot-cell.selected").forEach(function(el){ el.classList.remove("selected"); });
             const tagEl = card.querySelector(".selected-tag");
-            const cardBtnWrap = card.querySelector(".card-book-btn-wrap");
+            const cardBtnWrap = card.nextElementSibling;
             if(alreadySelected){
               delete selections[key];
               tagEl.textContent = "";
@@ -725,8 +725,7 @@
           "</div>" +
           '<div class="selected-tag"></div>' +
           '<div class="slot-holder"></div>' +
-          '<div class="card-book-btn-wrap"><a href="book.html" class="btn btn-fill card-book-btn">BOOK SEAT NOW</a></div>' +
-        "</div>" +
+          "</div>" +
         '<div class="expert-col">' +
           '<div class="expert-credentials">' + credsHTML + "</div>" +
           '<div class="expert-photo">' + photoHTML + "</div>" +
@@ -748,6 +747,11 @@
 
       card.id = "class-" + (idx+1);
       list.appendChild(card);
+
+      const btnRow = document.createElement("div");
+      btnRow.className = "card-book-btn-wrap";
+      btnRow.innerHTML = '<a href="book.html" class="btn btn-fill card-book-btn">BOOK SEAT NOW</a>';
+      list.appendChild(btnRow);
     });
 
     // 4 "upcoming next week" teaser cards
