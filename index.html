@@ -309,6 +309,10 @@
   .book-seat-bar{text-align:center;margin:8px 0 24px;}
   .book-seat-summary{font-size:13px;color:var(--gold-light);margin-bottom:12px;min-height:18px;}
 
+  /* Per-card Book Seat Now button */
+  .card-book-btn-wrap{display:none;text-align:center;padding:0 20px 18px;}
+  .card-book-btn{padding:10px 26px;font-size:13px;}
+
   /* Pagination */
   .pagination{display:flex;gap:10px;justify-content:center;margin-top:10px;}
   .pagination div{
@@ -430,6 +434,8 @@
     .slot-table tr:nth-child(2) td{border-bottom-width:1.5px;}
 
     .selected-tag{font-size:8.5px;margin-top:5px;padding-left:9px;}
+    .card-book-btn-wrap{padding:0 9px 14px;}
+    .card-book-btn{padding:8px 20px;font-size:11px;}
     .book-seat-summary{font-size:11px;}
 
     .expert-col{flex-direction:column;padding:0;border-left:1.5px solid var(--gold-dark);border-top:none;background:#120f0a;}
@@ -645,12 +651,15 @@
             const alreadySelected = td.classList.contains("selected");
             card.querySelectorAll(".slot-cell.selected").forEach(function(el){ el.classList.remove("selected"); });
             const tagEl = card.querySelector(".selected-tag");
+            const cardBtnWrap = card.querySelector(".card-book-btn-wrap");
             if(alreadySelected){
               delete selections[key];
               tagEl.textContent = "";
+              if(cardBtnWrap) cardBtnWrap.style.display = "none";
             } else {
               td.classList.add("selected");
               tagEl.textContent = "Selected: " + label;
+              if(cardBtnWrap) cardBtnWrap.style.display = "block";
               selections[key] = {
                 title: card.dataset.title,
                 slot: label,
@@ -716,6 +725,7 @@
           "</div>" +
           '<div class="selected-tag"></div>' +
           '<div class="slot-holder"></div>' +
+          '<div class="card-book-btn-wrap"><a href="book.html" class="btn btn-fill card-book-btn">BOOK SEAT NOW</a></div>' +
         "</div>" +
         '<div class="expert-col">' +
           '<div class="expert-credentials">' + credsHTML + "</div>" +
