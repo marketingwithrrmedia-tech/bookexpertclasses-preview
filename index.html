@@ -655,10 +655,12 @@
             if(alreadySelected){
               delete selections[key];
               tagEl.textContent = "";
+              card.dataset.selected = "0";
               if(cardBtnWrap) cardBtnWrap.style.display = "none";
             } else {
               td.classList.add("selected");
               tagEl.textContent = "Selected: " + label;
+              card.dataset.selected = "1";
               if(cardBtnWrap) cardBtnWrap.style.display = "block";
               selections[key] = {
                 title: card.dataset.title,
@@ -791,13 +793,18 @@
     // Real pagination: split into pages of PER_PAGE cards each
     const pag = document.getElementById("pagination");
     pag.innerHTML = "";
-    const allCards = Array.from(list.children);
+    const allCards = Array.from(list.children).filter(function(el){ return el.classList.contains("class-card"); });
     const PER_PAGE = 12;
     const pageCount = Math.max(1, Math.ceil(allCards.length / PER_PAGE));
 
     function showPage(n){
       allCards.forEach(function(c, idx){
-        c.style.display = (idx >= (n-1)*PER_PAGE && idx < n*PER_PAGE) ? "" : "none";
+        const show = (idx >= (n-1)*PER_PAGE && idx < n*PER_PAGE);
+        c.style.display = show ? "" : "none";
+        const sib = c.nextElementSibling;
+        if(sib && sib.classList.contains("card-book-btn-wrap")){
+          sib.style.display = (show && c.dataset.selected === "1") ? "block" : "none";
+        }
       });
       Array.from(pag.children).forEach(function(b, i){
         b.classList.toggle("active", i === (n-1));
