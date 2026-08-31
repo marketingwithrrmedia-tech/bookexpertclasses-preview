@@ -507,7 +507,10 @@
   function syncFixedTopHeight(){
     var ft = document.getElementById("fixedTop");
     if(!ft) return;
-    document.body.style.paddingTop = ft.offsetHeight + "px";
+    var h = ft.offsetHeight;
+    document.body.style.paddingTop = h + "px";
+    var cl = document.getElementById("classList");
+    if(cl) cl.style.scrollMarginTop = h + "px";
   }
   syncFixedTopHeight();
   window.addEventListener("load", syncFixedTopHeight);
@@ -828,7 +831,7 @@
     const PER_PAGE = 12;
     const pageCount = Math.max(1, Math.ceil(allCards.length / PER_PAGE));
 
-    function showPage(n){
+    function showPage(n, skipScroll){
       allCards.forEach(function(c, idx){
         const show = (idx >= (n-1)*PER_PAGE && idx < n*PER_PAGE);
         c.style.display = show ? "" : "none";
@@ -840,7 +843,7 @@
       Array.from(pag.children).forEach(function(b, i){
         b.classList.toggle("active", i === (n-1));
       });
-      list.scrollIntoView({behavior:"smooth", block:"start"});
+      if(!skipScroll) list.scrollIntoView({behavior:"smooth", block:"start"});
     }
 
     for(let p = 1; p <= pageCount; p++){
@@ -851,7 +854,7 @@
       pag.appendChild(btn);
     }
 
-    showPage(1);
+    showPage(1, true);
   }
 
   fetch(SHEET_CSV_URL)
