@@ -793,7 +793,7 @@
 
       const btnRow = document.createElement("div");
       btnRow.className = "card-book-btn-wrap";
-      btnRow.innerHTML = '<a href="#" class="btn btn-outline card-cart-btn" onclick="addToCartClick(this); return false;">ADD TO CART</a><a href="book.html" class="btn btn-fill card-book-btn">BOOK SEAT NOW</a>';
+      btnRow.innerHTML = '<a href="#" class="btn btn-outline card-cart-btn" onclick="addToCartClick(this); return false;">ADD TO CART</a><a href="book.html" class="btn btn-outline card-book-btn">Book Seats</a>';
       list.appendChild(btnRow);
     });
 
@@ -872,7 +872,7 @@
   function goToBook(e){
     if(Object.keys(selections).length === 0){
       e.preventDefault();
-      alert("Please select time slot of the workshop then click book now.");
+      alert("Click Time Slot Now");
       return;
     }
     persistSelections();
