@@ -63,11 +63,7 @@
 
   /* Hero / badge */
   .hero-top{
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
+    min-width:0;
   }
   .fixed-top{
     position:fixed;
@@ -76,6 +72,9 @@
     right:0;
     z-index:1000;
     background:var(--black);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
   }
   .hero{
     display:flex;
@@ -92,6 +91,7 @@
     justify-content:center;
     align-items:center;
     flex-shrink:0;
+    padding:8px 0;
   }
   .badge img.site-logo{
     width:100%;
@@ -395,15 +395,11 @@
   @media(max-width:700px){
     body{font-size:15px;}
     .hero-top{
-      flex-direction:row;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      padding:10px 4%;
+      padding:10px 0 10px 4%;
     }
     .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
     .topbar .icon{width:14px;height:14px;font-size:7px;}
-    .badge{width:170px;margin:0;flex-shrink:0;}
+    .badge{width:170px;margin:0 4% 0 0;flex-shrink:0;}
     .badge .illustration{width:26%;margin-bottom:4px;}
     .badge .brand{font-size:10.5px;}
     .badge .tagline{font-size:6px;margin-top:3px;}
