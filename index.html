@@ -64,8 +64,10 @@
   /* Hero / badge */
   .hero-top{
     display:flex;
-    flex-direction:column;
-    align-items:flex-start;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
   }
   .fixed-top{
     position:fixed;
@@ -83,14 +85,13 @@
     padding:0 5% 30px;
   }
   .badge{
-    position:absolute;
-    top:14px;
-    right:5%;
-    width:72px;
-    margin:0;
+    position:static;
+    width:190px;
+    margin:0 5% 0 0;
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-shrink:0;
   }
   .badge img.site-logo{
     width:100%;
@@ -394,14 +395,15 @@
   @media(max-width:700px){
     body{font-size:15px;}
     .hero-top{
-      flex-direction:column;
-      align-items:flex-start;
+      flex-direction:row;
+      align-items:center;
+      justify-content:space-between;
       gap:8px;
-      padding:14px 4% 8px;
+      padding:10px 4%;
     }
     .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
     .topbar .icon{width:14px;height:14px;font-size:7px;}
-    .badge{width:144px;margin:0;top:10px;right:4%;}
+    .badge{width:170px;margin:0;flex-shrink:0;}
     .badge .illustration{width:26%;margin-bottom:4px;}
     .badge .brand{font-size:10.5px;}
     .badge .tagline{font-size:6px;margin-top:3px;}
@@ -471,7 +473,7 @@
   }
 
   @media(max-width:380px){
-    .badge{width:144px;}
+    .badge{width:150px;}
     .topbar{font-size:6px;gap:6px;}
   }
 </style>
