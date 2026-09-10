@@ -673,6 +673,7 @@
         th.className = "slot-spacer";
         th.innerHTML = "&nbsp;";
       }
+      th.onclick = function(){ alert("Click Time Slot"); };
       thead.appendChild(th);
     });
     table.appendChild(thead);
@@ -753,7 +754,7 @@
       card.innerHTML =
         '<div class="class-main">' +
           '<div class="class-top">' +
-            '<span class="pill">Online<br>Workshop ' + (idx+1) + '</span>' +
+            '<span class="pill" onclick="alert(\'Click Time Slot\')">Online<br>Workshop ' + (idx+1) + '</span>' +
             '<div class="class-title">' +
               "<h3>" + c["Workshop Title"] + "</h3>" +
               '<div class="dur">(' + (c["Duration"]||"") + ')</div>' +
@@ -764,7 +765,7 @@
           '<div class="action-row">' +
             '<span class="slot-trigger-group">' +
             '<span class="camera-icon">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' + "</span>" +
-            '<span class="select-slot-pill">To Book: click time slot</span>' +
+            '<span class="select-slot-pill" onclick="alert(\'Click Time Slot\')">To Book: click time slot</span>' +
             "</span>" +
             '<button class="share-btn" title="Share this class">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' + "</button>" +
           "</div>" +
@@ -820,7 +821,7 @@
         "</div>" +
         '<div class="action-row">' +
           '<span class="camera-icon">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' + "</span>" +
-          '<span class="select-slot-pill">To Book: click time slot</span>' +
+          '<span class="select-slot-pill" onclick="alert(\'Click Time Slot\')">To Book: click time slot</span>' +
           "<span></span>" +
         "</div>" +
         '<div class="no-slots">Dates opening soon.</div>' +
