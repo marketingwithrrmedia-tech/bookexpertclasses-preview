@@ -33,7 +33,7 @@
     display:flex;
     flex-direction:column;
     gap:11px;
-    padding:6px 0 22px 6px;
+    padding:2px 0 22px 3px;
     font-size:13px;
     color:var(--gold-light);
     border-bottom:1px solid #221d16;
@@ -73,7 +73,7 @@
     z-index:1000;
     background:var(--black);
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:space-between;
   }
   .hero{
@@ -397,7 +397,7 @@
   @media(max-width:700px){
     body{font-size:15px;}
     .hero-top{
-      padding:2px 0 8px 2px;
+      padding:0 0 8px 1px;
     }
     .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
     .topbar .icon{width:14px;height:14px;font-size:7px;}
@@ -758,7 +758,7 @@
               "<h3>" + c["Workshop Title"] + "</h3>" +
               '<div class="dur">(' + (c["Duration"]||"") + ')</div>' +
             "</div>" +
-            '<span class="price-wrap"><span class="price">₹ ' + c["Price (INR)"] + '/-</span><span class="gst-note">Incl GST</span></span>' +
+            '<span class="price-wrap"><span class="price">₹ ' + c["Price (INR)"] + '/-</span><span class="gst-note">(Incl GST)</span></span>' +
           "</div>" +
           '<div class="subcat-grid">' + subcatHTML + "</div>" +
           '<div class="action-row">' +
