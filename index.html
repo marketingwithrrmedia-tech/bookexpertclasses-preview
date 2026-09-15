@@ -121,6 +121,9 @@
   .btn-fill{background:linear-gradient(180deg,var(--orange),var(--orange-dark));color:#1c1200;border-color:var(--orange);}
   .btn-fill:hover{filter:brightness(1.08);}
   .btn-outline{background:transparent;color:var(--gold-light);}
+  .cat-filter-bar{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:0 0 36px;padding:0 2%;}
+  .cat-filter-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-width:104px;padding:12px 18px;border-radius:30px;font-weight:700;font-size:13px;line-height:1.35;cursor:pointer;border:2px solid var(--gold);background:transparent;color:var(--gold-light);letter-spacing:.5px;transition:.2s;}
+  .cat-filter-btn.active{background:var(--gold);color:var(--black);}
   .btn-outline:hover{background:rgba(201,162,92,.12);}
   .hint{margin-top:16px;font-size:13px;color:var(--muted);}
 
@@ -412,6 +415,8 @@
     .hero{padding:14px 5% 20px;}
     .cta-row{gap:10px;margin-top:16px;flex-wrap:nowrap;}
     .btn{padding:9px 14px;font-size:10.5px;white-space:nowrap;border-width:2.5px;}
+    .cat-filter-bar{gap:8px;margin:0 0 24px;padding:0;}
+    .cat-filter-btn{min-width:0;flex:1 1 27%;padding:9px 8px;font-size:10px;border-width:2.5px;}
 
     section{padding:30px 4%;}
     .section-title{font-size:21px;margin-bottom:18px;}
@@ -496,6 +501,16 @@
 </div>
 
 <section id="explore">
+  <div class="cat-filter-bar" id="catFilterBar">
+    <div class="cat-filter-btn" data-code="H">Health</div>
+    <div class="cat-filter-btn" data-code="L">Lifestyle<br>Upgrade</div>
+    <div class="cat-filter-btn" data-code="S">Spiritual<br>SelfCare</div>
+    <div class="cat-filter-btn" data-code="M">Money<br>Skills</div>
+    <div class="cat-filter-btn" data-code="D">DIY<br>Hobbies</div>
+    <div class="cat-filter-btn" data-code="K" data-soon="1">Kids<br>Moms</div>
+    <div class="cat-filter-btn" data-code="TOM" data-soon="1">Tomorrow</div>
+    <div class="cat-filter-btn" data-code="1HR" data-soon="1">In Next<br>1 Hr</div>
+  </div>
   <div id="classList"></div>
   <div class="pagination" id="pagination"></div>
   <div class="book-seat-bar">
@@ -726,16 +741,21 @@
   }
 
   function renderClasses(rows){
-    const active = rows.filter(r => (r["Active (Yes/No)"]||"").toLowerCase() !== "no" && r["Workshop Title"]).slice(0,10);
+    const active = rows.filter(r => (r["Active (Yes/No)"]||"").toLowerCase() !== "no" && r["Workshop Title"]);
     const list = document.getElementById("classList");
     list.innerHTML = "";
 
+    const catCount = {};
     active.forEach((c, idx) => {
+      const catCode = (c["Category"]||"").trim();
+      catCount[catCode] = (catCount[catCode]||0) + 1;
+      const pillLabel = catCode ? ("Live Masterclass<br>" + catCode + catCount[catCode]) : ("Online<br>Workshop " + (idx+1));
       const card = document.createElement("div");
       card.className = "class-card";
       card.dataset.title = c["Workshop Title"];
       card.dataset.price = c["Price (INR)"];
       card.dataset.paymentlink = c["Payment Link"];
+      card.dataset.category = catCode;
 
       let subcatsList = [c["Subcategory 1"],c["Subcategory 2"],c["Subcategory 3"],c["Subcategory 4"]].map(function(s){return (s||"").trim();}).filter(Boolean);
       while(subcatsList.length < 4) subcatsList.push("");
@@ -753,7 +773,7 @@
       card.innerHTML =
         '<div class="class-main">' +
           '<div class="class-top">' +
-            '<span class="pill" onclick="alert(\'Click Time Slot\')">Online<br>Workshop ' + (idx+1) + '</span>' +
+            '<span class="pill" onclick="alert(\'Click Time Slot\')">' + pillLabel + '</span>' +
             '<div class="class-title">' +
               "<h3>" + c["Workshop Title"] + "</h3>" +
               '<div class="dur">(' + (c["Duration"]||"") + ')</div>' +
@@ -803,6 +823,7 @@
     for(let t = 0; t < 4; t++){
       const teaser = document.createElement("div");
     teaser.className = "class-card teaser";
+    teaser.dataset.category = "";
     teaser.innerHTML =
       '<div class="class-main">' +
         '<div class="class-top">' +
@@ -861,6 +882,36 @@
       if(p === 1) btn.className = "active";
       btn.onclick = function(){ showPage(p); };
       pag.appendChild(btn);
+    }
+
+    var catFilterBar = document.getElementById("catFilterBar");
+    var currentCatFilter = null;
+    if(catFilterBar){
+      Array.from(catFilterBar.children).forEach(function(b){
+        var code = b.dataset.code;
+        var soon = b.dataset.soon === "1";
+        b.onclick = function(){
+          if(soon){ alert("Coming Soon"); return; }
+          currentCatFilter = (currentCatFilter === code) ? null : code;
+          Array.from(catFilterBar.children).forEach(function(bb){
+            bb.classList.toggle("active", currentCatFilter && bb.dataset.code === currentCatFilter);
+          });
+          if(currentCatFilter){
+            allCards.forEach(function(c){
+              var show = c.dataset.category === currentCatFilter;
+              c.style.display = show ? "" : "none";
+              var sib = c.nextElementSibling;
+              if(sib && sib.classList.contains("card-book-btn-wrap")){
+                sib.style.display = (show && c.dataset.selected === "1") ? "block" : "none";
+              }
+            });
+            pag.style.display = "none";
+          } else {
+            pag.style.display = "";
+            showPage(1, true);
+          }
+        };
+      });
     }
 
     showPage(1, true);
