@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List Your Masterclass — bookexpertclasses.com</title>
+<style>
+  :root{
+    --black:#0a0a0a;
+    --panel:#141210;
+    --gold:#c9a25c;
+    --gold-light:#e3c98a;
+    --gold-dark:#96733a;
+    --cream:#f4ead9;
+    --orange:#e08a2b;
+    --orange-dark:#b96c1a;
+    --green:#25D366;
+    --muted:#9a9184;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--black);
+    color:var(--cream);
+    line-height:1.5;
+    padding-bottom:60px;
+  }
+  a{color:inherit;}
+
+  .top{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:18px 5%;
+    border-bottom:1px solid #221d16;
+  }
+  .top img{width:110px;height:auto;display:block;}
+  .top .back{margin-left:auto;font-size:13px;color:var(--gold-light);text-decoration:none;border:1.5px solid var(--gold);border-radius:20px;padding:8px 16px;}
+
+  .hero{
+    text-align:center;
+    padding:40px 6% 28px;
+  }
+  .hero h1{
+    font-size:26px;
+    color:var(--gold-light);
+    margin-bottom:10px;
+  }
+  .hero p{
+    color:var(--muted);
+    font-size:14px;
+    max-width:560px;
+    margin:0 auto;
+  }
+
+  form{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 5%;
+  }
+
+  .section{
+    border:2px solid var(--gold);
+    border-radius:16px;
+    padding:26px 24px;
+    margin-bottom:28px;
+    background:linear-gradient(180deg, rgba(201,162,92,.03), transparent 40%);
+  }
+  .section h2{
+    font-size:16px;
+    color:var(--gold-light);
+    margin-bottom:18px;
+    padding-bottom:10px;
+    border-bottom:1px solid #221d16;
+  }
+
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block;
+    font-size:12.5px;
+    color:var(--gold-light);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  .field .hint{
+    display:block;
+    font-size:10.5px;
+    color:var(--muted);
+    font-weight:400;
+    margin-top:4px;
+  }
+  .field input[type=text],
+  .field input[type=number],
+  .field input[type=email],
+  .field input[type=tel],
+  .field input[type=date],
+  .field input[type=time],
+  .field select,
+  .field textarea{
+    width:100%;
+    background:var(--panel);
+    border:1.5px solid var(--gold-dark);
+    color:var(--cream);
+    border-radius:8px;
+    padding:10px 12px;
+    font-size:14px;
+    font-family:inherit;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{
+    outline:none;
+    border-color:var(--gold);
+  }
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+
+  .photo-upload{
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .photo-preview{
+    width:72px;height:72px;border-radius:50%;
+    border:2px solid var(--gold);
+    background:var(--panel);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;flex-shrink:0;
+    font-size:26px;
+  }
+  .photo-preview img{width:100%;height:100%;object-fit:cover;}
+  .file-btn{
+    display:inline-block;
+    border:2px solid var(--gold);
+    border-radius:30px;
+    padding:10px 20px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--gold-light);
+    cursor:pointer;
+    background:transparent;
+  }
+  .file-btn input{display:none;}
+
+  .subcat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+  .day-block{
+    border:1.5px solid #2a241a;
+    border-radius:10px;
+    padding:14px;
+    margin-bottom:12px;
+  }
+  .day-block .day-title{font-size:12px;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;}
+  .day-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;}
+
+  .class-block{
+    border:2px solid var(--gold);
+    border-radius:16px;
+    padding:26px 24px;
+    margin-bottom:20px;
+    position:relative;
+  }
+  .class-block-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+    padding-bottom:10px;
+    border-bottom:1px solid #221d16;
+  }
+  .class-block-head h2{font-size:16px;color:var(--gold-light);}
+  .remove-class-btn{
+    background:none;border:1px solid #6b4b3a;color:#d99a7a;
+    border-radius:20px;padding:6px 14px;font-size:11.5px;cursor:pointer;
+  }
+
+  .add-class-row{text-align:center;margin-bottom:32px;}
+  .btn{
+    display:inline-block;
+    padding:14px 32px;
+    border-radius:30px;
+    font-weight:700;
+    text-decoration:none;
+    font-size:15px;
+    cursor:pointer;
+    border:2px solid var(--gold);
+    transition:.2s;
+    letter-spacing:.5px;
+    background:transparent;
+    color:var(--gold-light);
+  }
+  .btn:hover{background:rgba(201,162,92,.12);}
+  .btn-fill{background:var(--gold);color:var(--black);}
+  .btn-fill:hover{background:var(--gold-light);}
+  .btn-add{border-style:dashed;font-size:13px;padding:11px 24px;}
+
+  .bottom-actions{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin-top:10px;
+  }
+
+  .status-msg{
+    max-width:760px;
+    margin:0 auto 20px;
+    padding:14px 18px;
+    border-radius:10px;
+    font-size:13.5px;
+    display:none;
+  }
+  .status-msg.show{display:block;}
+  .status-msg.success{background:rgba(37,211,102,.12);border:1.5px solid var(--green);color:#8fe8b0;}
+  .status-msg.error{background:rgba(224,138,43,.12);border:1.5px solid var(--orange);color:#f3c48c;}
+
+  .required-star{color:var(--orange);}
+
+  footer{
+    width:100%;
+    border-top:1px solid #221d16;
+    padding:20px 5% 20px 3%;
+    text-align:left;
+    font-size:10px;
+    color:#ffffff;
+    margin-top:20px;
+  }
+  .footer-brand{display:block;font-size:18px;font-weight:800;color:#ffffff;margin-bottom:6px;}
+
+  @media(max-width:700px){
+    .row2, .row3, .day-grid, .subcat-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:21px;}
+    .section, .class-block{padding:18px 16px;}
+    .top img{width:85px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <img src="logo.jpeg" alt="bookexpertclasses.com">
+  <a class="back" href="index.html">&larr; Back to site</a>
+</div>
+
+<div class="hero">
+  <h1>List Your Masterclass</h1>
+  <p>Fill this form once and your workshop details go straight into our system — no manual back-and-forth. Our team will review and activate your listing shortly after.</p>
+</div>
+
+<div class="status-msg" id="statusMsg"></div>
+
+<form id="listingForm">
+
+  <div class="section">
+    <h2>Your Details</h2>
+    <div class="row2">
+      <div class="field">
+        <label>Full Name <span class="required-star">*</span></label>
+        <input type="text" id="expertName" required>
+      </div>
+      <div class="field">
+        <label>WhatsApp Number <span class="required-star">*</span></label>
+        <input type="tel" id="expertPhone" required>
+      </div>
+    </div>
+    <div class="field">
+      <label>Email <span class="required-star">*</span></label>
+      <input type="email" id="expertEmail" required>
+    </div>
+
+    <div class="field">
+      <label>Your Photo <span class="required-star">*</span></label>
+      <div class="photo-upload">
+        <div class="photo-preview" id="photoPreview">🧑‍💼</div>
+        <label class="file-btn">
+          Choose Photo
+          <input type="file" id="photoInput" accept="image/*" required>
+        </label>
+      </div>
+      <span class="hint">Square photos work best. Max 4MB.</span>
+    </div>
+
+    <div class="field">
+      <label>Speciality Credentials <span class="hint" style="display:inline">(optional, up to 3)</span></label>
+      <div class="subcat-grid">
+        <input type="text" id="cred1" placeholder="e.g. 10+ years experience">
+        <input type="text" id="cred2" placeholder="e.g. Certified Nutritionist">
+      </div>
+      <input type="text" id="cred3" style="margin-top:12px;" placeholder="e.g. Featured in...">
+    </div>
+  </div>
+
+  <div id="classesContainer"></div>
+
+  <div class="add-class-row">
+    <button type="button" class="btn btn-add" id="addClassBtn">+ Add Another Class</button>
+  </div>
+
+  <div class="bottom-actions">
+    <button type="button" class="btn" id="editBtn">Edit / Reset</button>
+    <button type="submit" class="btn btn-fill" id="submitBtn">Submit</button>
+  </div>
+</form>
+
+<footer>
+  <div class="footer-brand">Prim Online Consultancy</div>
+  GST: 19AICPB5058P12X<br>
+  <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
+</footer>
+
+<template id="classBlockTemplate">
+  <div class="class-block">
+    <div class="class-block-head">
+      <h2 class="class-block-title">Class 1</h2>
+      <button type="button" class="remove-class-btn" style="display:none;">Remove</button>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Category <span class="required-star">*</span></label>
+        <select class="f-category" required>
+          <option value="">Select category</option>
+          <option value="H">Health</option>
+          <option value="L">Lifestyle Upgrade</option>
+          <option value="S">Spiritual SelfCare</option>
+          <option value="M">Money Skills</option>
+          <option value="D">DIY Hobbies</option>
+          <option value="K">Kids Moms</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Duration (minutes) <span class="required-star">*</span></label>
+        <input type="number" class="f-duration" min="5" step="5" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Class Heading / Title <span class="required-star">*</span></label>
+      <input type="text" class="f-title" required>
+    </div>
+
+    <div class="field">
+      <label>Price (Rs) <span class="required-star">*</span></label>
+      <input type="number" class="f-price" min="0" required>
+    </div>
+
+    <div class="field">
+      <label>Class Sub Categories <span class="hint" style="display:inline">(optional, up to 5)</span></label>
+      <div class="subcat-grid">
+        <input type="text" class="f-sub1" placeholder="Sub category 1">
+        <input type="text" class="f-sub2" placeholder="Sub category 2">
+        <input type="text" class="f-sub3" placeholder="Sub category 3">
+        <input type="text" class="f-sub4" placeholder="Sub category 4">
+      </div>
+      <input type="text" class="f-sub5" style="margin-top:12px;" placeholder="Sub category 5">
+    </div>
+
+    <div class="field">
+      <label>Available Dates &amp; Times <span class="hint" style="display:inline">(fill Day 1 at least)</span></label>
+
+      <div class="day-block">
+        <div class="day-title">Day 1</div>
+        <div class="day-grid">
+          <input type="date" class="f-date1">
+          <input type="time" class="f-timeA1" placeholder="Time slot A">
+          <input type="time" class="f-timeB1" placeholder="Time slot B">
+        </div>
+      </div>
+      <div class="day-block">
+        <div class="day-title">Day 2</div>
+        <div class="day-grid">
+          <input type="date" class="f-date2">
+          <input type="time" class="f-timeA2">
+          <input type="time" class="f-timeB2">
+        </div>
+      </div>
+      <div class="day-block">
+        <div class="day-title">Day 3</div>
+        <div class="day-grid">
+          <input type="date" class="f-date3">
+          <input type="time" class="f-timeA3">
+          <input type="time" class="f-timeB3">
+        </div>
+      </div>
+      <div class="day-block">
+        <div class="day-title">Day 4</div>
+        <div class="day-grid">
+          <input type="date" class="f-date4">
+          <input type="time" class="f-timeA4">
+          <input type="time" class="f-timeB4">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  var WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzFF4nQlSvF-Xx_G_AuQ1Zy9k4XRsO-Dks3K8rrw8bI926D17bPh2xi9XD9MGXtUN14/exec";
+
+  var container = document.getElementById("classesContainer");
+  var tpl = document.getElementById("classBlockTemplate");
+  var classCount = 0;
+
+  function addClassBlock(){
+    classCount++;
+    var node = tpl.content.cloneNode(true);
+    var block = node.querySelector(".class-block");
+    block.querySelector(".class-block-title").textContent = "Class " + classCount;
+    var removeBtn = block.querySelector(".remove-class-btn");
+    if(classCount > 1){
+      removeBtn.style.display = "inline-block";
+      removeBtn.onclick = function(){
+        block.remove();
+        renumberClasses();
+      };
+    }
+    container.appendChild(block);
+  }
+
+  function renumberClasses(){
+    var blocks = container.querySelectorAll(".class-block");
+    blocks.forEach(function(b, i){
+      b.querySelector(".class-block-title").textContent = "Class " + (i+1);
+    });
+    classCount = blocks.length;
+  }
+
+  document.getElementById("addClassBtn").addEventListener("click", addClassBlock);
+  addClassBlock();
+
+  var photoInput = document.getElementById("photoInput");
+  var photoPreview = document.getElementById("photoPreview");
+  var photoBase64 = "";
+  var photoMime = "";
+
+  photoInput.addEventListener("change", function(){
+    var file = photoInput.files[0];
+    if(!file) return;
+    if(file.size > 4*1024*1024){
+      showStatus("Photo is too large. Please choose an image under 4MB.", "error");
+      photoInput.value = "";
+      return;
+    }
+    photoMime = file.type || "image/jpeg";
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var dataUrl = e.target.result;
+      photoBase64 = dataUrl.split(",")[1];
+      photoPreview.innerHTML = '<img src="' + dataUrl + '" alt="preview">';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function formatTime12(t){
+    if(!t) return "";
+    var parts = t.split(":");
+    var h = parseInt(parts[0], 10);
+    var m = parseInt(parts[1], 10);
+    var ampm = h >= 12 ? "pm" : "am";
+    h = h % 12; if(h === 0) h = 12;
+    return (m === 0) ? (h + ampm) : (h + ":" + (m < 10 ? "0"+m : m) + ampm);
+  }
+
+  function showStatus(msg, type){
+    var el = document.getElementById("statusMsg");
+    el.textContent = msg;
+    el.className = "status-msg show " + type;
+    el.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+
+  document.getElementById("editBtn").addEventListener("click", function(){
+    if(confirm("Clear everything and start over?")){
+      document.getElementById("listingForm").reset();
+      container.innerHTML = "";
+      classCount = 0;
+      photoBase64 = ""; photoMime = "";
+      photoPreview.innerHTML = "🧑‍💼";
+      addClassBlock();
+      document.getElementById("statusMsg").className = "status-msg";
+    }
+  });
+
+  document.getElementById("listingForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    var expertName = document.getElementById("expertName").value.trim();
+    var expertPhone = document.getElementById("expertPhone").value.trim();
+    var expertEmail = document.getElementById("expertEmail").value.trim();
+
+    if(!expertName || !expertPhone || !expertEmail){
+      showStatus("Please fill your name, WhatsApp number and email.", "error");
+      return;
+    }
+    if(!photoBase64){
+      showStatus("Please choose a photo before submitting.", "error");
+      return;
+    }
+
+    var credentials = [
+      document.getElementById("cred1").value.trim(),
+      document.getElementById("cred2").value.trim(),
+      document.getElementById("cred3").value.trim()
+    ];
+
+    var blocks = container.querySelectorAll(".class-block");
+    if(blocks.length === 0){
+      showStatus("Please add at least one class.", "error");
+      return;
+    }
+
+    var classes = [];
+    for(var i=0; i<blocks.length; i++){
+      var b = blocks[i];
+      var category = b.querySelector(".f-category").value;
+      var title = b.querySelector(".f-title").value.trim();
+      var duration = b.querySelector(".f-duration").value;
+      var price = b.querySelector(".f-price").value;
+      var date1 = b.querySelector(".f-date1").value;
+
+      if(!category || !title || !duration || !price){
+        showStatus("Please fill Category, Title, Duration and Price for Class " + (i+1) + ".", "error");
+        return;
+      }
+      if(!date1){
+        showStatus("Please fill at least Day 1's date for Class " + (i+1) + ".", "error");
+        return;
+      }
+
+      var days = [];
+      for(var d=1; d<=4; d++){
+        var dateVal = b.querySelector(".f-date" + d).value;
+        var tA = b.querySelector(".f-timeA" + d).value;
+        var tB = b.querySelector(".f-timeB" + d).value;
+        if(dateVal){
+          days.push({ date: dateVal, timeA: formatTime12(tA), timeB: formatTime12(tB) });
+        }
+      }
+
+      classes.push({
+        category: category,
+        title: title,
+        duration: duration,
+        price: price,
+        subcats: [
+          b.querySelector(".f-sub1").value.trim(),
+          b.querySelector(".f-sub2").value.trim(),
+          b.querySelector(".f-sub3").value.trim(),
+          b.querySelector(".f-sub4").value.trim(),
+          b.querySelector(".f-sub5").value.trim()
+        ],
+        days: days
+      });
+    }
+
+    var payload = {
+      expertName: expertName,
+      expertPhone: expertPhone,
+      expertEmail: expertEmail,
+      credentials: credentials,
+      photoBase64: photoBase64,
+      photoMime: photoMime,
+      classes: classes
+    };
+
+    var submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    fetch(WEBHOOK_URL, { method: "POST", body: JSON.stringify(payload) })
+      .then(function(r){ return r.text(); })
+      .then(function(txt){
+        var res;
+        try { res = JSON.parse(txt); } catch(err){ res = {ok:false}; }
+        if(res.ok){
+          document.getElementById("listingForm").style.display = "none";
+          showStatus("Thank you! Your " + classes.length + " class" + (classes.length>1?"es have":" has") + " been submitted. Our team will review and activate " + (classes.length>1?"them":"it") + " shortly.", "success");
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit";
+          showStatus("Something went wrong submitting your form. Please try again or contact us directly.", "error");
+        }
+      })
+      .catch(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
+        showStatus("Could not reach the server. Please check your connection and try again.", "error");
+      });
+  });
+</script>
+
+</body>
+</html>
