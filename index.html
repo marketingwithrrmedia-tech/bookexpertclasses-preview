@@ -402,12 +402,17 @@
     text-align:left;
     font-size:10px;
     color:#ffffff;
-    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
   }
+  .footer-text{flex:1 1 auto;min-width:0;}
   footer a{color:var(--gold-light);text-decoration:underline;}
   footer a:hover{color:var(--gold);}
   .footer-brand{display:block;font-size:10px;font-weight:400;color:#ffffff;margin-bottom:6px;}
-  .corner-logo-badge{position:absolute;bottom:16px;right:16px;width:110px;height:110px;border-radius:50%;overflow:hidden;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.5);display:block;}
+  .corner-logo-badge{position:static;width:110px;height:110px;border-radius:50%;overflow:hidden;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.5);display:block;flex-shrink:0;}
   .corner-logo-badge img{width:100%;height:100%;display:block;object-fit:cover;}
   .footer-contact{display:block;margin-bottom:6px;}
   .footer-contact a{color:var(--gold-light);}
@@ -491,7 +496,7 @@
 
     .book-box{padding:20px;}
     footer{font-size:9px;padding:14px 4% 14px 2%;}
-    .corner-logo-badge{width:78px;height:78px;bottom:12px;right:12px;}
+    .corner-logo-badge{width:78px;height:78px;}
     .footer-brand{font-size:9px;font-weight:400;}
   }
 
@@ -537,10 +542,15 @@
 </section>
 
 <footer>
-  <div class="footer-contact"><a href="https://wa.me/917439826995" target="_blank">WhatsApp: 7439826995</a><br><a href="mailto:askus@bookexpertclasses.com">askus@bookexpertclasses.com</a></div>
-  <div class="footer-brand">Prim Online Consultancy</div>
-  GST: 19AICPB5058P12X<br>
-  <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
+  <div class="footer-text">
+    <div class="footer-contact"><a href="https://wa.me/917439826995" target="_blank">WhatsApp: 7439826995</a><br><a href="mailto:askus@bookexpertclasses.com">askus@bookexpertclasses.com</a></div>
+    <div class="footer-brand">Prim Online Consultancy</div>
+    GST: 19AICPB5058P12X<br>
+    <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
+  </div>
+  <a href="index.html" class="corner-logo-badge" aria-label="bookexpertclasses.com">
+    <img src="footer-logo.png" alt="bookexpertclasses.com logo">
+  </a>
 </footer>
 
 <script>
@@ -1002,10 +1012,6 @@
   }
   document.getElementById("bookSeatNowBtn").addEventListener("click", goToBook);
 </script>
-
-<a href="index.html" class="corner-logo-badge" aria-label="bookexpertclasses.com">
-  <img src="footer-logo.png" alt="bookexpertclasses.com logo">
-</a>
 </body>
 </html>
 
