@@ -214,6 +214,8 @@
   .status-msg.error{background:rgba(224,138,43,.12);border:1.5px solid var(--orange);color:#f3c48c;}
 
   .required-star{color:var(--orange);}
+  .queries-note{max-width:760px;margin:0 auto 14px;text-align:right;font-size:13px;color:var(--gold-light);}
+  .queries-note a{color:var(--gold-light);text-decoration:underline;}
 
   footer{
     width:100%;
@@ -280,10 +282,10 @@
     </div>
 
     <div class="field">
-      <label>Speciality Credentials <span class="hint" style="display:inline">(optional, up to 3)</span></label>
+      <label>Your Credentials</label>
       <div class="subcat-grid">
-        <input type="text" id="cred1" placeholder="e.g. 10+ years experience">
-        <input type="text" id="cred2" placeholder="e.g. Certified Nutritionist">
+        <input type="text" id="cred1" placeholder="e.g. Trained _ no of people or __ award winner">
+        <input type="text" id="cred2" placeholder="e.g. Core expertise is ___">
       </div>
       <input type="text" id="cred3" style="margin-top:12px;" placeholder="e.g. Featured in...">
     </div>
@@ -292,11 +294,13 @@
   <div id="classesContainer"></div>
 
   <div class="add-class-row">
-    <button type="button" class="btn btn-add" id="addClassBtn">+ Add Another Class</button>
+    <button type="button" class="btn btn-add" id="addClassBtn">+ Add Another Class Type</button>
   </div>
 
+  <div class="queries-note">Queries: <a href="https://wa.me/917439826995" target="_blank">📱 7439826995</a></div>
+
   <div class="bottom-actions">
-    <button type="button" class="btn" id="editBtn">Edit / Reset</button>
+    <button type="button" class="btn" id="editBtn">Edit/Add</button>
     <button type="submit" class="btn btn-fill" id="submitBtn">Submit</button>
   </div>
 </form>
@@ -328,7 +332,7 @@
         </select>
       </div>
       <div class="field">
-        <label>Duration (minutes) <span class="required-star">*</span></label>
+        <label>Duration (in mins) incl Q&amp;A <span class="required-star">*</span></label>
         <input type="number" class="f-duration" min="5" step="5" required>
       </div>
     </div>
@@ -339,12 +343,12 @@
     </div>
 
     <div class="field">
-      <label>Price (Rs) <span class="required-star">*</span></label>
+      <label>Price (Rs) <span class="hint" style="display:inline">(GST 18% will be added to the price)</span> <span class="required-star">*</span></label>
       <input type="number" class="f-price" min="0" required>
     </div>
 
     <div class="field">
-      <label>Class Sub Categories <span class="hint" style="display:inline">(optional, up to 5)</span></label>
+      <label>Class Sub Categories <span class="hint" style="display:inline">(Upto 5. Q&amp;A &amp; demonstrations will be added)</span></label>
       <div class="subcat-grid">
         <input type="text" class="f-sub1" placeholder="Sub category 1">
         <input type="text" class="f-sub2" placeholder="Sub category 2">
@@ -355,10 +359,10 @@
     </div>
 
     <div class="field">
-      <label>Available Dates &amp; Times <span class="hint" style="display:inline">(fill Day 1 at least)</span></label>
+      <label>Class Slots <span class="hint" style="display:inline">(fill Slot 1 at least)</span></label>
 
       <div class="day-block">
-        <div class="day-title">Day 1</div>
+        <div class="day-title">Slot 1</div>
         <div class="day-grid">
           <input type="date" class="f-date1">
           <input type="time" class="f-timeA1" placeholder="Time slot A">
@@ -366,7 +370,7 @@
         </div>
       </div>
       <div class="day-block">
-        <div class="day-title">Day 2</div>
+        <div class="day-title">Slot 2</div>
         <div class="day-grid">
           <input type="date" class="f-date2">
           <input type="time" class="f-timeA2">
@@ -374,7 +378,7 @@
         </div>
       </div>
       <div class="day-block">
-        <div class="day-title">Day 3</div>
+        <div class="day-title">Slot 3</div>
         <div class="day-grid">
           <input type="date" class="f-date3">
           <input type="time" class="f-timeA3">
@@ -382,13 +386,14 @@
         </div>
       </div>
       <div class="day-block">
-        <div class="day-title">Day 4</div>
+        <div class="day-title">Slot 4</div>
         <div class="day-grid">
           <input type="date" class="f-date4">
           <input type="time" class="f-timeA4">
           <input type="time" class="f-timeB4">
         </div>
       </div>
+      <div class="hint" style="margin-top:6px;">(additional Class Slots can be re-added from Edit/Add button after submitting)</div>
     </div>
   </div>
 </template>
@@ -487,11 +492,11 @@
     var expertEmail = document.getElementById("expertEmail").value.trim();
 
     if(!expertName || !expertPhone || !expertEmail){
-      showStatus("Please fill your name, WhatsApp number and email.", "error");
+      showStatus("All fields have not been filled, please fill and click submit.", "error");
       return;
     }
     if(!photoBase64){
-      showStatus("Please choose a photo before submitting.", "error");
+      showStatus("All fields have not been filled, please fill and click submit.", "error");
       return;
     }
 
@@ -517,11 +522,11 @@
       var date1 = b.querySelector(".f-date1").value;
 
       if(!category || !title || !duration || !price){
-        showStatus("Please fill Category, Title, Duration and Price for Class " + (i+1) + ".", "error");
+        showStatus("All fields have not been filled, please fill and click submit.", "error");
         return;
       }
       if(!date1){
-        showStatus("Please fill at least Day 1's date for Class " + (i+1) + ".", "error");
+        showStatus("All fields have not been filled, please fill and click submit.", "error");
         return;
       }
 
