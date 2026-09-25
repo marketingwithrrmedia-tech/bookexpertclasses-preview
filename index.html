@@ -406,6 +406,8 @@
   footer a{color:var(--gold-light);text-decoration:underline;}
   footer a:hover{color:var(--gold);}
   .footer-brand{display:block;font-size:10px;font-weight:400;color:#ffffff;margin-bottom:6px;}
+  .corner-logo-badge{position:fixed;bottom:16px;right:16px;width:74px;height:74px;border-radius:50%;overflow:hidden;z-index:998;box-shadow:0 4px 14px rgba(0,0,0,.5);display:block;}
+  .corner-logo-badge img{width:100%;height:100%;display:block;object-fit:cover;}
   .footer-contact{display:block;margin-bottom:6px;}
   .footer-contact a{color:var(--gold-light);}
 
@@ -488,6 +490,7 @@
 
     .book-box{padding:20px;}
     footer{font-size:9px;padding:14px 4% 14px 2%;}
+    .corner-logo-badge{width:54px;height:54px;bottom:12px;right:12px;}
     .footer-brand{font-size:9px;font-weight:400;}
   }
 
@@ -999,6 +1002,9 @@
   document.getElementById("bookSeatNowBtn").addEventListener("click", goToBook);
 </script>
 
+<a href="index.html" class="corner-logo-badge" aria-label="bookexpertclasses.com">
+  <img src="footer-logo.png" alt="bookexpertclasses.com logo">
+</a>
 </body>
 </html>
 
