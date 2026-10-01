@@ -216,6 +216,10 @@
   .required-star{color:var(--orange);}
   .queries-note{font-size:13px;color:var(--gold-light);flex-shrink:0;}
   .queries-note a{color:var(--gold-light);text-decoration:underline;}
+  .footer-contact{display:block;margin-bottom:6px;}
+  .footer-contact a{color:var(--gold-light);}
+  .corner-logo-badge{position:static;width:110px;height:110px;border-radius:50%;overflow:hidden;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.5);display:block;flex-shrink:0;}
+  .corner-logo-badge img{width:100%;height:100%;display:block;object-fit:cover;}
 
   footer{
     width:100%;
@@ -239,13 +243,13 @@
     .hero h1{font-size:21px;}
     .section, .class-block{padding:18px 16px;}
     .top img{width:85px;}
+    .corner-logo-badge{width:78px;height:78px;}
   }
 </style>
 </head>
 <body>
 
 <div class="top">
-  <img src="logo.jpeg" alt="bookexpertclasses.com">
   <a class="back" href="index.html">&larr; Back to site</a>
 </div>
 
@@ -311,11 +315,14 @@
 
 <footer>
   <div class="footer-text">
+    <div class="footer-contact"><a href="https://wa.me/917439826995" target="_blank">WhatsApp: 7439826995</a><br><a href="mailto:askus@bookexpertclasses.com">askus@bookexpertclasses.com</a></div>
     <div class="footer-brand">Prim Online Consultancy</div>
     GST: 19AICPB5058P12X<br>
     <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
   </div>
-  <div class="queries-note">Queries: <a href="tel:+917439826995">📱 7439826995</a></div>
+  <a href="index.html" class="corner-logo-badge" aria-label="bookexpertclasses.com">
+    <img src="footer-logo.png" alt="bookexpertclasses.com logo">
+  </a>
 </footer>
 
 <template id="classBlockTemplate">
