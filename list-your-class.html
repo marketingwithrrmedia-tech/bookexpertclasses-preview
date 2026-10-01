@@ -20,7 +20,7 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{
     font-family:'Segoe UI', Arial, sans-serif;
-    background:var(--black);
+    background:#1C3741;
     color:var(--cream);
     line-height:1.5;
     padding-bottom:60px;
@@ -293,15 +293,15 @@
 
   <div id="classesContainer"></div>
 
-  <div class="add-class-row">
-    <button type="button" class="btn btn-add" id="addClassBtn">+ Add Another Class Type</button>
-  </div>
-
   <div class="queries-note">Queries: <a href="https://wa.me/917439826995" target="_blank">📱 7439826995</a></div>
 
   <div class="bottom-actions">
-    <button type="button" class="btn" id="editBtn">Edit/Add</button>
+    <button type="button" class="btn" id="editBtn">Edit Class Details</button>
     <button type="submit" class="btn btn-fill" id="submitBtn">Submit</button>
+  </div>
+
+  <div class="add-class-row">
+    <button type="button" class="btn btn-add" id="addClassBtn">+ Add Another Class Type</button>
   </div>
 </form>
 
@@ -473,15 +473,7 @@
   }
 
   document.getElementById("editBtn").addEventListener("click", function(){
-    if(confirm("Clear everything and start over?")){
-      document.getElementById("listingForm").reset();
-      container.innerHTML = "";
-      classCount = 0;
-      photoBase64 = ""; photoMime = "";
-      photoPreview.innerHTML = "🧑‍💼";
-      addClassBlock();
-      document.getElementById("statusMsg").className = "status-msg";
-    }
+    document.getElementById("expertName").scrollIntoView({behavior:"smooth", block:"start"});
   });
 
   document.getElementById("listingForm").addEventListener("submit", function(e){
