@@ -214,7 +214,7 @@
   .status-msg.error{background:rgba(224,138,43,.12);border:1.5px solid var(--orange);color:#f3c48c;}
 
   .required-star{color:var(--orange);}
-  .queries-note{max-width:760px;margin:0 auto 14px;text-align:right;font-size:13px;color:var(--gold-light);}
+  .queries-note{font-size:13px;color:var(--gold-light);flex-shrink:0;}
   .queries-note a{color:var(--gold-light);text-decoration:underline;}
 
   footer{
@@ -225,7 +225,13 @@
     font-size:10px;
     color:#ffffff;
     margin-top:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
   }
+  .footer-text{flex:1 1 auto;min-width:0;}
   .footer-brand{display:block;font-size:18px;font-weight:800;color:#ffffff;margin-bottom:6px;}
 
   @media(max-width:700px){
@@ -293,8 +299,6 @@
 
   <div id="classesContainer"></div>
 
-  <div class="queries-note">Queries: <a href="https://wa.me/917439826995" target="_blank">📱 7439826995</a></div>
-
   <div class="bottom-actions">
     <button type="button" class="btn" id="editBtn">Edit Class Details</button>
     <button type="submit" class="btn btn-fill" id="submitBtn">Submit</button>
@@ -306,9 +310,12 @@
 </form>
 
 <footer>
-  <div class="footer-brand">Prim Online Consultancy</div>
-  GST: 19AICPB5058P12X<br>
-  <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
+  <div class="footer-text">
+    <div class="footer-brand">Prim Online Consultancy</div>
+    GST: 19AICPB5058P12X<br>
+    <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
+  </div>
+  <div class="queries-note">Queries: <a href="tel:+917439826995">📱 7439826995</a></div>
 </footer>
 
 <template id="classBlockTemplate">
@@ -405,31 +412,43 @@
   var tpl = document.getElementById("classBlockTemplate");
   var classCount = 0;
 
+  function updateAddBtnState(){
+    var btn = document.getElementById("addClassBtn");
+    var count = container.querySelectorAll(".class-block").length;
+    btn.style.display = count >= 3 ? "none" : "inline-block";
+  }
+
   function addClassBlock(){
     classCount++;
     var node = tpl.content.cloneNode(true);
     var block = node.querySelector(".class-block");
-    block.querySelector(".class-block-title").textContent = "Class " + classCount;
+    block.querySelector(".class-block-title").textContent = "Class Type " + classCount;
     var removeBtn = block.querySelector(".remove-class-btn");
     if(classCount > 1){
       removeBtn.style.display = "inline-block";
       removeBtn.onclick = function(){
         block.remove();
         renumberClasses();
+        updateAddBtnState();
       };
     }
     container.appendChild(block);
+    updateAddBtnState();
   }
 
   function renumberClasses(){
     var blocks = container.querySelectorAll(".class-block");
     blocks.forEach(function(b, i){
-      b.querySelector(".class-block-title").textContent = "Class " + (i+1);
+      b.querySelector(".class-block-title").textContent = "Class Type " + (i+1);
     });
     classCount = blocks.length;
   }
 
-  document.getElementById("addClassBtn").addEventListener("click", addClassBlock);
+  document.getElementById("addClassBtn").addEventListener("click", function(){
+    if(container.querySelectorAll(".class-block").length < 3){
+      addClassBlock();
+    }
+  });
   addClassBlock();
 
   var photoInput = document.getElementById("photoInput");
