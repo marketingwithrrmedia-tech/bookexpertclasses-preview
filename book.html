@@ -86,16 +86,18 @@
     position:absolute;
     top:14px;
     right:5%;
-    width:72px;
+    width:auto;
     margin:0;
     display:flex;
     justify-content:center;
     align-items:center;
   }
-  .badge img.site-logo{
-    width:100%;
-    height:auto;
-    display:block;
+  .badge .logo-text{
+    font-style:italic;
+    color:#ffffff;
+    font-weight:600;
+    font-size:13px;
+    white-space:nowrap;
   }
 
   .cta-row{
@@ -187,7 +189,8 @@
     }
     .topbar{gap:8px;padding:0;font-size:7px;border-bottom:none;}
     .topbar .icon{width:14px;height:14px;font-size:7px;}
-    .badge{width:144px;margin:0;top:10px;right:4%;}
+    .badge{width:auto;margin:0;top:10px;right:4%;}
+    .badge .logo-text{font-size:10px;}
     .badge .illustration{width:26%;margin-bottom:4px;}
     .badge .brand{font-size:10.5px;}
     .badge .tagline{font-size:6px;margin-top:3px;}
@@ -224,7 +227,7 @@
 </div>
 
 <div class="badge">
-    <img class="site-logo" src="logo.jpeg" alt="bookexpertclasses.com">
+    <span class="logo-text">bookexpertclasses.com</span>
 </div>
 </div>
 
