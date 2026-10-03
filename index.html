@@ -337,7 +337,7 @@
   .teaser .slot-table td, .teaser .slot-table th{color:var(--muted);}
 
   /* Book Seat Now bar (above pagination) */
-  .book-seat-bar{text-align:center;margin:8px 0 24px;}
+  .book-seat-bar{text-align:center;margin:2px 0 24px;}
   .book-seat-summary{font-size:13px;color:var(--gold-light);margin-bottom:12px;min-height:18px;}
 
   /* Per-card Book Seat Now button */
@@ -346,7 +346,7 @@
   .card-book-btn,.card-cart-btn{padding:5px 12px;font-size:9px;}
 
   /* Pagination */
-  .pagination{display:flex;gap:10px;justify-content:center;margin-top:10px;}
+  .pagination{display:flex;gap:10px;justify-content:center;margin-top:2px;}
   .pagination div{
     width:38px;height:38px;
     background:var(--gold);
@@ -415,7 +415,7 @@
   .corner-logo-badge{position:static;display:flex;align-items:center;flex-shrink:0;}
   .corner-logo-badge .logo-text{font-style:italic;color:#ffffff;font-weight:600;font-size:14px;white-space:nowrap;}
   .footer-contact{display:block;margin-bottom:6px;}
-  .footer-contact a{color:var(--gold-light);}
+  .footer-contact a{color:var(--green);}
 
   .slot-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 
@@ -573,7 +573,7 @@
 
   // Fallback data (used if the sheet can't be reached yet, e.g. sharing not public)
   const FALLBACK = [
-    {"Workshop Title":"Lose Weight on your own","Duration":"45mins + Q&A","Price (INR)":"350",
+    {"Workshop Title":"Lose Weight on your own","Duration":"45mins incl Q&A","Price (INR)":"350",
      "Subcategory 1":"Nutrition Basics","Subcategory 2":"Meal Planning","Subcategory 3":"Portion Control","Subcategory 4":"Metabolism Tips","Subcategory 5":"Common Mistakes",
      "Day 1 Name":"Mon","Day 1 Date":"18 Aug","Day 1 Time Slot A":"7am","Day 1 Time Slot B":"4pm",
      "Day 2 Name":"Tue","Day 2 Date":"19 Aug","Day 2 Time Slot A":"7am","Day 2 Time Slot B":"",
@@ -581,7 +581,7 @@
      "Day 4 Name":"","Day 4 Date":"","Day 4 Time Slot A":"","Day 4 Time Slot B":"",
      "Expert Name":"Test Expert","Expert Credential 1":"Certified Nutrition Coach","Expert Credential 2":"5+ Years Experience","Expert Credential 3":"200+ Clients Helped",
      "Expert Photo URL":"","Zoom Link":"TBD","Payment Link":"TBD","Active (Yes/No)":"Yes"},
-    {"Workshop Title":"Reduce Daily Anxiety","Duration":"45mins + Q&A","Price (INR)":"350",
+    {"Workshop Title":"Reduce Daily Anxiety","Duration":"45mins incl Q&A","Price (INR)":"350",
      "Subcategory 1":"Breathing Techniques","Subcategory 2":"Daily Routines","Subcategory 3":"Trigger Mapping","Subcategory 4":"Mindfulness Basics","Subcategory 5":"",
      "Day 1 Name":"","Day 1 Date":"","Day 1 Time Slot A":"","Day 1 Time Slot B":"",
      "Day 2 Name":"","Day 2 Date":"","Day 2 Time Slot A":"","Day 2 Time Slot B":"",
@@ -851,7 +851,7 @@
       card.innerHTML =
         '<div class="class-main">' +
           '<div class="class-top">' +
-            '<span class="pill" onclick="alert(\'Click Time Slot\')">' + pillLabel + '</span>' +
+            '<span class="pill" onclick="alert(\'click time slot\')">' + pillLabel + '</span>' +
             '<div class="class-title">' +
               "<h3>" + c["Workshop Title"] + "</h3>" +
               '<div class="dur">(' + (c["Duration"]||"") + ')</div>' +
@@ -862,7 +862,7 @@
           '<div class="action-row">' +
             '<span class="slot-trigger-group">' +
             '<span class="camera-icon">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' + "</span>" +
-            '<span class="select-slot-pill" onclick="alert(\'Click Time Slot\')">To Book: click time slot</span>' +
+            '<span class="select-slot-pill" onclick="alert(\'click time slot\')">To Book: click time slot</span>' +
             "</span>" +
             '<button class="share-btn" title="Share this class">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' + "</button>" +
           "</div>" +
@@ -905,7 +905,7 @@
     teaser.innerHTML =
       '<div class="class-main">' +
         '<div class="class-top">' +
-          '<span class="pill" onclick="alert(\'Click Time Slot\')">Online<br>Workshop ' + (active.length + t + 1) + '</span>' +
+          '<span class="pill" onclick="alert(\'click time slot\')">Online<br>Workshop ' + (active.length + t + 1) + '</span>' +
           '<div class="class-title">' +
             "<h3>New Upcoming Classes Next Week</h3>" +
             '<div class="dur">(Details announced soon)</div>' +
@@ -919,7 +919,7 @@
         "</div>" +
         '<div class="action-row">' +
           '<span class="camera-icon">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' + "</span>" +
-          '<span class="select-slot-pill" onclick="alert(\'Click Time Slot\')">To Book: click time slot</span>' +
+          '<span class="select-slot-pill" onclick="alert(\'click time slot\')">To Book: click time slot</span>' +
           "<span></span>" +
         "</div>" +
         '<div class="no-slots">Dates opening soon.</div>' +
@@ -931,6 +931,46 @@
       "</div>";
     list.appendChild(teaser);
     }
+
+    // Ensure every category shows at least 2 listings - auto-fill "Coming Soon" placeholders
+    const CATEGORY_LABELS_ = {H:"Health", L:"Lifestyle", S:"Spiritual", M:"Money", D:"DIY", K:"Kids", C:"CookWithMe"};
+    Object.keys(CATEGORY_LABELS_).forEach(function(code){
+      const have = catCount[code] || 0;
+      const need = Math.max(0, 2 - have);
+      for(let p = 0; p < need; p++){
+        const ph = document.createElement("div");
+        ph.className = "class-card teaser";
+        ph.dataset.category = code;
+        ph.innerHTML =
+          '<div class="class-main">' +
+            '<div class="class-top">' +
+              '<span class="pill">Coming<br>Soon</span>' +
+              '<div class="class-title">' +
+                "<h3>New " + CATEGORY_LABELS_[code] + " Masterclass</h3>" +
+                '<div class="dur">(Details announced soon)</div>' +
+              "</div>" +
+              '<span class="price">₹ 350/-</span>' +
+            "</div>" +
+            '<div class="subcat-grid">' +
+              "<div>(Class Sub Categories)</div>" +
+              '<div style="grid-column:2/3;">&nbsp;</div>' +
+              '<div style="grid-column:1/-1;color:var(--muted);">New workshops are added regularly — check back soon or follow our socials for updates.</div>' +
+            "</div>" +
+            '<div class="action-row">' +
+              '<span class="camera-icon">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' + "</span>" +
+              '<span class="select-slot-pill">Coming soon</span>' +
+              "<span></span>" +
+            "</div>" +
+            '<div class="no-slots">Dates opening soon.</div>' +
+          "</div>" +
+          '<div class="expert-col">' +
+            '<div class="expert-credentials"><div class="cred-item">(Expert Credentials)</div><div class="cred-item">To be announced</div></div>' +
+            '<div class="expert-photo"><div class="ph-icon">' + "🧑‍💼" + '</div><div class="ph-caption">Photo coming soon</div></div>' +
+            '<div class="expert-name-wrap"><div class="expert-name">Expert TBA</div></div>' +
+          "</div>";
+        list.appendChild(ph);
+      }
+    });
 
     // Real pagination: split into pages of PER_PAGE cards each
     const pag = document.getElementById("pagination");
