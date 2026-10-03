@@ -629,13 +629,9 @@
   }
 
   function addToCartClick(btn){
-    const original = btn.textContent;
     btn.textContent = "ADDED \u2713";
     btn.style.pointerEvents = "none";
-    setTimeout(function(){
-      btn.textContent = original;
-      btn.style.pointerEvents = "";
-    }, 1500);
+    btn.style.opacity = "0.7";
   }
 
   function updateBookSeatBar(){
@@ -894,7 +890,7 @@
 
       const btnRow = document.createElement("div");
       btnRow.className = "card-book-btn-wrap";
-      btnRow.innerHTML = '<a href="#" class="btn btn-outline card-cart-btn" onclick="addToCartClick(this); return false;">Add To Cart</a><a href="book.html" class="btn btn-outline card-book-btn">Book Seats</a>';
+      btnRow.innerHTML = '<a href="#" class="btn btn-outline card-cart-btn" onclick="addToCartClick(this); return false;">Add To Cart</a><a href="book.html" class="btn btn-fill card-book-btn">Book Seats</a>';
       list.appendChild(btnRow);
     });
 
