@@ -218,8 +218,8 @@
   .queries-note a{color:var(--gold-light);text-decoration:underline;}
   .footer-contact{display:block;margin-bottom:6px;}
   .footer-contact a{color:var(--gold-light);}
-  .corner-logo-badge{position:static;width:110px;height:110px;border-radius:50%;overflow:hidden;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.5);display:block;flex-shrink:0;}
-  .corner-logo-badge img{width:100%;height:100%;display:block;object-fit:cover;}
+  .corner-logo-badge{position:static;display:flex;align-items:center;flex-shrink:0;}
+  .corner-logo-badge .logo-text{font-style:italic;color:#ffffff;font-weight:600;font-size:14px;white-space:nowrap;}
 
   footer{
     width:100%;
@@ -243,7 +243,7 @@
     .hero h1{font-size:21px;}
     .section, .class-block{padding:18px 16px;}
     .top img{width:85px;}
-    .corner-logo-badge{width:78px;height:78px;}
+    .corner-logo-badge .logo-text{font-size:10px;}
   }
 </style>
 </head>
@@ -321,7 +321,7 @@
     <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
   </div>
   <a href="index.html" class="corner-logo-badge" aria-label="bookexpertclasses.com">
-    <img src="footer-logo.png" alt="bookexpertclasses.com logo">
+    <span class="logo-text">bookexpertclasses.com</span>
   </a>
 </footer>
 
