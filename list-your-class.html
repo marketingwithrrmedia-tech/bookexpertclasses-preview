@@ -96,6 +96,8 @@
   .field input[type=date],
   .field input[type=time],
   .field select,
+  #cred1, .f-title{resize:none;height:auto;line-height:1.35;}
+  #cred1::placeholder, .f-title::placeholder{font-size:11.5px;line-height:1.35;}
   .field textarea{
     width:100%;
     background:var(--panel);
@@ -283,7 +285,7 @@
 
     <div class="field">
       <label>Your Credentials <span class="hint" style="display:inline">(max 15 words)</span></label>
-      <input type="text" id="cred1" placeholder="helped (number of) people in ___ or won ___ award or whatever is most significant accomplishment according to you">
+      <textarea id="cred1" rows="2" placeholder="helped (number of) people in ___ or won ___ award or whatever is most significant accomplishment according to you"></textarea>
     </div>
   </div>
 
@@ -353,7 +355,7 @@
 
     <div class="field">
       <label>Class Heading / Title </label>
-      <input type="text" class="f-title" placeholder="Learn to ___ or how to ___ (very specific, not generic)" required>
+      <textarea class="f-title" rows="2" placeholder="Learn to ___ or how to ___ (very specific, not generic)" required></textarea>
     </div>
 
     <div class="field">
@@ -510,7 +512,7 @@
       return;
     }
 
-    var credentials = [document.getElementById("cred1").value.trim(), "", ""];
+    var credentials = [document.getElementById("cred1").value.replace(/\s*\n\s*/g," ").trim(), "", ""];
 
     var blocks = container.querySelectorAll(".class-block");
     if(blocks.length === 0){
@@ -522,7 +524,7 @@
     for(var i=0; i<blocks.length; i++){
       var b = blocks[i];
       var category = b.querySelector(".f-category").value;
-      var title = b.querySelector(".f-title").value.trim();
+      var title = b.querySelector(".f-title").value.replace(/\s*\n\s*/g," ").trim();
       var duration = b.querySelector(".f-duration").value;
       var price = b.querySelector(".f-price").value;
       var date1 = b.querySelector(".f-date1").value;
