@@ -520,7 +520,7 @@
     <div class="cat-filter-btn" data-code="S">Spiritual (S)<br>SelfCare</div>
     <div class="cat-filter-btn" data-code="K">Kids (K)<br>Moms</div>
     <div class="cat-filter-btn" data-code="C">CookWithMe (C)</div>
-    <div class="cat-filter-btn" data-code="CS" data-soon="1">Coming Soon</div>
+    <div class="cat-filter-btn" data-code="CS">Coming Soon</div>
   </div>
 <div class="cat-filter-bar-secondary" id="catFilterBarSecondary">
   <div class="cat-filter-btn small" data-code="TOM">Tomorrow</div>
@@ -940,10 +940,11 @@
     }
 
     // Ensure every category shows at least 2 listings - auto-fill "Coming Soon" placeholders
-    const CATEGORY_LABELS_ = {H:"Health", L:"Lifestyle", S:"Spiritual", M:"Money", D:"DIY", K:"Kids", C:"CookWithMe"};
+    const CATEGORY_LABELS_ = {H:"Health", L:"Lifestyle", S:"Spiritual", M:"Money", D:"DIY", K:"Kids", C:"CookWithMe", CS:"Upcoming"};
+    const EXTRA_PLACEHOLDERS_ = {H:1, L:1, S:1, CS:1};
     Object.keys(CATEGORY_LABELS_).forEach(function(code){
       const have = catCount[code] || 0;
-      const need = Math.max(0, 2 - have);
+      const need = Math.max(0, (code === "CS" ? 0 : 2) - have) + (EXTRA_PLACEHOLDERS_[code] || 0);
       for(let p = 0; p < need; p++){
         const ph = document.createElement("div");
         ph.className = "class-card teaser";
