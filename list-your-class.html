@@ -352,8 +352,8 @@
         </select>
       </div>
       <div class="field">
-        <label>Duration (in mins) incl Q&amp;A </label>
-        <input type="number" class="f-duration" min="5" step="5" required>
+        <label>Duration (in mins) incl Q&amp;A <span class="hint" style="display:inline">(within 40 - 80 mins)</span></label>
+        <input type="number" class="f-duration" min="40" max="80" step="5" required>
       </div>
     </div>
 
@@ -519,6 +519,16 @@
     }
 
     var credentials = [document.getElementById("cred1").value.replace(/\s*\n\s*/g," ").trim(), "", ""];
+
+    var durInputs = container.querySelectorAll(".f-duration");
+    for(var di=0; di<durInputs.length; di++){
+      var dv = parseInt(durInputs[di].value, 10);
+      if(isNaN(dv) || dv < 40 || dv > 80){
+        showStatus("Duration must be within 40 - 80 mins.", "error");
+        durInputs[di].focus();
+        return;
+      }
+    }
 
     var blocks = container.querySelectorAll(".class-block");
     if(blocks.length === 0){
