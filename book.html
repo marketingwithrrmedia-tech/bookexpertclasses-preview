@@ -348,7 +348,10 @@
       return;
     }
     const classNames = selections.map(s => s.title + " (" + s.slot + ")").join(" | ");
-    saveBooking({ name: name, phone: phone, email: email, classes: classNames, total: total, coupon: couponUsed, discount: discount, paymentId: "", status: "Payment started" });
+    const bookingId = "BK" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6).toUpperCase();
+    let paidDone = false;
+    function record(status, pid){ saveBooking({ bookingId: bookingId, name: name, phone: phone, email: email, classes: classNames, total: total, coupon: couponUsed, discount: discount, paymentId: pid || "", status: status }); }
+    record("Payment started", "");
     const options = {
       key: RAZORPAY_KEY_ID,
       amount: Math.round(total * 100),
@@ -358,8 +361,10 @@
       prefill: { name: name, email: email, contact: phone },
       notes: { classes: classNames.slice(0, 250), coupon: couponUsed, discount: discount },
       theme: { color: "#e08a2b" },
+      modal: { ondismiss: function(){ if(!paidDone) record("Cancelled", ""); } },
       handler: function(resp){
-        saveBooking({ name: name, phone: phone, email: email, classes: classNames, total: total, coupon: couponUsed, discount: discount, paymentId: resp.razorpay_payment_id, status: "Paid" });
+        paidDone = true;
+        record("Paid", resp.razorpay_payment_id);
         try { sessionStorage.removeItem("bxc_selections"); } catch(err) {}
         selections = [];
         updateBookSummary();
@@ -368,7 +373,12 @@
       }
     };
     const rzp = new Razorpay(options);
-    rzp.on("payment.failed", function(){ alert("Payment failed. Please try again."); });
+    rzp.on("payment.failed", function(resp){
+      var pid = "";
+      try { pid = resp.error.metadata.payment_id || ""; } catch(err) {}
+      record("Failed", pid);
+      alert("Payment failed. Please try again.");
+    });
     rzp.open();
   });
 </script>
