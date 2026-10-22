@@ -264,6 +264,12 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+  var BOOKINGS_URL = "https://script.google.com/macros/s/AKfycbwczLRQ0q1R8w8nfhEymAtTb4_mErdVZdPUTJbZWaKj_Os3HNo1v5f7EAogfsCAC0Ox/exec";
+  function saveBooking(data){
+    try {
+      fetch(BOOKINGS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data), keepalive: true });
+    } catch(err) {}
+  }
   var RAZORPAY_KEY_ID = "rzp_test_TquMtKcCFVhaSN"; // TEST key - replace with rzp_live_ key at launch
   function syncFixedTopHeight(){
     var ft = document.getElementById("fixedTop");
@@ -327,6 +333,7 @@
       return;
     }
     const classNames = selections.map(s => s.title + " (" + s.slot + ")").join(" | ");
+    saveBooking({ name: name, phone: phone, email: email, classes: classNames, total: total, coupon: coupon || "", paymentId: "", status: "Payment started" });
     const options = {
       key: RAZORPAY_KEY_ID,
       amount: Math.round(total * 100),
@@ -337,6 +344,7 @@
       notes: { classes: classNames.slice(0, 250), coupon: coupon || "" },
       theme: { color: "#e08a2b" },
       handler: function(resp){
+        saveBooking({ name: name, phone: phone, email: email, classes: classNames, total: total, coupon: coupon || "", paymentId: resp.razorpay_payment_id, status: "Paid" });
         try { sessionStorage.removeItem("bxc_selections"); } catch(err) {}
         selections = [];
         updateBookSummary();
