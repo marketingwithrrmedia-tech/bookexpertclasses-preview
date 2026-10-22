@@ -307,7 +307,7 @@
   }
   updateBookSummary();
 
-  document.getElementById("bookSubmit").addEventListener("click", function(e){
+  document.getElementById("bookSubmit").addEventListener("click", async function(e){
     e.preventDefault();
     if(!selections.length){
       alert("Please select time slot of the workshop then click book now.");
@@ -323,7 +323,22 @@
       alert("Please fill your name, WhatsApp number and email before booking.");
       return;
     }
-    const total = selections.reduce((sum,s) => sum + (parseFloat(s.price)||0), 0);
+    const subtotal = selections.reduce((sum,s) => sum + (parseFloat(s.price)||0), 0);
+    let total = subtotal;
+    let discount = 0;
+    let couponUsed = "";
+    if(coupon){
+      try {
+        const cr = await fetch(BOOKINGS_URL + "?action=coupon&code=" + encodeURIComponent(coupon) + "&email=" + encodeURIComponent(email) + "&phone=" + encodeURIComponent(phone) + "&total=" + subtotal).then(function(r){ return r.json(); });
+        if(!cr.valid){ alert(cr.message || "Invalid coupon code."); return; }
+        discount = cr.discount; couponUsed = cr.code; total = subtotal - discount;
+      } catch(err) { alert("Could not check the coupon. Please try again."); return; }
+    }
+    const oldLine = document.getElementById("couponLine");
+    if(oldLine) oldLine.remove();
+    if(discount > 0){
+      document.getElementById("bookSummary").insertAdjacentHTML("beforeend", '<div class="total" id="couponLine"><span>Coupon ' + couponUsed + ' (-\u20b9' + discount + ')</span><span>Pay \u20b9' + total + '/-</span></div>');
+    }
     if(!total || total <= 0){
       alert("Unable to calculate the amount. Please select your classes again.");
       return;
@@ -333,7 +348,7 @@
       return;
     }
     const classNames = selections.map(s => s.title + " (" + s.slot + ")").join(" | ");
-    saveBooking({ name: name, phone: phone, email: email, classes: classNames, total: total, coupon: coupon || "", paymentId: "", status: "Payment started" });
+    saveBooking({ name: name, phone: phone, email: email, classes: classNames, total: total, coupon: couponUsed, discount: discount, paymentId: "", status: "Payment started" });
     const options = {
       key: RAZORPAY_KEY_ID,
       amount: Math.round(total * 100),
@@ -341,10 +356,10 @@
       name: "Prim Online Consultancy",
       description: selections.length + " class" + (selections.length > 1 ? "es" : "") + " - bookexpertclasses.com",
       prefill: { name: name, email: email, contact: phone },
-      notes: { classes: classNames.slice(0, 250), coupon: coupon || "" },
+      notes: { classes: classNames.slice(0, 250), coupon: couponUsed, discount: discount },
       theme: { color: "#e08a2b" },
       handler: function(resp){
-        saveBooking({ name: name, phone: phone, email: email, classes: classNames, total: total, coupon: coupon || "", paymentId: resp.razorpay_payment_id, status: "Paid" });
+        saveBooking({ name: name, phone: phone, email: email, classes: classNames, total: total, coupon: couponUsed, discount: discount, paymentId: resp.razorpay_payment_id, status: "Paid" });
         try { sessionStorage.removeItem("bxc_selections"); } catch(err) {}
         selections = [];
         updateBookSummary();
