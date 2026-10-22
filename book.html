@@ -262,7 +262,9 @@
   <a href="terms.html">Terms &amp; Conditions</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a>
 </footer>
 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+  var RAZORPAY_KEY_ID = "rzp_test_TquMtKcCFVhaSN"; // TEST key - replace with rzp_live_ key at launch
   function syncFixedTopHeight(){
     var ft = document.getElementById("fixedTop");
     if(!ft) return;
@@ -315,12 +317,36 @@
       alert("Please fill your name, WhatsApp number and email before booking.");
       return;
     }
-    const missingLinks = selections.filter(s => !s.paymentLink || s.paymentLink === "TBD");
-    if(missingLinks.length){
-      alert("Payment link for " + missingLinks.map(s=>s.title).join(", ") + " isn't configured yet. (This is a preview — the live payment link(s) will be added before launch.)");
+    const total = selections.reduce((sum,s) => sum + (parseFloat(s.price)||0), 0);
+    if(!total || total <= 0){
+      alert("Unable to calculate the amount. Please select your classes again.");
       return;
     }
-    selections.forEach(s => window.open(s.paymentLink, "_blank"));
+    if(typeof Razorpay === "undefined"){
+      alert("Payment window could not load. Please check your internet connection and try again.");
+      return;
+    }
+    const classNames = selections.map(s => s.title + " (" + s.slot + ")").join(" | ");
+    const options = {
+      key: RAZORPAY_KEY_ID,
+      amount: Math.round(total * 100),
+      currency: "INR",
+      name: "Prim Online Consultancy",
+      description: selections.length + " class" + (selections.length > 1 ? "es" : "") + " - bookexpertclasses.com",
+      prefill: { name: name, email: email, contact: phone },
+      notes: { classes: classNames.slice(0, 250), coupon: coupon || "" },
+      theme: { color: "#e08a2b" },
+      handler: function(resp){
+        try { sessionStorage.removeItem("bxc_selections"); } catch(err) {}
+        selections = [];
+        updateBookSummary();
+        alert("Payment successful! Payment ID: " + resp.razorpay_payment_id + ". Your class zoom link and receipt will be sent to your email and WhatsApp.");
+        window.location.href = "index.html";
+      }
+    };
+    const rzp = new Razorpay(options);
+    rzp.on("payment.failed", function(){ alert("Payment failed. Please try again."); });
+    rzp.open();
   });
 </script>
 
